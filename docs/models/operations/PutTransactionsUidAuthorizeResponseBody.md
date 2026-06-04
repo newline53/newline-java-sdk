@@ -1,0 +1,10 @@
+# PutTransactionsUidAuthorizeResponseBody
+
+The authorization resource is returned
+
+
+## Fields
+
+| Field                                                                                                                      | Setter Type                                                                                                                | Getter Type                                                                                                                | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `authorization`                                                                                                            | @Nullable [PutTransactionsUidAuthorizeAuthorization](../../models/operations/PutTransactionsUidAuthorizeAuthorization.md)  | Optional\<[PutTransactionsUidAuthorizeAuthorization](../../models/operations/PutTransactionsUidAuthorizeAuthorization.md)> | :heavy_minus_sign:                                                                                                         | Transaction Authorization information. Only present if authorization was required for a given transaction.<br/>            |

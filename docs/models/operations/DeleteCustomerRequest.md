@@ -1,0 +1,9 @@
+# DeleteCustomerRequest
+
+
+## Fields
+
+| Field                                                                             | Setter Type                                                                       | Getter Type                                                                       | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `uid`                                                                             | *String*                                                                          | *String*                                                                          | :heavy_check_mark:                                                                | Newline-generated unique id resource specific to the current endpoint             |
+| `body`                                                                            | [DeleteCustomerRequestBody](../../models/operations/DeleteCustomerRequestBody.md) | [DeleteCustomerRequestBody](../../models/operations/DeleteCustomerRequestBody.md) | :heavy_check_mark:                                                                | N/A                                                                               |

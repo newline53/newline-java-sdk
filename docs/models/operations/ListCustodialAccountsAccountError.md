@@ -1,0 +1,10 @@
+# ListCustodialAccountsAccountError
+
+
+## Fields
+
+| Field                                                           | Setter Type                                                     | Getter Type                                                     | Required                                                        | Description                                                     | Example                                                         |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `errorCode`                                                     | @Nullable *String*                                              | Optional\<*String*>                                             | :heavy_minus_sign:                                              | N/A                                                             | FI1234                                                          |
+| `errorName`                                                     | @Nullable *String*                                              | Optional\<*String*>                                             | :heavy_minus_sign:                                              | N/A                                                             | DOB does not match                                              |
+| `errorDescription`                                              | @Nullable *String*                                              | Optional\<*String*>                                             | :heavy_minus_sign:                                              | N/A                                                             | The given DOB does not match the known DOB for the SSN provided |

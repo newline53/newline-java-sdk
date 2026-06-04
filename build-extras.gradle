@@ -1,0 +1,36 @@
+// This file 
+// * is referred to in an `apply from` command in `build.gradle`
+// * can be used to customise `build.gradle`
+// * is generated once and not overwritten in SDK generation updates
+
+
+sourceSets {
+	main {
+		java {
+			exclude 'com/newline53/sdk/AsyncNewline.java'
+			exclude 'com/newline53/sdk/Newline.java'
+		}
+	}
+}
+
+gradle.projectsEvaluated {
+	if (!rootProject.plugins.hasPlugin('maven-publish')) {
+		return
+	}
+
+	def publishingExt = rootProject.extensions.findByName('publishing')
+	if (publishingExt == null) {
+		return
+	}
+
+	def mavenPub = publishingExt.publications.findByName('maven')
+	def mavenJavaPub = publishingExt.publications.findByName('mavenJava')
+
+	if (mavenPub != null && mavenJavaPub != null) {
+		mavenJavaPub.groupId = mavenPub.groupId
+		mavenJavaPub.artifactId = mavenPub.artifactId
+		mavenJavaPub.version = mavenPub.version
+
+		publishingExt.publications.remove(mavenJavaPub)
+	}
+}
