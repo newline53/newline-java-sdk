@@ -543,7 +543,7 @@ type GetTransactionsUIDInstantPayment struct {
 	// Address of the financial institution where the external account is held.
 	//
 	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsUIDInstantPaymentCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
-	// A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_', and spaces.
+	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
 	// Address of the business or individual who owns the external account.

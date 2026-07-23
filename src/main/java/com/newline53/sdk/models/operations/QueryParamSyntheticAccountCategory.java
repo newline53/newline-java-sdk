@@ -17,7 +17,7 @@ public enum QueryParamSyntheticAccountCategory {
     GENERAL("general"),
     ACH_EXTERNAL("ach_external"),
     WIRE_EXTERNAL("wire_external"),
-    INSTANT_PAYMENTS_EXTERNAL("instant_payments_external");
+    INSTANT_PAYMENT_EXTERNAL("instant_payment_external");
 
     @JsonValue
     private final String value;

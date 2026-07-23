@@ -28,7 +28,7 @@ public class CreateSyntheticAccountSyntheticAccountCategory {
 
     public static final CreateSyntheticAccountSyntheticAccountCategory GENERAL = new CreateSyntheticAccountSyntheticAccountCategory("general");
     public static final CreateSyntheticAccountSyntheticAccountCategory ACH_EXTERNAL = new CreateSyntheticAccountSyntheticAccountCategory("ach_external");
-    public static final CreateSyntheticAccountSyntheticAccountCategory INSTANT_PAYMENTS_EXTERNAL = new CreateSyntheticAccountSyntheticAccountCategory("instant_payments_external");
+    public static final CreateSyntheticAccountSyntheticAccountCategory INSTANT_PAYMENT_EXTERNAL = new CreateSyntheticAccountSyntheticAccountCategory("instant_payment_external");
     public static final CreateSyntheticAccountSyntheticAccountCategory WIRE_EXTERNAL = new CreateSyntheticAccountSyntheticAccountCategory("wire_external");
 
     // This map will grow whenever a Color gets created with a new
@@ -105,7 +105,7 @@ public class CreateSyntheticAccountSyntheticAccountCategory {
         Map<String, CreateSyntheticAccountSyntheticAccountCategory> map = new LinkedHashMap<>();
         map.put("general", GENERAL);
         map.put("ach_external", ACH_EXTERNAL);
-        map.put("instant_payments_external", INSTANT_PAYMENTS_EXTERNAL);
+        map.put("instant_payment_external", INSTANT_PAYMENT_EXTERNAL);
         map.put("wire_external", WIRE_EXTERNAL);
         return map;
     }
@@ -114,7 +114,7 @@ public class CreateSyntheticAccountSyntheticAccountCategory {
         Map<String, CreateSyntheticAccountSyntheticAccountCategoryEnum> map = new HashMap<>();
         map.put("general", CreateSyntheticAccountSyntheticAccountCategoryEnum.GENERAL);
         map.put("ach_external", CreateSyntheticAccountSyntheticAccountCategoryEnum.ACH_EXTERNAL);
-        map.put("instant_payments_external", CreateSyntheticAccountSyntheticAccountCategoryEnum.INSTANT_PAYMENTS_EXTERNAL);
+        map.put("instant_payment_external", CreateSyntheticAccountSyntheticAccountCategoryEnum.INSTANT_PAYMENT_EXTERNAL);
         map.put("wire_external", CreateSyntheticAccountSyntheticAccountCategoryEnum.WIRE_EXTERNAL);
         return map;
     }
@@ -124,7 +124,7 @@ public class CreateSyntheticAccountSyntheticAccountCategory {
 
         GENERAL("general"),
         ACH_EXTERNAL("ach_external"),
-        INSTANT_PAYMENTS_EXTERNAL("instant_payments_external"),
+        INSTANT_PAYMENT_EXTERNAL("instant_payment_external"),
         WIRE_EXTERNAL("wire_external"),;
 
         private final String value;

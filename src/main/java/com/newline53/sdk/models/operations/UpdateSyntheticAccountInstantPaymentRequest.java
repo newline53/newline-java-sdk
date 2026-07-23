@@ -18,7 +18,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * UpdateSyntheticAccountInstantPaymentRequest
  * 
  * <p>Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
- * `instant_payments_external` category.
+ * `instant_payment_external` category.
  */
 public class UpdateSyntheticAccountInstantPaymentRequest {
     /**

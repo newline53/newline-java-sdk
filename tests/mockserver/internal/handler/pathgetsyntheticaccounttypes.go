@@ -73,7 +73,7 @@ func testListSyntheticAccountTypesListSyntheticAccountTypesSyntheticAccountTypes
 				Name:                     types.String("Instant Payments External Account for My Program"),
 				Description:              types.String("This Synthetic Account Type will be used to create an external Synthetic Account used for instant payments. The external Synthetic Account will be associated with the customer's externally connected financial institution."),
 				ProgramUID:               types.String("Sw9DjTGJq5L1ctZN"),
-				SyntheticAccountCategory: operations.ListSyntheticAccountTypesSyntheticAccountCategoryGeneral.ToPointer(),
+				SyntheticAccountCategory: operations.ListSyntheticAccountTypesSyntheticAccountCategoryInstantPaymentExternal.ToPointer(),
 			},
 		},
 	}

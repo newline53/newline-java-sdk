@@ -89,7 +89,7 @@ public class SyntheticAccountRequest {
 
     /**
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
-     * `instant_payments_external` category.
+     * `instant_payment_external` category.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instant_payment")
@@ -215,7 +215,7 @@ public class SyntheticAccountRequest {
 
     /**
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
-     * `instant_payments_external` category.
+     * `instant_payment_external` category.
      */
     public Optional<SyntheticAccountInstantPayment> instantPayment() {
         return Optional.ofNullable(this.instantPayment);
@@ -320,7 +320,7 @@ public class SyntheticAccountRequest {
 
     /**
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
-     * `instant_payments_external` category.
+     * `instant_payment_external` category.
      */
     public SyntheticAccountRequest withInstantPayment(@Nullable SyntheticAccountInstantPayment instantPayment) {
         this.instantPayment = instantPayment;
@@ -489,7 +489,7 @@ public class SyntheticAccountRequest {
 
         /**
          * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
-         * `instant_payments_external` category.
+         * `instant_payment_external` category.
          */
         public Builder instantPayment(@Nullable SyntheticAccountInstantPayment instantPayment) {
             this.instantPayment = instantPayment;

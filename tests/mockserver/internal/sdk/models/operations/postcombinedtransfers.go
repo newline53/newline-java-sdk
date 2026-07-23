@@ -124,7 +124,7 @@ func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetCountry() *s
 	return o.Country
 }
 
-// SyntheticAccountInstantPayment - Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payments_external` category.
+// SyntheticAccountInstantPayment - Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payment_external` category.
 type SyntheticAccountInstantPayment struct {
 	// Address of the business or individual who owns the external account.
 	//
@@ -315,7 +315,7 @@ type SyntheticAccountRequest struct {
 	// Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external` category.
 	//
 	Ach *SyntheticAccountAch `json:"ach,omitempty"`
-	// Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payments_external` category.
+	// Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payment_external` category.
 	//
 	InstantPayment *SyntheticAccountInstantPayment `json:"instant_payment,omitempty"`
 	// Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
@@ -706,7 +706,7 @@ func (o *PostCombinedTransfersInstantPaymentTransmitter) GetCountry() *string {
 // TransferInstantPayment - Instant payment information. Only present if the Transfer is an instant payment.
 type TransferInstantPayment struct {
 	InstantPaymentTransmitter *PostCombinedTransfersInstantPaymentTransmitter `json:"instant_payment_transmitter,omitempty"`
-	// A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_', and spaces.
+	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
 }

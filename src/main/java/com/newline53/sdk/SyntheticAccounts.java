@@ -216,7 +216,7 @@ public class SyntheticAccounts {
      * <p>Returns a single Synthetic Account resource along with supporting details and account balances.
      * 
      * <p>Note: Newline will suppress the `account_number` value for Synthetic Accounts in the `ach_external`,
-     * `wire_external`, and `instant_payments_external` categories. The `account_number_last_four` value
+     * `wire_external`, and `instant_payment_external` categories. The `account_number_last_four` value
      * will be returned in the response to help identify these Synthetic Accounts.
      * 
      * @return The call builder
@@ -231,7 +231,7 @@ public class SyntheticAccounts {
      * <p>Returns a single Synthetic Account resource along with supporting details and account balances.
      * 
      * <p>Note: Newline will suppress the `account_number` value for Synthetic Accounts in the `ach_external`,
-     * `wire_external`, and `instant_payments_external` categories. The `account_number_last_four` value
+     * `wire_external`, and `instant_payment_external` categories. The `account_number_last_four` value
      * will be returned in the response to help identify these Synthetic Accounts.
      * 
      * @param uid Newline-generated unique id resource specific to the current endpoint

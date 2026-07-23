@@ -15,10 +15,10 @@ import (
 type QueryParamSyntheticAccountCategory string
 
 const (
-	QueryParamSyntheticAccountCategoryGeneral                 QueryParamSyntheticAccountCategory = "general"
-	QueryParamSyntheticAccountCategoryAchExternal             QueryParamSyntheticAccountCategory = "ach_external"
-	QueryParamSyntheticAccountCategoryWireExternal            QueryParamSyntheticAccountCategory = "wire_external"
-	QueryParamSyntheticAccountCategoryInstantPaymentsExternal QueryParamSyntheticAccountCategory = "instant_payments_external"
+	QueryParamSyntheticAccountCategoryGeneral                QueryParamSyntheticAccountCategory = "general"
+	QueryParamSyntheticAccountCategoryAchExternal            QueryParamSyntheticAccountCategory = "ach_external"
+	QueryParamSyntheticAccountCategoryWireExternal           QueryParamSyntheticAccountCategory = "wire_external"
+	QueryParamSyntheticAccountCategoryInstantPaymentExternal QueryParamSyntheticAccountCategory = "instant_payment_external"
 )
 
 func (e QueryParamSyntheticAccountCategory) ToPointer() *QueryParamSyntheticAccountCategory {
@@ -36,7 +36,7 @@ func (e *QueryParamSyntheticAccountCategory) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "wire_external":
 		fallthrough
-	case "instant_payments_external":
+	case "instant_payment_external":
 		*e = QueryParamSyntheticAccountCategory(v)
 		return nil
 	default:
@@ -232,10 +232,10 @@ func (o *ListSyntheticAccountsRequest) GetSort() *ListSyntheticAccountsSort {
 type ListSyntheticAccountsDataSyntheticAccountCategory string
 
 const (
-	ListSyntheticAccountsDataSyntheticAccountCategoryGeneral                 ListSyntheticAccountsDataSyntheticAccountCategory = "general"
-	ListSyntheticAccountsDataSyntheticAccountCategoryAchExternal             ListSyntheticAccountsDataSyntheticAccountCategory = "ach_external"
-	ListSyntheticAccountsDataSyntheticAccountCategoryInstantPaymentsExternal ListSyntheticAccountsDataSyntheticAccountCategory = "instant_payments_external"
-	ListSyntheticAccountsDataSyntheticAccountCategoryWireExternal            ListSyntheticAccountsDataSyntheticAccountCategory = "wire_external"
+	ListSyntheticAccountsDataSyntheticAccountCategoryGeneral                ListSyntheticAccountsDataSyntheticAccountCategory = "general"
+	ListSyntheticAccountsDataSyntheticAccountCategoryAchExternal            ListSyntheticAccountsDataSyntheticAccountCategory = "ach_external"
+	ListSyntheticAccountsDataSyntheticAccountCategoryInstantPaymentExternal ListSyntheticAccountsDataSyntheticAccountCategory = "instant_payment_external"
+	ListSyntheticAccountsDataSyntheticAccountCategoryWireExternal           ListSyntheticAccountsDataSyntheticAccountCategory = "wire_external"
 )
 
 func (e ListSyntheticAccountsDataSyntheticAccountCategory) ToPointer() *ListSyntheticAccountsDataSyntheticAccountCategory {
@@ -251,7 +251,7 @@ func (e *ListSyntheticAccountsDataSyntheticAccountCategory) UnmarshalJSON(data [
 		fallthrough
 	case "ach_external":
 		fallthrough
-	case "instant_payments_external":
+	case "instant_payment_external":
 		fallthrough
 	case "wire_external":
 		*e = ListSyntheticAccountsDataSyntheticAccountCategory(v)
@@ -395,7 +395,7 @@ func (o *ListSyntheticAccountsAch) GetCounterpartyName() *string {
 	return o.CounterpartyName
 }
 
-// ListSyntheticAccountsInstantPayment - Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payments_external` category.
+// ListSyntheticAccountsInstantPayment - Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payment_external` category.
 type ListSyntheticAccountsInstantPayment struct {
 	// Name of the business or individual who owns the counterparty Account.
 	//
@@ -526,15 +526,15 @@ type ListSyntheticAccountsData struct {
 	Status *ListSyntheticAccountsDataStatus `json:"status,omitempty"`
 	// Liability or asset. Any Synthetic Account created via [POST /synthetic_accounts](/reference/post_synthetic-accounts) is a liability account, except for external accounts. Some asset Synthetic Accounts are automatically created by Newline during Customer onboarding for accounting purposes.
 	Liability *bool `json:"liability,omitempty"`
-	// The current settled balance of this account in US Dollars. This field will be null for synthetic_account_types in an external category (`ach_external`, `instant_payments_external`, `wire_external`).
+	// The current settled balance of this account in US Dollars. This field will be null for synthetic_account_types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
 	NetUsdBalance optionalnullable.OptionalNullable[string] `json:"net_usd_balance,omitempty"`
-	// The sum of all pending transactions for this account in US Dollars. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`, `wire_external`).
+	// The sum of all pending transactions for this account in US Dollars. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
 	NetUsdPendingBalance optionalnullable.OptionalNullable[string] `json:"net_usd_pending_balance,omitempty"`
-	// The balance available to spend calculated as the settled balance less any pending withdrawals. Pending deposits are not included. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`, `wire_external`).
+	// The balance available to spend calculated as the settled balance less any pending withdrawals. Pending deposits are not included. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
 	NetUsdAvailableBalance optionalnullable.OptionalNullable[string] `json:"net_usd_available_balance,omitempty"`
-	// The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`, `wire_external`).
+	// The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
 	NetUsdClosingBalance optionalnullable.OptionalNullable[string] `json:"net_usd_closing_balance,omitempty"`
-	// The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`, `wire_external`).
+	// The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
 	NetUsdClosingBalanceAsOf *string `json:"net_usd_closing_balance_as_of,omitempty"`
 	// A list of balances for the various asset types held in Custodial Accounts associated with this Synthetic Account.
 	//
@@ -554,7 +554,7 @@ type ListSyntheticAccountsData struct {
 	// Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external` category.
 	//
 	Ach optionalnullable.OptionalNullable[ListSyntheticAccountsAch] `json:"ach,omitempty"`
-	// Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payments_external` category.
+	// Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the `instant_payment_external` category.
 	//
 	InstantPayment optionalnullable.OptionalNullable[ListSyntheticAccountsInstantPayment] `json:"instant_payment,omitempty"`
 	// Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.

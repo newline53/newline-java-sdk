@@ -102,7 +102,7 @@ import com.newline53.sdk.utils.Headers;
  * 
  * <p>Synthetic Accounts of the general category will be created by Newline or by the Client depending on
  * your use case. Clients will create external Synthetic Accounts like wire_external, ach_external, and
- * instant_payments_external.
+ * instant_payment_external.
  * 
  * <p>- **Virtual Reference Number** - Virtual Reference Numbers (or VRNs) are virtualized account
  * numbers. They are aliases to a synthetic account and can form a many-to-one relationship with their

@@ -121,7 +121,7 @@ import java.util.function.Consumer;
  * the Client depending on your use case.
  * 
  * <p>Clients will create external Synthetic Accounts like wire_external, ach_external, and
- * instant_payments_external.
+ * instant_payment_external.
  * 
  * <p>- **Virtual Reference Number** - Virtual Reference Numbers (or VRNs) are virtualized account
  * numbers. They are aliases to a synthetic account and can form a many-to-one relationship with their

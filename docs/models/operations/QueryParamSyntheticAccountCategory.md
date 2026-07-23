@@ -13,9 +13,9 @@ QueryParamSyntheticAccountCategory value = QueryParamSyntheticAccountCategory.GE
 
 ## Values
 
-| Name                        | Value                       |
-| --------------------------- | --------------------------- |
-| `GENERAL`                   | general                     |
-| `ACH_EXTERNAL`              | ach_external                |
-| `WIRE_EXTERNAL`             | wire_external               |
-| `INSTANT_PAYMENTS_EXTERNAL` | instant_payments_external   |
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `GENERAL`                  | general                    |
+| `ACH_EXTERNAL`             | ach_external               |
+| `WIRE_EXTERNAL`            | wire_external              |
+| `INSTANT_PAYMENT_EXTERNAL` | instant_payment_external   |

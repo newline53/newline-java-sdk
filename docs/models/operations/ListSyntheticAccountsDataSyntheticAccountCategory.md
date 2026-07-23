@@ -16,9 +16,9 @@ ListSyntheticAccountsDataSyntheticAccountCategory custom = ListSyntheticAccounts
 
 ## Values
 
-| Name                        | Value                       |
-| --------------------------- | --------------------------- |
-| `GENERAL`                   | general                     |
-| `ACH_EXTERNAL`              | ach_external                |
-| `INSTANT_PAYMENTS_EXTERNAL` | instant_payments_external   |
-| `WIRE_EXTERNAL`             | wire_external               |
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `GENERAL`                  | general                    |
+| `ACH_EXTERNAL`             | ach_external               |
+| `INSTANT_PAYMENT_EXTERNAL` | instant_payment_external   |
+| `WIRE_EXTERNAL`            | wire_external              |

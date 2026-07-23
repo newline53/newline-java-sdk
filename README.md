@@ -5,27 +5,24 @@ Developer-friendly and type-safe Java SDK built to leverage the Newline Platform
 <!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
-
 ## Table of Contents
-
 <!-- $toc-max-depth=2 -->
-
-- [Newline Java SDK](#newline-java-sdk)
-  - [SDK Installation](#sdk-installation)
-  - [SDK Example Usage](#sdk-example-usage)
-  - [Asynchronous Support](#asynchronous-support)
-  - [Authentication](#authentication)
-  - [Available Resources and Operations](#available-resources-and-operations)
-  - [Error Handling](#error-handling)
-  - [Server Selection](#server-selection)
-  - [Custom HTTP Client](#custom-http-client)
-  - [Debugging](#debugging)
-  - [Jackson Configuration](#jackson-configuration)
-- [Development](#development)
-  - [Maturity](#maturity)
-  - [Contributions](#contributions)
-  - [License](#license)
-  - [See Also](#see-also)
+* [Newline Java SDK](#newline-java-sdk)
+  * [SDK Installation](#sdk-installation)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Asynchronous Support](#asynchronous-support)
+  * [Authentication](#authentication)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Debugging](#debugging)
+  * [Jackson Configuration](#jackson-configuration)
+* [Development](#development)
+  * [Maturity](#maturity)
+  * [Contributions](#contributions)
+  * [License](#license)
+  * [See Also](#see-also)
 
 <!-- End Table of Contents [toc] -->
 
@@ -40,12 +37,23 @@ The samples below show how a published SDK artifact is used:
 Gradle:
 
 ```groovy
-implementation 'com.github.newline53:newline-java-sdk:main-SNAPSHOT'
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    implementation 'com.github.newline53:newline-java-sdk:main-SNAPSHOT'
+}
 ```
 
 Maven:
 
 ```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 <dependency>
     <groupId>com.github.newline53</groupId>
     <artifactId>newline-java-sdk</artifactId>
@@ -74,7 +82,6 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 <!-- No SDK Installation [installation] -->
 
 <!-- Start SDK Example Usage [usage] -->
-
 ## SDK Example Usage
 
 ### Example
@@ -107,11 +114,8 @@ public class Application {
     }
 }
 ```
-
 #### Asynchronous Call
-
 An asynchronous SDK client is also available that returns a [`CompletableFuture<T>`][comp-fut]. See [Asynchronous Support](#asynchronous-support) for more details on async benefits and reactive library integration.
-
 ```java
 package hello.world;
 
@@ -146,11 +150,9 @@ public class Application {
 ```
 
 [comp-fut]: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
-
 <!-- End SDK Example Usage [usage] -->
 
 <!-- Start Asynchronous Support [async-support] -->
-
 ## Asynchronous Support
 
 The SDK provides comprehensive asynchronous support using Java's [`CompletableFuture<T>`][comp-fut] and [Reactive Streams `Publisher<T>`][reactive-streams] APIs. This design makes no assumptions about your choice of reactive toolkit, allowing seamless integration with any reactive library.
@@ -173,13 +175,11 @@ Asynchronous operations provide several key benefits:
 The SDK returns [Reactive Streams `Publisher<T>`][reactive-streams] instances for operations dealing with streams involving multiple I/O interactions. We use Reactive Streams instead of JDK Flow API to provide broader compatibility with the reactive ecosystem, as most reactive libraries natively support Reactive Streams.
 
 **Why Reactive Streams over JDK Flow?**
-
 - **Broader ecosystem compatibility**: Most reactive libraries (Project Reactor, RxJava, Akka Streams, etc.) natively support Reactive Streams
 - **Industry standard**: Reactive Streams is the de facto standard for reactive programming in Java
 - **Better interoperability**: Seamless integration without additional adapters for most use cases
 
 **Integration with Popular Libraries:**
-
 - **Project Reactor**: Use `Flux.from(publisher)` to convert to Reactor types
 - **RxJava**: Use `Flowable.fromPublisher(publisher)` for RxJava integration
 - **Akka Streams**: Use `Source.fromPublisher(publisher)` for Akka Streams integration
@@ -188,7 +188,6 @@ The SDK returns [Reactive Streams `Publisher<T>`][reactive-streams] instances fo
 
 **For JDK Flow API Integration:**
 If you need JDK Flow API compatibility (e.g., for Quarkus/Mutiny 2), you can use adapters:
-
 ```java
 // Convert Reactive Streams Publisher to Flow Publisher
 Flow.Publisher<T> flowPublisher = FlowAdapters.toFlowPublisher(reactiveStreamsPublisher);
@@ -217,11 +216,9 @@ Async support is available for:
 
 [comp-fut]: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
 [reactive-streams]: https://www.reactive-streams.org/
-
 <!-- End Asynchronous Support [async-support] -->
 
 <!-- Start Authentication [security] -->
-
 ## Authentication
 
 ### Per-Client Security Schemes
@@ -233,7 +230,6 @@ This SDK supports the following security scheme globally:
 | `programUid`<br/>`hmacKey` | http | Custom HTTP |
 
 You can set the security parameters through the `security` builder method when initializing the SDK client instance. For example:
-
 ```java
 package hello.world;
 
@@ -262,11 +258,9 @@ public class Application {
     }
 }
 ```
-
 <!-- End Authentication [security] -->
 
 <!-- Start Available Resources and Operations [operations] -->
-
 ## Available Resources and Operations
 
 <details open>
@@ -274,103 +268,103 @@ public class Application {
 
 ### [Auth](docs/sdks/auth/README.md)
 
-- [generateToken](docs/sdks/auth/README.md#generatetoken) - Generate an authentication token
+* [generateToken](docs/sdks/auth/README.md#generatetoken) - Generate an authentication token
 
 ### [CombinedTransfers](docs/sdks/combinedtransfers/README.md)
 
-- [list](docs/sdks/combinedtransfers/README.md#list) - List Combined Transfers
-- [create](docs/sdks/combinedtransfers/README.md#create) - Create a new Combined Transfer
-- [get](docs/sdks/combinedtransfers/README.md#get) - Get a single Combined Transfer
+* [list](docs/sdks/combinedtransfers/README.md#list) - List Combined Transfers
+* [create](docs/sdks/combinedtransfers/README.md#create) - Create a new Combined Transfer
+* [get](docs/sdks/combinedtransfers/README.md#get) - Get a single Combined Transfer
 
 ### [CustodialAccounts](docs/sdks/custodialaccounts/README.md)
 
-- [list](docs/sdks/custodialaccounts/README.md#list) - List Custodial Accounts
-- [get](docs/sdks/custodialaccounts/README.md#get) - Get a single Custodial Account
-- [listClosingBalances](docs/sdks/custodialaccounts/README.md#listclosingbalances) - List Custodial Account Closing Balances
-- [getClosingBalance](docs/sdks/custodialaccounts/README.md#getclosingbalance) - Get a single Custodial Account Closing Balance
+* [list](docs/sdks/custodialaccounts/README.md#list) - List Custodial Accounts
+* [get](docs/sdks/custodialaccounts/README.md#get) - Get a single Custodial Account
+* [listClosingBalances](docs/sdks/custodialaccounts/README.md#listclosingbalances) - List Custodial Account Closing Balances
+* [getClosingBalance](docs/sdks/custodialaccounts/README.md#getclosingbalance) - Get a single Custodial Account Closing Balance
 
 ### [CustomerProducts](docs/sdks/customerproducts/README.md)
 
-- [list](docs/sdks/customerproducts/README.md#list) - List Customer Products
-- [onboard](docs/sdks/customerproducts/README.md#onboard) - Onboard Customer onto a Product
-- [get](docs/sdks/customerproducts/README.md#get) - Get a single Customer Product
+* [list](docs/sdks/customerproducts/README.md#list) - List Customer Products
+* [onboard](docs/sdks/customerproducts/README.md#onboard) - Onboard Customer onto a Product
+* [get](docs/sdks/customerproducts/README.md#get) - Get a single Customer Product
 
 ### [Customers](docs/sdks/customers/README.md)
 
-- [list](docs/sdks/customers/README.md#list) - Get a list of Customers
-- [create](docs/sdks/customers/README.md#create) - Create a new Customer
-- [get](docs/sdks/customers/README.md#get) - Get a single Customer
-- [update](docs/sdks/customers/README.md#update) - Adjust Customer Data
-- [delete](docs/sdks/customers/README.md#delete) - Archive a Customer
+* [list](docs/sdks/customers/README.md#list) - Get a list of Customers
+* [create](docs/sdks/customers/README.md#create) - Create a new Customer
+* [get](docs/sdks/customers/README.md#get) - Get a single Customer
+* [update](docs/sdks/customers/README.md#update) - Adjust Customer Data
+* [delete](docs/sdks/customers/README.md#delete) - Archive a Customer
 
 ### [Pools](docs/sdks/pools/README.md)
 
-- [list](docs/sdks/pools/README.md#list) - List Pools
-- [get](docs/sdks/pools/README.md#get) - Get a single Pool
+* [list](docs/sdks/pools/README.md#list) - List Pools
+* [get](docs/sdks/pools/README.md#get) - Get a single Pool
 
 ### [Products](docs/sdks/products/README.md)
 
-- [list](docs/sdks/products/README.md#list) - List Products
-- [get](docs/sdks/products/README.md#get) - Get a single Product
+* [list](docs/sdks/products/README.md#list) - List Products
+* [get](docs/sdks/products/README.md#get) - Get a single Product
 
 ### [Returns](docs/sdks/returns/README.md)
 
-- [list](docs/sdks/returns/README.md#list) - List Returns
-- [create](docs/sdks/returns/README.md#create) - Create a new Return
-- [get](docs/sdks/returns/README.md#get) - Get a single Return
+* [list](docs/sdks/returns/README.md#list) - List Returns
+* [create](docs/sdks/returns/README.md#create) - Create a new Return
+* [get](docs/sdks/returns/README.md#get) - Get a single Return
 
 ### [SyntheticAccountClosingBalances](docs/sdks/syntheticaccountclosingbalances/README.md)
 
-- [get](docs/sdks/syntheticaccountclosingbalances/README.md#get) - Get a single Synthetic Account Closing Balance
+* [get](docs/sdks/syntheticaccountclosingbalances/README.md#get) - Get a single Synthetic Account Closing Balance
 
 ### [SyntheticAccounts](docs/sdks/syntheticaccounts/README.md)
 
-- [listTypes](docs/sdks/syntheticaccounts/README.md#listtypes) - List Synthetic Account Types
-- [getType](docs/sdks/syntheticaccounts/README.md#gettype) - Get a Single Synthetic Account Type
-- [list](docs/sdks/syntheticaccounts/README.md#list) - List Synthetic Accounts
-- [create](docs/sdks/syntheticaccounts/README.md#create) - Create a New Synthetic Account
-- [retrieve](docs/sdks/syntheticaccounts/README.md#retrieve) - Get a single Synthetic Account
-- [update](docs/sdks/syntheticaccounts/README.md#update) - Update the Synthetic Account metadata
-- [delete](docs/sdks/syntheticaccounts/README.md#delete) - Archive a Synthetic Account
-- [getClosingBalances](docs/sdks/syntheticaccounts/README.md#getclosingbalances) - List Synthetic Account Closing Balances
+* [listTypes](docs/sdks/syntheticaccounts/README.md#listtypes) - List Synthetic Account Types
+* [getType](docs/sdks/syntheticaccounts/README.md#gettype) - Get a Single Synthetic Account Type
+* [list](docs/sdks/syntheticaccounts/README.md#list) - List Synthetic Accounts
+* [create](docs/sdks/syntheticaccounts/README.md#create) - Create a New Synthetic Account
+* [retrieve](docs/sdks/syntheticaccounts/README.md#retrieve) - Get a single Synthetic Account
+* [update](docs/sdks/syntheticaccounts/README.md#update) - Update the Synthetic Account metadata
+* [delete](docs/sdks/syntheticaccounts/README.md#delete) - Archive a Synthetic Account
+* [getClosingBalances](docs/sdks/syntheticaccounts/README.md#getclosingbalances) - List Synthetic Account Closing Balances
 
 ### [Transactions](docs/sdks/transactions/README.md)
 
-- [list](docs/sdks/transactions/README.md#list) - List Transactions
-- [get](docs/sdks/transactions/README.md#get) - Get a single Transaction
-- [authorize](docs/sdks/transactions/README.md#authorize) - Approve or deny a transaction
-- [listEvents](docs/sdks/transactions/README.md#listevents) - List Transaction Events
-- [getTransactionEvent](docs/sdks/transactions/README.md#gettransactionevent) - Get a single Transaction Event
-- [listSyntheticLineItems](docs/sdks/transactions/README.md#listsyntheticlineitems) - List Synthetic Line Items
-- [getSyntheticLineItem](docs/sdks/transactions/README.md#getsyntheticlineitem) - Get a single Synthetic Line Item
-- [listCustodialLineItems](docs/sdks/transactions/README.md#listcustodiallineitems) - List Custodial Line Items
-- [getCustodialLineItem](docs/sdks/transactions/README.md#getcustodiallineitem) - Get a single Custodial Line Item
+* [list](docs/sdks/transactions/README.md#list) - List Transactions
+* [get](docs/sdks/transactions/README.md#get) - Get a single Transaction
+* [authorize](docs/sdks/transactions/README.md#authorize) - Approve or deny a transaction
+* [listEvents](docs/sdks/transactions/README.md#listevents) - List Transaction Events
+* [getTransactionEvent](docs/sdks/transactions/README.md#gettransactionevent) - Get a single Transaction Event
+* [listSyntheticLineItems](docs/sdks/transactions/README.md#listsyntheticlineitems) - List Synthetic Line Items
+* [getSyntheticLineItem](docs/sdks/transactions/README.md#getsyntheticlineitem) - Get a single Synthetic Line Item
+* [listCustodialLineItems](docs/sdks/transactions/README.md#listcustodiallineitems) - List Custodial Line Items
+* [getCustodialLineItem](docs/sdks/transactions/README.md#getcustodiallineitem) - Get a single Custodial Line Item
 
 ### [Transfers](docs/sdks/transfers/README.md)
 
-- [list](docs/sdks/transfers/README.md#list) - List Transfers
-- [create](docs/sdks/transfers/README.md#create) - Initiate a Transfer
-- [get](docs/sdks/transfers/README.md#get) - Get a single Transfer
-- [cancel](docs/sdks/transfers/README.md#cancel) - Cancel a Transfer
+* [list](docs/sdks/transfers/README.md#list) - List Transfers
+* [create](docs/sdks/transfers/README.md#create) - Initiate a Transfer
+* [get](docs/sdks/transfers/README.md#get) - Get a single Transfer
+* [cancel](docs/sdks/transfers/README.md#cancel) - Cancel a Transfer
 
 ### [VirtualReferenceNumbers](docs/sdks/virtualreferencenumbers/README.md)
 
-- [list](docs/sdks/virtualreferencenumbers/README.md#list) - List Virtual Reference Numbers
-- [create](docs/sdks/virtualreferencenumbers/README.md#create) - Create a new Virtual Reference Number
-- [get](docs/sdks/virtualreferencenumbers/README.md#get) - Get a single Virtual Reference Number
-- [update](docs/sdks/virtualreferencenumbers/README.md#update) - Edit a Virtual Reference Number
-- [archive](docs/sdks/virtualreferencenumbers/README.md#archive) - Archive a single Virtual Reference Number
-- [lock](docs/sdks/virtualreferencenumbers/README.md#lock) - Lock a single Virtual Reference Number
-- [unlock](docs/sdks/virtualreferencenumbers/README.md#unlock) - Unlock a single Virtual Reference Number
+* [list](docs/sdks/virtualreferencenumbers/README.md#list) - List Virtual Reference Numbers
+* [create](docs/sdks/virtualreferencenumbers/README.md#create) - Create a new Virtual Reference Number
+* [get](docs/sdks/virtualreferencenumbers/README.md#get) - Get a single Virtual Reference Number
+* [update](docs/sdks/virtualreferencenumbers/README.md#update) - Edit a Virtual Reference Number
+* [archive](docs/sdks/virtualreferencenumbers/README.md#archive) - Archive a single Virtual Reference Number
+* [lock](docs/sdks/virtualreferencenumbers/README.md#lock) - Lock a single Virtual Reference Number
+* [unlock](docs/sdks/virtualreferencenumbers/README.md#unlock) - Unlock a single Virtual Reference Number
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
-
 ## Error Handling
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
+
 
 [`NewlineException`](./src/main/java/models/errors/NewlineException.java) is the base class for all HTTP error responses. It has the following properties:
 
@@ -384,7 +378,6 @@ Handling errors in this SDK should largely match your expectations. All operatio
 | `rawResponse()`  | `HttpResponse<?>`           | Raw HTTP response (body already read and not available for re-read)      |
 
 ### Example
-
 ```java
 package hello.world;
 
@@ -438,7 +431,7 @@ public class Application {
             int statusCode = ex.code();
             Optional<byte[]> responseBody = ex.body();
 
-            // different error subclasses may be thrown
+            // different error subclasses may be thrown 
             // depending on the service call
             if (ex instanceof OnboardCustomerProductUnprocessableEntityException) {
                 var e = (OnboardCustomerProductUnprocessableEntityException) ex;
@@ -449,8 +442,8 @@ public class Application {
                 });
             }
 
-            // An underlying cause may be provided. If the error payload
-            // cannot be deserialized then the deserialization exception
+            // An underlying cause may be provided. If the error payload 
+            // cannot be deserialized then the deserialization exception 
             // will be set as the cause.
             if (ex.getCause() != null) {
                 var cause = ex.getCause();
@@ -462,64 +455,59 @@ public class Application {
 ```
 
 ### Error Classes
-
 **Primary error:**
-
-- [`NewlineException`](./src/main/java/models/errors/NewlineException.java): The base class for HTTP error responses.
+* [`NewlineException`](./src/main/java/models/errors/NewlineException.java): The base class for HTTP error responses.
 
 <details><summary>Less common errors (38)</summary>
 
 <br />
 
 **Network errors:**
-
-- `java.io.IOException` (always wrapped by `java.io.UncheckedIOException`). Commonly encountered subclasses of
-  `IOException` include `java.net.ConnectException`, `java.net.SocketTimeoutException`, `EOFException` (there are
-  many more subclasses in the JDK platform).
+* `java.io.IOException` (always wrapped by `java.io.UncheckedIOException`). Commonly encountered subclasses of
+`IOException` include `java.net.ConnectException`, `java.net.SocketTimeoutException`, `EOFException` (there are
+many more subclasses in the JDK platform).
 
 **Inherit from [`NewlineException`](./src/main/java/models/errors/NewlineException.java)**:
+* [`com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException.java): A Synthetic Account is not updated if a required parameter is missing. Status code `400`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException.java): The transfer is not eligible for cancellation. Status code `400`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException.java): Bad authorization request. Status code `400`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostReturnsBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsBadRequestException.java): Creation Error. Status code `400`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException.java): Client authorization disabled. (The Program is not configured for Client Authorization). Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetReturnsForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostReturnsForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetReturnsUidForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUidForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetCombinedTransfersForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetCombinedTransfersUidForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUidForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.DeleteVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.DeleteVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetReturnsUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUidNotFoundException.java): Unknown Return. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetCombinedTransfersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUidNotFoundException.java): The Combined Transfer is not found. Status code `404`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.ConflictException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.ConflictException.java): A new Synthetic Account is NOT created if the external_uid given is present but not unique. Status code `409`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.OnboardCustomerProductUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.OnboardCustomerProductUnprocessableEntityException.java): There was a problem with the request body. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.DeleteSyntheticAccountUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.DeleteSyntheticAccountUnprocessableEntityException.java): A Synthetic Account is not archived. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutTransfersUidCancelUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransfersUidCancelUnprocessableEntityException.java): The transfer could not be canceled. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeUnprocessableEntityException.java): An exception occurred while authorizing transaction. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUnprocessableEntityException.java): Failed to retrieve Virtual Reference Numbers. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnprocessableEntityException.java): Failed to update Virtual Reference Number. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockUnprocessableEntityException.java): The Virtual Reference Number could not be locked. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockUnprocessableEntityException.java): The Virtual Reference Number could not be unlocked. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetReturnsUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUnprocessableEntityException.java): Failed to retrieve Returns. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostReturnsUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.GetCombinedTransfersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUnprocessableEntityException.java): Failed to retrieve Combined Transfers. Status code `422`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.*
 
-- [`com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException.java): A Synthetic Account is not updated if a required parameter is missing. Status code `400`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException.java): The transfer is not eligible for cancellation. Status code `400`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException.java): Bad authorization request. Status code `400`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostReturnsBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsBadRequestException.java): Creation Error. Status code `400`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException.java): Client authorization disabled. (The Program is not configured for Client Authorization). Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetReturnsForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostReturnsForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetReturnsUidForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUidForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetCombinedTransfersForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetCombinedTransfersUidForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUidForbiddenException.java): Denied access to Combined Transfers. Status code `403`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.DeleteVirtualReferenceNumbersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.DeleteVirtualReferenceNumbersUidNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockNotFoundException.java): The Virtual Reference Number is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetReturnsUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUidNotFoundException.java): Unknown Return. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetCombinedTransfersUidNotFoundException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUidNotFoundException.java): The Combined Transfer is not found. Status code `404`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.ConflictException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.ConflictException.java): A new Synthetic Account is NOT created if the external_uid given is present but not unique. Status code `409`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.OnboardCustomerProductUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.OnboardCustomerProductUnprocessableEntityException.java): There was a problem with the request body. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.DeleteSyntheticAccountUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.DeleteSyntheticAccountUnprocessableEntityException.java): A Synthetic Account is not archived. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutTransfersUidCancelUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransfersUidCancelUnprocessableEntityException.java): The transfer could not be canceled. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeUnprocessableEntityException.java): An exception occurred while authorizing transaction. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetVirtualReferenceNumbersUnprocessableEntityException.java): Failed to retrieve Virtual Reference Numbers. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnprocessableEntityException.java): Failed to update Virtual Reference Number. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidLockUnprocessableEntityException.java): The Virtual Reference Number could not be locked. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutVirtualReferenceNumbersUidUnlockUnprocessableEntityException.java): The Virtual Reference Number could not be unlocked. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetReturnsUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsUnprocessableEntityException.java): Failed to retrieve Returns. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostReturnsUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.GetCombinedTransfersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetCombinedTransfersUnprocessableEntityException.java): Failed to retrieve Combined Transfers. Status code `422`. Applicable to 1 of 52 methods.\*
-- [`com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException.java): Creation Error. Status code `422`. Applicable to 1 of 52 methods.\*
 
 </details>
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
-
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
-
 ## Server Selection
 
 ### Select Server by Name
@@ -566,7 +554,6 @@ public class Application {
 ### Override Server URL Per-Client
 
 The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
-
 ```java
 package hello.world;
 
@@ -596,11 +583,9 @@ public class Application {
     }
 }
 ```
-
 <!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
-
 ## Custom HTTP Client
 
 The Java SDK makes API calls using an `HTTPClient` that wraps the native
@@ -635,7 +620,7 @@ public class Application {
         // Create a custom HTTP client with hooks
         HTTPClient httpClient = new HTTPClient() {
             private final HTTPClient defaultClient = new SpeakeasyHTTPClient();
-
+            
             @Override
             public HttpResponse<InputStream> send(HttpRequest request) throws IOException, URISyntaxException, InterruptedException {
                 // Add custom header and timeout using Utils.copy()
@@ -643,7 +628,7 @@ public class Application {
                     .header("x-custom-header", "custom value")
                     .timeout(Duration.ofSeconds(30))
                     .build();
-
+                    
                 try {
                     HttpResponse<InputStream> response = defaultClient.send(modifiedRequest);
                     // Log successful response
@@ -734,21 +719,17 @@ public class Application {
     }
 }
 ```
-
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Debugging [debug] -->
-
 ## Debugging
 
 ### Debug & Logging
 
 #### SLF4j Logging
-
 This SDK uses [SLF4j](https://www.slf4j.org/) for structured logging across HTTP requests, retries, pagination, streaming, and hooks. SLF4j provides comprehensive visibility into SDK operations.
 
 **Log Levels:**
-
 - **DEBUG**: High-level operations (HTTP requests/responses, retry attempts, page fetches, hook execution, stream lifecycle)
 - **TRACE**: Detailed information (request/response bodies, backoff calculations, individual items processed)
 
@@ -774,13 +755,13 @@ Configure logging levels in your `logback.xml`:
 
     <!-- SDK-wide logging -->
     <logger name="com.newline53.sdk" level="DEBUG"/>
-
+    
     <!-- Component-specific logging -->
     <logger name="com.newline53.sdk.utils.SpeakeasyHTTPClient" level="DEBUG"/>
     <logger name="com.newline53.sdk.utils.Retries" level="DEBUG"/>
     <logger name="com.newline53.sdk.utils.pagination" level="DEBUG"/>
     <logger name="com.newline53.sdk.utils.Hooks" level="TRACE"/>
-
+    
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
@@ -788,7 +769,6 @@ Configure logging levels in your `logback.xml`:
 ```
 
 **What Gets Logged:**
-
 - **HTTP Client**: Request/response details, headers (with sensitive headers redacted), bodies (at TRACE level)
 - **Retries**: Retry attempts, backoff delays, exhaustion, non-retryable exceptions
 - **Pagination**: Page fetches, pagination state, errors
@@ -796,7 +776,6 @@ Configure logging levels in your `logback.xml`:
 - **Hooks**: Hook execution counts, operation IDs, exceptions
 
 #### Legacy Debug Logging
-
 For backward compatibility, you can still use the legacy debug logging method:
 
 ```java
@@ -804,9 +783,7 @@ SDK.builder()
     .enableHTTPDebugLogging(true)
     .build();
 ```
-
 Example output:
-
 ```
 Sending request: http://localhost:35123/bearer#global GET
 Request headers: {Accept=[application/json], Authorization=[******], Client-Level-Header=[added by client], Idempotency-Key=[some-key], x-speakeasy-user-agent=[speakeasy-sdk/java 0.0.1 internal 0.1.0 org.openapis.openapi]}
@@ -814,23 +791,20 @@ Received response: (GET http://localhost:35123/bearer#global) 200
 Response headers: {access-control-allow-credentials=[true], access-control-allow-origin=[*], connection=[keep-alive], content-length=[50], content-type=[application/json], date=[Wed, 09 Apr 2025 01:43:29 GMT], server=[gunicorn/19.9.0]}
 Response body:
 {
-  "authenticated": true,
+  "authenticated": true, 
   "token": "global"
 }
 ```
+__WARNING__: Debug logging should only be used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default. You can specify additional redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
 
-**WARNING**: Debug logging should only be used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default. You can specify additional redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+__NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
 
-**NOTE**: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
 
 #### JDK HTTP Client Logging
-
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this option does not log request/response bodies.
-
 <!-- End Debugging [debug] -->
 
 <!-- Start Jackson Configuration [jackson] -->
-
 ## Jackson Configuration
 
 The SDK ships with a pre-configured Jackson [`ObjectMapper`][jackson-databind] accessible via
@@ -858,7 +832,6 @@ String json = myMapper.writeValueAsString(response);
 
 [jackson-databind]: https://github.com/FasterXML/jackson-databind
 [jackson-jsr310]: https://github.com/FasterXML/jackson-modules-java8/tree/master/datetime
-
 <!-- End Jackson Configuration [jackson] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

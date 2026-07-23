@@ -24,10 +24,10 @@ func (o *GetSyntheticAccountTypeRequest) GetUID() string {
 type GetSyntheticAccountTypeSyntheticAccountCategory string
 
 const (
-	GetSyntheticAccountTypeSyntheticAccountCategoryGeneral                 GetSyntheticAccountTypeSyntheticAccountCategory = "general"
-	GetSyntheticAccountTypeSyntheticAccountCategoryAchExternal             GetSyntheticAccountTypeSyntheticAccountCategory = "ach_external"
-	GetSyntheticAccountTypeSyntheticAccountCategoryInstantPaymentsExternal GetSyntheticAccountTypeSyntheticAccountCategory = "instant_payments_external"
-	GetSyntheticAccountTypeSyntheticAccountCategoryWireExternal            GetSyntheticAccountTypeSyntheticAccountCategory = "wire_external"
+	GetSyntheticAccountTypeSyntheticAccountCategoryGeneral                GetSyntheticAccountTypeSyntheticAccountCategory = "general"
+	GetSyntheticAccountTypeSyntheticAccountCategoryAchExternal            GetSyntheticAccountTypeSyntheticAccountCategory = "ach_external"
+	GetSyntheticAccountTypeSyntheticAccountCategoryInstantPaymentExternal GetSyntheticAccountTypeSyntheticAccountCategory = "instant_payment_external"
+	GetSyntheticAccountTypeSyntheticAccountCategoryWireExternal           GetSyntheticAccountTypeSyntheticAccountCategory = "wire_external"
 )
 
 func (e GetSyntheticAccountTypeSyntheticAccountCategory) ToPointer() *GetSyntheticAccountTypeSyntheticAccountCategory {
@@ -43,7 +43,7 @@ func (e *GetSyntheticAccountTypeSyntheticAccountCategory) UnmarshalJSON(data []b
 		fallthrough
 	case "ach_external":
 		fallthrough
-	case "instant_payments_external":
+	case "instant_payment_external":
 		fallthrough
 	case "wire_external":
 		*e = GetSyntheticAccountTypeSyntheticAccountCategory(v)

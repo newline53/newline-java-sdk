@@ -103,7 +103,7 @@ Attempt to initiate a Transfer between two Synthetic Accounts. Before the Transf
 
 The Synthetic Accounts allowed in a Transfer request are listed below
 
-- between a liability Synthetic Account in the `general` category and a Synthetic Account in the `ach_external`, `wire_external`, or `instant_payments_external` category
+- between a liability Synthetic Account in the `general` category and a Synthetic Account in the `ach_external`, `wire_external`, or `instant_payment_external` category
 - between two liability Synthetic Accounts in the `general` category that are also owned by the same Customer.
 
 > **Note**

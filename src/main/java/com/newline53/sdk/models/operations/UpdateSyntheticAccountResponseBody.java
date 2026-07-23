@@ -93,7 +93,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The current settled balance of this account in US Dollars. This field will be null for
-     * synthetic_account_types in an external category (`ach_external`, `instant_payments_external`,
+     * synthetic_account_types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -102,7 +102,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The sum of all pending transactions for this account in US Dollars. This field will be null for
-     * Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`,
+     * Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -112,7 +112,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The balance available to spend calculated as the settled balance less any pending withdrawals.
      * Pending deposits are not included. This field will be null for Synthetic Account Types in an
-     * external category (`ach_external`, `instant_payments_external`, `wire_external`).
+     * external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("net_usd_available_balance")
@@ -121,7 +121,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of.
      * This field will be null for Synthetic Account Types in an external category (`ach_external`,
-     * `instant_payments_external`, `wire_external`).
+     * `instant_payment_external`, `wire_external`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("net_usd_closing_balance")
@@ -129,8 +129,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic
-     * Account Types in an external category (`ach_external`, `instant_payments_external`,
-     * `wire_external`).
+     * Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("net_usd_closing_balance_as_of")
@@ -361,7 +360,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The current settled balance of this account in US Dollars. This field will be null for
-     * synthetic_account_types in an external category (`ach_external`, `instant_payments_external`,
+     * synthetic_account_types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     public JsonNullable<String> netUsdBalance() {
@@ -370,7 +369,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The sum of all pending transactions for this account in US Dollars. This field will be null for
-     * Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`,
+     * Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     public JsonNullable<String> netUsdPendingBalance() {
@@ -380,7 +379,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The balance available to spend calculated as the settled balance less any pending withdrawals.
      * Pending deposits are not included. This field will be null for Synthetic Account Types in an
-     * external category (`ach_external`, `instant_payments_external`, `wire_external`).
+     * external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     public JsonNullable<String> netUsdAvailableBalance() {
         return this.netUsdAvailableBalance;
@@ -389,7 +388,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of.
      * This field will be null for Synthetic Account Types in an external category (`ach_external`,
-     * `instant_payments_external`, `wire_external`).
+     * `instant_payment_external`, `wire_external`).
      */
     public JsonNullable<String> netUsdClosingBalance() {
         return this.netUsdClosingBalance;
@@ -397,8 +396,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic
-     * Account Types in an external category (`ach_external`, `instant_payments_external`,
-     * `wire_external`).
+     * Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     public Optional<String> netUsdClosingBalanceAsOf() {
         return Optional.ofNullable(this.netUsdClosingBalanceAsOf);
@@ -580,7 +578,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The current settled balance of this account in US Dollars. This field will be null for
-     * synthetic_account_types in an external category (`ach_external`, `instant_payments_external`,
+     * synthetic_account_types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     public UpdateSyntheticAccountResponseBody withNetUsdBalance(@Nullable String netUsdBalance) {
@@ -591,7 +589,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The sum of all pending transactions for this account in US Dollars. This field will be null for
-     * Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`,
+     * Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`,
      * `wire_external`).
      */
     public UpdateSyntheticAccountResponseBody withNetUsdPendingBalance(@Nullable String netUsdPendingBalance) {
@@ -603,7 +601,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The balance available to spend calculated as the settled balance less any pending withdrawals.
      * Pending deposits are not included. This field will be null for Synthetic Account Types in an
-     * external category (`ach_external`, `instant_payments_external`, `wire_external`).
+     * external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     public UpdateSyntheticAccountResponseBody withNetUsdAvailableBalance(@Nullable String netUsdAvailableBalance) {
         this.netUsdAvailableBalance = JsonNullable.of(netUsdAvailableBalance);
@@ -614,7 +612,7 @@ public class UpdateSyntheticAccountResponseBody {
     /**
      * The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of.
      * This field will be null for Synthetic Account Types in an external category (`ach_external`,
-     * `instant_payments_external`, `wire_external`).
+     * `instant_payment_external`, `wire_external`).
      */
     public UpdateSyntheticAccountResponseBody withNetUsdClosingBalance(@Nullable String netUsdClosingBalance) {
         this.netUsdClosingBalance = JsonNullable.of(netUsdClosingBalance);
@@ -624,8 +622,7 @@ public class UpdateSyntheticAccountResponseBody {
 
     /**
      * The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic
-     * Account Types in an external category (`ach_external`, `instant_payments_external`,
-     * `wire_external`).
+     * Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
      */
     public UpdateSyntheticAccountResponseBody withNetUsdClosingBalanceAsOf(@Nullable String netUsdClosingBalanceAsOf) {
         this.netUsdClosingBalanceAsOf = netUsdClosingBalanceAsOf;
@@ -948,7 +945,7 @@ public class UpdateSyntheticAccountResponseBody {
 
         /**
          * The current settled balance of this account in US Dollars. This field will be null for
-         * synthetic_account_types in an external category (`ach_external`, `instant_payments_external`,
+         * synthetic_account_types in an external category (`ach_external`, `instant_payment_external`,
          * `wire_external`).
          */
         public Builder netUsdBalance(@Nullable String netUsdBalance) {
@@ -958,7 +955,7 @@ public class UpdateSyntheticAccountResponseBody {
 
         /**
          * The sum of all pending transactions for this account in US Dollars. This field will be null for
-         * Synthetic Account Types in an external category (`ach_external`, `instant_payments_external`,
+         * Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`,
          * `wire_external`).
          */
         public Builder netUsdPendingBalance(@Nullable String netUsdPendingBalance) {
@@ -969,7 +966,7 @@ public class UpdateSyntheticAccountResponseBody {
         /**
          * The balance available to spend calculated as the settled balance less any pending withdrawals.
          * Pending deposits are not included. This field will be null for Synthetic Account Types in an
-         * external category (`ach_external`, `instant_payments_external`, `wire_external`).
+         * external category (`ach_external`, `instant_payment_external`, `wire_external`).
          */
         public Builder netUsdAvailableBalance(@Nullable String netUsdAvailableBalance) {
             this.netUsdAvailableBalance = JsonNullable.of(netUsdAvailableBalance);
@@ -979,7 +976,7 @@ public class UpdateSyntheticAccountResponseBody {
         /**
          * The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of.
          * This field will be null for Synthetic Account Types in an external category (`ach_external`,
-         * `instant_payments_external`, `wire_external`).
+         * `instant_payment_external`, `wire_external`).
          */
         public Builder netUsdClosingBalance(@Nullable String netUsdClosingBalance) {
             this.netUsdClosingBalance = JsonNullable.of(netUsdClosingBalance);
@@ -988,8 +985,7 @@ public class UpdateSyntheticAccountResponseBody {
 
         /**
          * The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic
-         * Account Types in an external category (`ach_external`, `instant_payments_external`,
-         * `wire_external`).
+         * Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
          */
         public Builder netUsdClosingBalanceAsOf(@Nullable String netUsdClosingBalanceAsOf) {
             this.netUsdClosingBalanceAsOf = netUsdClosingBalanceAsOf;

@@ -121,8 +121,8 @@ public class GetTransactionsUidInstantPayment {
     private JsonNullable<GetTransactionsUidInstantPaymentCounterpartyBankAddress> counterpartyBankAddress;
 
     /**
-     * A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_',
-     * and spaces.
+     * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
+     * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("memo")
@@ -285,8 +285,8 @@ public class GetTransactionsUidInstantPayment {
     }
 
     /**
-     * A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_',
-     * and spaces.
+     * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
+     * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
      */
     public JsonNullable<String> memo() {
         return this.memo;
@@ -433,8 +433,8 @@ public class GetTransactionsUidInstantPayment {
 
 
     /**
-     * A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_',
-     * and spaces.
+     * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
+     * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
      */
     public GetTransactionsUidInstantPayment withMemo(@Nullable String memo) {
         this.memo = JsonNullable.of(memo);
@@ -665,8 +665,8 @@ public class GetTransactionsUidInstantPayment {
         }
 
         /**
-         * A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_',
-         * and spaces.
+         * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
+         * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
          */
         public Builder memo(@Nullable String memo) {
             this.memo = JsonNullable.of(memo);

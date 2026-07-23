@@ -304,7 +304,7 @@ func (o *GetTransferAch) GetAddenda() *string {
 
 // GetTransferInstantPayment - Instant payment information. Only present if the Transfer is an instant payment.
 type GetTransferInstantPayment struct {
-	// A message transmitted to the recipient bank. Can contain letters and numbers as well as '-', '_', and spaces.
+	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
 }

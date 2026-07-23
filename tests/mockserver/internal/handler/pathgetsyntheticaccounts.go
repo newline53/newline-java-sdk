@@ -133,7 +133,7 @@ func testListSyntheticAccountsListSyntheticAccountsSyntheticAccountsList0(w http
 				CustodialAccountUids: []string{
 					"DcMfBTHj94dsi471",
 				},
-				SyntheticAccountCategory: operations.ListSyntheticAccountsDataSyntheticAccountCategoryWireExternal.ToPointer(),
+				SyntheticAccountCategory: operations.ListSyntheticAccountsDataSyntheticAccountCategoryInstantPaymentExternal.ToPointer(),
 				Status:                   operations.ListSyntheticAccountsDataStatusActive.ToPointer(),
 				Liability:                types.Bool(false),
 				NetUsdBalance:            nil,

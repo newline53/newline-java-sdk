@@ -142,7 +142,7 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountInstantPaymentSyntheticAcco
 		CustodialAccountUids: []string{
 			"DcMfBTHj94dsi471",
 		},
-		SyntheticAccountCategory: operations.UpdateSyntheticAccountSyntheticAccountCategoryWireExternal.ToPointer(),
+		SyntheticAccountCategory: operations.UpdateSyntheticAccountSyntheticAccountCategoryInstantPaymentExternal.ToPointer(),
 		Status:                   operations.UpdateSyntheticAccountStatusActive.ToPointer(),
 		Liability:                types.Bool(false),
 		NetUsdBalance:            nil,
