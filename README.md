@@ -40,23 +40,12 @@ The samples below show how a published SDK artifact is used:
 Gradle:
 
 ```groovy
-repositories {
-    maven { url 'https://jitpack.io' }
-}
-dependencies {
-    implementation 'com.github.newline53:newline-java-sdk:main-SNAPSHOT'
-}
+implementation 'com.github.newline53:newline-java-sdk:main-SNAPSHOT'
 ```
 
 Maven:
 
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
 <dependency>
     <groupId>com.github.newline53</groupId>
     <artifactId>newline-java-sdk</artifactId>
