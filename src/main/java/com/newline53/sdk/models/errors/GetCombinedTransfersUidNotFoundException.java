@@ -50,12 +50,17 @@ public class GetCombinedTransfersUidNotFoundException extends NewlineException {
     * the resulting GetCombinedTransfersUidNotFoundException instance will have a null data() value and a non-null deserializationException().
     */
     public static GetCombinedTransfersUidNotFoundException from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new GetCombinedTransfersUidNotFoundException(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new GetCombinedTransfersUidNotFoundException(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new GetCombinedTransfersUidNotFoundException(response.statusCode(), null, response, null, e);
+            return new GetCombinedTransfersUidNotFoundException(response.statusCode(), bytes, response, null, e);
         }
     }
 

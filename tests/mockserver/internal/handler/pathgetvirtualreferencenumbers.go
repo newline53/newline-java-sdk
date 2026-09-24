@@ -61,6 +61,7 @@ func testGetVirtualReferenceNumbersGetVirtualReferenceNumbersVirtualReferenceNum
 				Status:                               operations.GetVirtualReferenceNumbersDataStatusActive.ToPointer(),
 				SyntheticAccountUID:                  types.String("Dg1EPao8XukUpHG8"),
 				VirtualReferenceNumberLastFour:       types.String("3456"),
+				Type:                                 operations.GetVirtualReferenceNumbersTypeBusiness.ToPointer(),
 			},
 			operations.GetVirtualReferenceNumbersData{
 				UID:                                  types.String("dYTG8WAWAh5UyvY7"),
@@ -75,6 +76,7 @@ func testGetVirtualReferenceNumbersGetVirtualReferenceNumbersVirtualReferenceNum
 				Status:                               operations.GetVirtualReferenceNumbersDataStatusArchived.ToPointer(),
 				SyntheticAccountUID:                  types.String("Dg1EPao8XukUpHG8"),
 				VirtualReferenceNumberLastFour:       types.String("4321"),
+				Type:                                 operations.GetVirtualReferenceNumbersTypeBusiness.ToPointer(),
 			},
 		},
 	}

@@ -60,6 +60,7 @@ func testPutVirtualReferenceNumbersUIDPutVirtualReferenceNumbersUIDRegistered0(w
 		SyntheticAccountUID:                  types.String("Dg1EPao8XukUpHG8"),
 		UID:                                  types.String("dYTG8WAWAh5UyvY7"),
 		VirtualReferenceNumberLastFour:       types.String("3456"),
+		Type:                                 operations.PutVirtualReferenceNumbersUIDTypeBusiness.ToPointer(),
 		VirtualReferenceNumber:               types.String("1234567890123456"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)

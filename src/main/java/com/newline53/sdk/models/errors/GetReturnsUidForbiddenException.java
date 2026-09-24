@@ -49,12 +49,17 @@ public class GetReturnsUidForbiddenException extends NewlineException {
     * the resulting GetReturnsUidForbiddenException instance will have a null data() value and a non-null deserializationException().
     */
     public static GetReturnsUidForbiddenException from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new GetReturnsUidForbiddenException(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new GetReturnsUidForbiddenException(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new GetReturnsUidForbiddenException(response.statusCode(), null, response, null, e);
+            return new GetReturnsUidForbiddenException(response.statusCode(), bytes, response, null, e);
         }
     }
 

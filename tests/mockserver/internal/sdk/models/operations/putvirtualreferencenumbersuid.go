@@ -233,6 +233,33 @@ func (e *PutVirtualReferenceNumbersUIDStatus) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PutVirtualReferenceNumbersUIDType - The type of VRN.
+type PutVirtualReferenceNumbersUIDType string
+
+const (
+	PutVirtualReferenceNumbersUIDTypeBusiness PutVirtualReferenceNumbersUIDType = "business"
+	PutVirtualReferenceNumbersUIDTypeConsumer PutVirtualReferenceNumbersUIDType = "consumer"
+)
+
+func (e PutVirtualReferenceNumbersUIDType) ToPointer() *PutVirtualReferenceNumbersUIDType {
+	return &e
+}
+func (e *PutVirtualReferenceNumbersUIDType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = PutVirtualReferenceNumbersUIDType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PutVirtualReferenceNumbersUIDType: %v", v)
+	}
+}
+
 // PutVirtualReferenceNumbersUIDResponseBody - The updated Virtual Reference Number resource is returned
 type PutVirtualReferenceNumbersUIDResponseBody struct {
 	// The DateTime at which this VRN was archived. This value will be present if the status is archived. If in another state, the value will be null.
@@ -262,6 +289,8 @@ type PutVirtualReferenceNumbersUIDResponseBody struct {
 	UID *string `json:"uid,omitempty"`
 	// Last 4 digits of the VRN
 	VirtualReferenceNumberLastFour *string `json:"virtual_reference_number_last_four,omitempty"`
+	// The type of VRN.
+	Type *PutVirtualReferenceNumbersUIDType `json:"type,omitempty"`
 	// The VRN
 	VirtualReferenceNumber *string `json:"virtual_reference_number,omitempty"`
 }
@@ -355,6 +384,13 @@ func (o *PutVirtualReferenceNumbersUIDResponseBody) GetVirtualReferenceNumberLas
 		return nil
 	}
 	return o.VirtualReferenceNumberLastFour
+}
+
+func (o *PutVirtualReferenceNumbersUIDResponseBody) GetType() *PutVirtualReferenceNumbersUIDType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }
 
 func (o *PutVirtualReferenceNumbersUIDResponseBody) GetVirtualReferenceNumber() *string {

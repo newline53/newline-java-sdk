@@ -25,7 +25,7 @@ public class CreateTransferWireRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("intermediary_bank_address")
-    private CreateTransferIntermediaryBankAddressRequest intermediaryBankAddress;
+    private CreateTransferIntermediaryBankAddressUnstructuredAddressRequest intermediaryBankAddress;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -49,14 +49,21 @@ public class CreateTransferWireRequest {
     @JsonProperty("wire_instructions")
     private String wireInstructions;
 
-
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire_transmitter")
     private CreateTransferWireTransmitterRequest wireTransmitter;
 
     @JsonCreator
     public CreateTransferWireRequest(
-            @JsonProperty("intermediary_bank_address") @Nullable CreateTransferIntermediaryBankAddressRequest intermediaryBankAddress,
+            @JsonProperty("intermediary_bank_address") @Nullable CreateTransferIntermediaryBankAddressUnstructuredAddressRequest intermediaryBankAddress,
             @JsonProperty("intermediary_bank_name") @Nullable String intermediaryBankName,
             @JsonProperty("intermediary_bank_routing_number") @Nullable String intermediaryBankRoutingNumber,
             @JsonProperty("wire_instructions") @Nullable String wireInstructions,
@@ -77,7 +84,7 @@ public class CreateTransferWireRequest {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public Optional<CreateTransferIntermediaryBankAddressRequest> intermediaryBankAddress() {
+    public Optional<CreateTransferIntermediaryBankAddressUnstructuredAddressRequest> intermediaryBankAddress() {
         return Optional.ofNullable(this.intermediaryBankAddress);
     }
 
@@ -102,6 +109,14 @@ public class CreateTransferWireRequest {
         return Optional.ofNullable(this.wireInstructions);
     }
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     public Optional<CreateTransferWireTransmitterRequest> wireTransmitter() {
         return Optional.ofNullable(this.wireTransmitter);
     }
@@ -115,7 +130,7 @@ public class CreateTransferWireRequest {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public CreateTransferWireRequest withIntermediaryBankAddress(@Nullable CreateTransferIntermediaryBankAddressRequest intermediaryBankAddress) {
+    public CreateTransferWireRequest withIntermediaryBankAddress(@Nullable CreateTransferIntermediaryBankAddressUnstructuredAddressRequest intermediaryBankAddress) {
         this.intermediaryBankAddress = intermediaryBankAddress;
         return this;
     }
@@ -148,6 +163,14 @@ public class CreateTransferWireRequest {
     }
 
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     public CreateTransferWireRequest withWireTransmitter(@Nullable CreateTransferWireTransmitterRequest wireTransmitter) {
         this.wireTransmitter = wireTransmitter;
         return this;
@@ -191,7 +214,7 @@ public class CreateTransferWireRequest {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private CreateTransferIntermediaryBankAddressRequest intermediaryBankAddress;
+        private CreateTransferIntermediaryBankAddressUnstructuredAddressRequest intermediaryBankAddress;
 
         private String intermediaryBankName;
 
@@ -209,7 +232,7 @@ public class CreateTransferWireRequest {
          * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
          * wire transfer.
          */
-        public Builder intermediaryBankAddress(@Nullable CreateTransferIntermediaryBankAddressRequest intermediaryBankAddress) {
+        public Builder intermediaryBankAddress(@Nullable CreateTransferIntermediaryBankAddressUnstructuredAddressRequest intermediaryBankAddress) {
             this.intermediaryBankAddress = intermediaryBankAddress;
             return this;
         }
@@ -238,6 +261,14 @@ public class CreateTransferWireRequest {
             return this;
         }
 
+        /**
+         * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+         * Includes the transmitter's name, identifier, and address.
+         * 
+         * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+         * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+         * required.
+         */
         public Builder wireTransmitter(@Nullable CreateTransferWireTransmitterRequest wireTransmitter) {
             this.wireTransmitter = wireTransmitter;
             return this;

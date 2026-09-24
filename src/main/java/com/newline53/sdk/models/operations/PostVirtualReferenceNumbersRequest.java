@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.newline53.sdk.utils.LazySingletonValue;
 import com.newline53.sdk.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -43,25 +45,36 @@ public class PostVirtualReferenceNumbersRequest {
     @JsonProperty("routing_number")
     private String routingNumber;
 
+    /**
+     * The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your
+     * program.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private TypeRequest type;
+
     @JsonCreator
     public PostVirtualReferenceNumbersRequest(
             @JsonProperty("external_uid") @Nullable String externalUid,
             @JsonProperty("name") @Nullable String name,
             @JsonProperty("synthetic_account_uid") @Nonnull String syntheticAccountUid,
-            @JsonProperty("routing_number") @Nonnull String routingNumber) {
+            @JsonProperty("routing_number") @Nonnull String routingNumber,
+            @JsonProperty("type") @Nullable TypeRequest type) {
         this.externalUid = externalUid;
         this.name = name;
         this.syntheticAccountUid = Optional.ofNullable(syntheticAccountUid)
             .orElseThrow(() -> new IllegalArgumentException("syntheticAccountUid cannot be null"));
         this.routingNumber = Optional.ofNullable(routingNumber)
             .orElseThrow(() -> new IllegalArgumentException("routingNumber cannot be null"));
+        this.type = Optional.ofNullable(type)
+            .orElse(Builder._SINGLETON_VALUE_Type.value());
     }
     
     public PostVirtualReferenceNumbersRequest(
             @Nonnull String syntheticAccountUid,
             @Nonnull String routingNumber) {
         this(null, null, syntheticAccountUid,
-            routingNumber);
+            routingNumber, null);
     }
 
     /**
@@ -91,6 +104,14 @@ public class PostVirtualReferenceNumbersRequest {
      */
     public String routingNumber() {
         return this.routingNumber;
+    }
+
+    /**
+     * The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your
+     * program.
+     */
+    public Optional<TypeRequest> type() {
+        return Optional.ofNullable(this.type);
     }
 
     public static Builder builder() {
@@ -135,6 +156,16 @@ public class PostVirtualReferenceNumbersRequest {
     }
 
 
+    /**
+     * The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your
+     * program.
+     */
+    public PostVirtualReferenceNumbersRequest withType(@Nullable TypeRequest type) {
+        this.type = type;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -148,14 +179,15 @@ public class PostVirtualReferenceNumbersRequest {
             Utils.enhancedDeepEquals(this.externalUid, other.externalUid) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.syntheticAccountUid, other.syntheticAccountUid) &&
-            Utils.enhancedDeepEquals(this.routingNumber, other.routingNumber);
+            Utils.enhancedDeepEquals(this.routingNumber, other.routingNumber) &&
+            Utils.enhancedDeepEquals(this.type, other.type);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             externalUid, name, syntheticAccountUid,
-            routingNumber);
+            routingNumber, type);
     }
     
     @Override
@@ -164,7 +196,8 @@ public class PostVirtualReferenceNumbersRequest {
                 "externalUid", externalUid,
                 "name", name,
                 "syntheticAccountUid", syntheticAccountUid,
-                "routingNumber", routingNumber);
+                "routingNumber", routingNumber,
+                "type", type);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -177,6 +210,8 @@ public class PostVirtualReferenceNumbersRequest {
         private String syntheticAccountUid;
 
         private String routingNumber;
+
+        private TypeRequest type;
 
         private Builder() {
           // force use of static builder() method
@@ -215,11 +250,26 @@ public class PostVirtualReferenceNumbersRequest {
             return this;
         }
 
+        /**
+         * The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your
+         * program.
+         */
+        public Builder type(@Nullable TypeRequest type) {
+            this.type = type;
+            return this;
+        }
+
         public PostVirtualReferenceNumbersRequest build() {
             return new PostVirtualReferenceNumbersRequest(
                 externalUid, name, syntheticAccountUid,
-                routingNumber);
+                routingNumber, type);
         }
 
+
+        private static final LazySingletonValue<TypeRequest> _SINGLETON_VALUE_Type =
+                new LazySingletonValue<>(
+                        "type",
+                        "\"business\"",
+                        new TypeReference<TypeRequest>() {});
     }
 }

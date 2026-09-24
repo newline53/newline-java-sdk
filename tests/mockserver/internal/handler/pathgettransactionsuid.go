@@ -33,6 +33,8 @@ func pathGetTransactionsUID(dir *logging.HTTPFileDirectory, rt *tracking.Request
 			dir.HandlerFunc("get_/transactions/{uid}", testGetTransactionsUIDGetTransactionsUIDInstantPaymentTransaction0)(w, req)
 		case "get_/transactions/{uid}-wire_transaction[0]":
 			dir.HandlerFunc("get_/transactions/{uid}", testGetTransactionsUIDGetTransactionsUIDWireTransaction0)(w, req)
+		case "get_/transactions/{uid}-wire_transaction_structured[0]":
+			dir.HandlerFunc("get_/transactions/{uid}", testGetTransactionsUIDGetTransactionsUIDWireTransactionStructured0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -264,15 +266,15 @@ func testGetTransactionsUIDGetTransactionsUIDInitiatedWireReturn0(w http.Respons
 		UsDollarAmount:                 types.String("5595.00"),
 		VirtualReferenceNumberUID:      types.String("<id>"),
 		Wire: &operations.GetTransactionsUIDWire{
-			CounterpartyName: "Ultimate Window Installers,",
-			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDWireCounterpartyBankAddress{
+			CounterpartyName: types.String("Ultimate Window Installers,"),
+			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDCounterpartyBankAddressUnstructuredAddress{
 				Line1: types.String("101 Common St"),
 				Line2: types.String("Boring, Oregon 97009"),
 				Line3: types.String("Coxsackie NY 12051 US"),
 			}),
 			CounterpartyBankName:          optionalnullable.From(types.String("ACME Bank")),
 			CounterpartyBankRoutingNumber: types.String("123456789"),
-			IntermediaryBankAddress: &operations.GetTransactionsUIDIntermediaryBankAddress{
+			IntermediaryBankAddress: &operations.GetTransactionsUIDIntermediaryBankAddressUnstructuredAddress{
 				Line1: optionalnullable.From(types.String("202 Another St")),
 				Line2: optionalnullable.From(types.String("Calcium, NY 13616")),
 				Line3: nil,
@@ -348,13 +350,14 @@ func testGetTransactionsUIDGetTransactionsUIDInstantPaymentTransaction0(w http.R
 			CounterpartyBankRoutingNumber:     types.String("123456789"),
 			CounterpartyAccountNumberLastFour: types.String("3345"),
 			PaymentID:                         types.String("BayleeStacy"),
+			PurposeOfPayment:                  optionalnullable.From(operations.GetTransactionsUIDPurposeOfPaymentGdds.ToPointer()),
 			OriginalEndToEndID:                optionalnullable.From(types.String("null,")),
 			TransmitterName:                   types.String("Rupert's Roofers of Raleigh"),
 			InitiatingPartyName:               types.String("Rupert's Roofers of Raleigh"),
-			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDInstantPaymentCounterpartyBankAddress{
-				StreetNumber: "789",
-				Street1:      "Bank Blvd.",
-				Street2:      types.String("Suite 4A"),
+			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDCounterpartyBankAddress{
+				StreetNumber: types.String("789"),
+				Street1:      types.String("Bank Blvd."),
+				Street2:      types.String("<value>"),
 				City:         types.String("Raleigh"),
 				State:        types.String("NC"),
 				PostalCode:   types.String("27602"),
@@ -362,9 +365,9 @@ func testGetTransactionsUIDGetTransactionsUIDInstantPaymentTransaction0(w http.R
 			}),
 			Memo: optionalnullable.From(types.String("For the 6/5/23 shipment of pineapple popsicles")),
 			CounterpartyAddress: optionalnullable.From(&operations.GetTransactionsUIDInstantPaymentCounterpartyAddress{
-				StreetNumber: "456",
-				Street1:      "Oak Ave.",
-				Street2:      types.String("Suite 4A"),
+				StreetNumber: types.String("456"),
+				Street1:      types.String("Oak Ave."),
+				Street2:      types.String("<value>"),
 				City:         types.String("Raleigh"),
 				State:        types.String("NC"),
 				PostalCode:   types.String("27601"),
@@ -434,8 +437,8 @@ func testGetTransactionsUIDGetTransactionsUIDWireTransaction0(w http.ResponseWri
 			DeniedReason:             types.String("vrn_archived"),
 		},
 		Wire: &operations.GetTransactionsUIDWire{
-			CounterpartyName: "Ultimate Window Installers",
-			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDWireCounterpartyBankAddress{
+			CounterpartyName: types.String("Ultimate Window Installers"),
+			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDCounterpartyBankAddressUnstructuredAddress{
 				Line1: types.String("101 Common St"),
 				Line2: types.String("Boring, Oregon 97009"),
 				Line3: types.String("Coxsackie NY 12051 US"),
@@ -443,11 +446,103 @@ func testGetTransactionsUIDGetTransactionsUIDWireTransaction0(w http.ResponseWri
 			CounterpartyBankName:          optionalnullable.From(types.String("ACME Bank")),
 			CounterpartyBankRoutingNumber: types.String("123456789"),
 			CounterpartyAddress: optionalnullable.From(&operations.GetTransactionsUIDWireCounterpartyAddress{
-				Line1: types.String("100 Common St"),
+				Line1: optionalnullable.From(types.String("100 Common St")),
+				Line2: nil,
+				Line3: optionalnullable.From(types.String("Coxsackie NY 12051 US")),
+			}),
+			IntermediaryBankAddress: &operations.GetTransactionsUIDIntermediaryBankAddressUnstructuredAddress{
+				Line1: optionalnullable.From(types.String("202 Another St")),
+				Line2: optionalnullable.From(types.String("Calcium, NY 13616")),
+				Line3: nil,
+			},
+			IntermediaryBankName:            types.String("General Bank of Calcium"),
+			IntermediaryBankRoutingNumber:   types.String("987654321"),
+			Chips:                           optionalnullable.From(types.String("1234567")),
+			Imad:                            nil,
+			Uetr:                            nil,
+			BankToBankInfo:                  optionalnullable.From(types.String("/DAS/REF:55555ZZ000ZZ")),
+			OriginatorAccountNumberLastFour: optionalnullable.From(types.String("1234")),
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testGetTransactionsUIDGetTransactionsUIDWireTransactionStructured0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *operations.GetTransactionsUIDResponseBody = &operations.GetTransactionsUIDResponseBody{
+		UID:           types.String("67r1gjrkgvYBR6EX"),
+		ID:            types.Int64(32),
+		AdjustmentUID: nil,
+		CustomerUID:   types.String("Trzqy9t6j6tFGoG3"),
+		CreatedAt:     types.MustNewTimeFromString("2019-11-15T15:53:13.591Z"),
+		CustodialAccountUids: []string{
+			"Jz1wjmm1cMyMkqmp",
+			"kchtGUEurq3U4Q3b",
+		},
+		Description:                    types.String("Transfer from \"Home Savings\" to \"Ultimate Window Installers Inc.\""),
+		DestinationSyntheticAccountUID: types.String("BUuRwEKGHkNEbDoF"),
+		InitialActionAt:                types.MustNewTimeFromString("2019-11-15T15:53:13.586Z"),
+		NetAsset:                       operations.GetTransactionsUIDNetAssetPositive.ToPointer(),
+		ReturnUID:                      nil,
+		SettledAt:                      types.MustNewTimeFromString("2019-11-17T12:51:12.673Z"),
+		SettledIndex:                   optionalnullable.From(types.Int64(8)),
+		SourceSyntheticAccountUID:      types.String("pA7zLNS3BtSADfDh"),
+		StatementPostedAt:              optionalnullable.From(types.MustNewTimeFromString("2019-10-17T00:01:53.682Z")),
+		Status:                         operations.GetTransactionsUIDStatusSettled.ToPointer(),
+		TransactionBatchUID:            optionalnullable.From(types.String("3")),
+		TransactionEventUids: []string{
+			"C2xRgpfdyqgbRoJs",
+		},
+		TransferUID:               optionalnullable.From(types.String("LEbStJ7MFSniq18h")),
+		Type:                      operations.GetTransactionsUIDTypeWire.ToPointer(),
+		UsDollarAmount:            types.String("5595.00"),
+		VirtualReferenceNumberUID: types.String("<id>"),
+		Authorization: &operations.GetTransactionsUIDAuthorization{
+			AuthorizationFinalizedAt: types.MustNewTimeFromString("2019-11-15T20:37:09.904Z"),
+			AuthorizationRequiredBy:  types.MustNewTimeFromString("2019-11-16T15:53:13.586Z"),
+			AuthorizationStatus:      operations.GetTransactionsUIDAuthorizationStatusClientApproved.ToPointer(),
+			DeniedMemo:               types.String("denied memo"),
+			DeniedReason:             types.String("vrn_archived"),
+		},
+		Wire: &operations.GetTransactionsUIDWire{
+			CounterpartyName: types.String("Ultimate Window Installers"),
+			CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsUIDCounterpartyBankAddressUnstructuredAddress{
+				Line1: types.String("101 Common St"),
 				Line2: types.String("Boring, Oregon 97009"),
 				Line3: types.String("Coxsackie NY 12051 US"),
 			}),
-			IntermediaryBankAddress: &operations.GetTransactionsUIDIntermediaryBankAddress{
+			CounterpartyBankName:          optionalnullable.From(types.String("ACME Bank")),
+			CounterpartyBankRoutingNumber: types.String("123456789"),
+			CounterpartyAddress: optionalnullable.From(&operations.GetTransactionsUIDWireCounterpartyAddress{
+				BuildingNumber: optionalnullable.From(types.String("100")),
+				StreetName:     optionalnullable.From(types.String("Common St")),
+				City:           optionalnullable.From(types.String("Coxsackie")),
+				State:          optionalnullable.From(types.String("NY")),
+				PostalCode:     optionalnullable.From(types.String("12051")),
+				Country:        optionalnullable.From(types.String("US")),
+			}),
+			IntermediaryBankAddress: &operations.GetTransactionsUIDIntermediaryBankAddressUnstructuredAddress{
 				Line1: optionalnullable.From(types.String("202 Another St")),
 				Line2: optionalnullable.From(types.String("Calcium, NY 13616")),
 				Line3: nil,

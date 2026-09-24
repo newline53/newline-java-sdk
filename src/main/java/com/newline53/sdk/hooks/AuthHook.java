@@ -32,15 +32,15 @@ final class AuthHook {
     private static final String X_TRACE_ID_HEADER = "x-trace-id";
     private static final long TOKEN_TTL_SECONDS = 8 * 60 * 60;
     private static final long TOKEN_REFRESH_SKEW_SECONDS = 60;
-    private static final AtomicReference<AccessTokenState> ACCESS_TOKEN = new AtomicReference<>();
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final Object REFRESH_LOCK = new Object();
+    private final AtomicReference<AccessTokenState> ACCESS_TOKEN = new AtomicReference<>();
+    private final Object REFRESH_LOCK = new Object();
 
-    private AuthHook() {
+    AuthHook() {
         // utility class
     }
 
-    static Hook.BeforeRequest beforeRequest() {
+    Hook.BeforeRequest beforeRequest() {
         return (context, request) -> {
             HttpRequest requestWithTrace = withTraceIdHeader(request);
 
@@ -62,14 +62,14 @@ final class AuthHook {
         };
     }
 
-    static Hook.AfterSuccess afterSuccess() {
+    Hook.AfterSuccess afterSuccess() {
         return (context, response) -> {
             if (!AUTH_OPERATION_ID.equals(context.operationId()) || response.statusCode() != 201) {
                 return response;
             }
 
             byte[] bodyBytes = response.body().readAllBytes();
-            extractToken(bodyBytes).ifPresent(AuthHook::cacheToken);
+            extractToken(bodyBytes).ifPresent(this::cacheToken);
 
             return new ResponseWithBody<>(response, new ByteArrayInputStream(bodyBytes));
         };
@@ -142,7 +142,7 @@ final class AuthHook {
         return builder.build();
     }
 
-    private static Optional<String> ensureValidAccessToken(Hook.BeforeRequestContext context) {
+    private Optional<String> ensureValidAccessToken(Hook.BeforeRequestContext context) {
         AccessTokenState state = ACCESS_TOKEN.get();
         if (isTokenUsable(state)) {
             return Optional.of(state.token);
@@ -236,7 +236,7 @@ final class AuthHook {
         }
     }
 
-    private static void cacheToken(String token) {
+    private void cacheToken(String token) {
         long expiresAt = parseTokenExpiry(token).orElseGet(() -> Instant.now().getEpochSecond() + TOKEN_TTL_SECONDS);
         ACCESS_TOKEN.set(new AccessTokenState(token, expiresAt));
     }

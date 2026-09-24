@@ -86,6 +86,19 @@ public class GetTransactionsInstantPayment {
     private String paymentId;
 
     /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("purpose_of_payment")
+    private JsonNullable<GetTransactionsPurposeOfPayment> purposeOfPayment;
+
+    /**
      * This field is currently always null.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -118,7 +131,7 @@ public class GetTransactionsInstantPayment {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_bank_address")
-    private JsonNullable<GetTransactionsInstantPaymentCounterpartyBankAddress> counterpartyBankAddress;
+    private JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress;
 
     @JsonCreator
     public GetTransactionsInstantPayment(
@@ -131,11 +144,12 @@ public class GetTransactionsInstantPayment {
             @JsonProperty("counterparty_bank_routing_number") @Nullable String counterpartyBankRoutingNumber,
             @JsonProperty("counterparty_account_number_last_four") @Nullable String counterpartyAccountNumberLastFour,
             @JsonProperty("payment_id") @Nullable String paymentId,
+            @JsonProperty("purpose_of_payment") @Nullable JsonNullable<GetTransactionsPurposeOfPayment> purposeOfPayment,
             @JsonProperty("original_end_to_end_id") @Nullable JsonNullable<String> originalEndToEndId,
             @JsonProperty("transmitter_name") @Nullable String transmitterName,
             @JsonProperty("initiating_party_name") @Nullable String initiatingPartyName,
             @JsonProperty("instant_payment_transmitter") @Nullable GetTransactionsInstantPaymentTransmitter instantPaymentTransmitter,
-            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsInstantPaymentCounterpartyBankAddress> counterpartyBankAddress) {
+            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress) {
         this.networkTransactionId = networkTransactionId;
         this.network = network;
         this.failureCode = failureCode;
@@ -145,6 +159,8 @@ public class GetTransactionsInstantPayment {
         this.counterpartyBankRoutingNumber = counterpartyBankRoutingNumber;
         this.counterpartyAccountNumberLastFour = counterpartyAccountNumberLastFour;
         this.paymentId = paymentId;
+        this.purposeOfPayment = Optional.ofNullable(purposeOfPayment)
+            .orElse(JsonNullable.undefined());
         this.originalEndToEndId = Optional.ofNullable(originalEndToEndId)
             .orElse(JsonNullable.undefined());
         this.transmitterName = transmitterName;
@@ -159,7 +175,7 @@ public class GetTransactionsInstantPayment {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -228,6 +244,19 @@ public class GetTransactionsInstantPayment {
     }
 
     /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    public JsonNullable<GetTransactionsPurposeOfPayment> purposeOfPayment() {
+        return this.purposeOfPayment;
+    }
+
+    /**
      * This field is currently always null.
      */
     public JsonNullable<String> originalEndToEndId() {
@@ -258,7 +287,7 @@ public class GetTransactionsInstantPayment {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public JsonNullable<GetTransactionsInstantPaymentCounterpartyBankAddress> counterpartyBankAddress() {
+    public JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
     }
 
@@ -351,6 +380,21 @@ public class GetTransactionsInstantPayment {
 
 
     /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    public GetTransactionsInstantPayment withPurposeOfPayment(@Nullable GetTransactionsPurposeOfPayment purposeOfPayment) {
+        this.purposeOfPayment = JsonNullable.of(purposeOfPayment);
+        return this;
+    }
+
+
+    /**
      * This field is currently always null.
      */
     public GetTransactionsInstantPayment withOriginalEndToEndId(@Nullable String originalEndToEndId) {
@@ -389,7 +433,7 @@ public class GetTransactionsInstantPayment {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public GetTransactionsInstantPayment withCounterpartyBankAddress(@Nullable GetTransactionsInstantPaymentCounterpartyBankAddress counterpartyBankAddress) {
+    public GetTransactionsInstantPayment withCounterpartyBankAddress(@Nullable GetTransactionsCounterpartyBankAddress counterpartyBankAddress) {
         this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
         return this;
     }
@@ -414,6 +458,7 @@ public class GetTransactionsInstantPayment {
             Utils.enhancedDeepEquals(this.counterpartyBankRoutingNumber, other.counterpartyBankRoutingNumber) &&
             Utils.enhancedDeepEquals(this.counterpartyAccountNumberLastFour, other.counterpartyAccountNumberLastFour) &&
             Utils.enhancedDeepEquals(this.paymentId, other.paymentId) &&
+            Utils.enhancedDeepEquals(this.purposeOfPayment, other.purposeOfPayment) &&
             Utils.enhancedDeepEquals(this.originalEndToEndId, other.originalEndToEndId) &&
             Utils.enhancedDeepEquals(this.transmitterName, other.transmitterName) &&
             Utils.enhancedDeepEquals(this.initiatingPartyName, other.initiatingPartyName) &&
@@ -427,8 +472,8 @@ public class GetTransactionsInstantPayment {
             networkTransactionId, network, failureCode,
             failureReason, counterpartyName, counterpartyBankName,
             counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
-            originalEndToEndId, transmitterName, initiatingPartyName,
-            instantPaymentTransmitter, counterpartyBankAddress);
+            purposeOfPayment, originalEndToEndId, transmitterName,
+            initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress);
     }
     
     @Override
@@ -443,6 +488,7 @@ public class GetTransactionsInstantPayment {
                 "counterpartyBankRoutingNumber", counterpartyBankRoutingNumber,
                 "counterpartyAccountNumberLastFour", counterpartyAccountNumberLastFour,
                 "paymentId", paymentId,
+                "purposeOfPayment", purposeOfPayment,
                 "originalEndToEndId", originalEndToEndId,
                 "transmitterName", transmitterName,
                 "initiatingPartyName", initiatingPartyName,
@@ -471,6 +517,8 @@ public class GetTransactionsInstantPayment {
 
         private String paymentId;
 
+        private JsonNullable<GetTransactionsPurposeOfPayment> purposeOfPayment;
+
         private JsonNullable<String> originalEndToEndId;
 
         private String transmitterName;
@@ -479,7 +527,7 @@ public class GetTransactionsInstantPayment {
 
         private GetTransactionsInstantPaymentTransmitter instantPaymentTransmitter;
 
-        private JsonNullable<GetTransactionsInstantPaymentCounterpartyBankAddress> counterpartyBankAddress;
+        private JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress;
 
         private Builder() {
           // force use of static builder() method
@@ -560,6 +608,20 @@ public class GetTransactionsInstantPayment {
         }
 
         /**
+         * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+         * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+         * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+         * returned as an empty string.
+         * 
+         * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+         * payments.
+         */
+        public Builder purposeOfPayment(@Nullable GetTransactionsPurposeOfPayment purposeOfPayment) {
+            this.purposeOfPayment = JsonNullable.of(purposeOfPayment);
+            return this;
+        }
+
+        /**
          * This field is currently always null.
          */
         public Builder originalEndToEndId(@Nullable String originalEndToEndId) {
@@ -594,7 +656,7 @@ public class GetTransactionsInstantPayment {
         /**
          * Address of the financial institution where the external account is held.
          */
-        public Builder counterpartyBankAddress(@Nullable GetTransactionsInstantPaymentCounterpartyBankAddress counterpartyBankAddress) {
+        public Builder counterpartyBankAddress(@Nullable GetTransactionsCounterpartyBankAddress counterpartyBankAddress) {
             this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
             return this;
         }
@@ -604,8 +666,8 @@ public class GetTransactionsInstantPayment {
                 networkTransactionId, network, failureCode,
                 failureReason, counterpartyName, counterpartyBankName,
                 counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
-                originalEndToEndId, transmitterName, initiatingPartyName,
-                instantPaymentTransmitter, counterpartyBankAddress);
+                purposeOfPayment, originalEndToEndId, transmitterName,
+                initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress);
         }
 
     }

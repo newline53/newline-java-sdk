@@ -60,7 +60,7 @@ func testPutTransfersUIDCancelPutTransfersUIDCancelCanceledTransfer0(w http.Resp
 		TransactionUids:                []string{},
 		UsdTransferAmount:              types.String("33.12"),
 		Wire: &operations.PutTransfersUIDCancelWire{
-			IntermediaryBankAddress: &operations.PutTransfersUIDCancelIntermediaryBankAddress{
+			IntermediaryBankAddress: &operations.PutTransfersUIDCancelUnstructuredAddress{
 				Line1:   optionalnullable.From(types.String("345 Def Ave")),
 				Line2:   optionalnullable.From(types.String("San Francisco")),
 				Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -71,10 +71,15 @@ func testPutTransfersUIDCancelPutTransfersUIDCancelCanceledTransfer0(w http.Resp
 			WireTransmitter: &operations.PutTransfersUIDCancelWireTransmitter{
 				Name:                  "Marge's Roofing Inc",
 				TransmitterIdentifier: "123456789012ABC",
-				Line1:                 types.String("123 Abc St."),
+				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
 				Line2:                 optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:                 nil,
-				Country:               "US",
+				BuildingNumber:        optionalnullable.From(types.String("123")),
+				StreetName:            optionalnullable.From(types.String("Main St")),
+				City:                  optionalnullable.From(types.String("Cincinnati")),
+				State:                 optionalnullable.From(types.String("OH")),
+				PostalCode:            optionalnullable.From(types.String("45202")),
+				Country:               optionalnullable.From(types.String("US")),
 			},
 			WireInstructions: types.String("Please send ASAP"),
 		},

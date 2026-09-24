@@ -212,6 +212,25 @@ public class TransactionsTests {
     }
 
     @Test
+    public void testTransactions_GetTransactionsUidWireTransactionStructured() throws Exception {
+
+        var testHttpClient = Utils.createTestHTTPClient("get_/transactions/{uid}-wire_transaction_structured");
+        NewlineSDK sdk = NewlineSDK.builder()
+                .serverURL(Utils.environmentVariable("TEST_SERVER_URL", "http://localhost:18080"))
+                .security(Security.builder()
+                    .programUid("NEWLINE_PROGRAM_UID")
+                    .hmacKey("NEWLINE_HMAC_KEY")
+                    .build())
+                .client(testHttpClient)
+            .build();
+
+        GetTransactionsUidResponse res = sdk.transactions().get()
+                .uid("<id>")
+                .call();
+        assertEquals(200, res.statusCode());
+    }
+
+    @Test
     public void testTransactions_PutTransactionsUidAuthorize() throws Exception {
 
         var testHttpClient = Utils.createTestHTTPClient("put_/transactions/{uid}/authorize");

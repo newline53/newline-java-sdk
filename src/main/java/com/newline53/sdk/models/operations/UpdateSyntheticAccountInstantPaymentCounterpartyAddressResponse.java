@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newline53.sdk.utils.Utils;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
@@ -20,14 +19,16 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
     /**
      * Building number for counterparty address. Alphanumeric only.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("street_number")
-    private String streetNumber;
+    private JsonNullable<String> streetNumber;
 
     /**
      * Street name for counterparty address
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("street1")
-    private String street1;
+    private JsonNullable<String> street1;
 
     /**
      * Optional second line of street
@@ -64,17 +65,15 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
 
     @JsonCreator
     public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse(
-            @JsonProperty("street_number") @Nonnull String streetNumber,
-            @JsonProperty("street1") @Nonnull String street1,
+            @JsonProperty("street_number") @Nullable String streetNumber,
+            @JsonProperty("street1") @Nullable String street1,
             @JsonProperty("street2") @Nullable String street2,
             @JsonProperty("city") @Nullable String city,
             @JsonProperty("state") @Nullable String state,
             @JsonProperty("postal_code") @Nullable String postalCode,
             @JsonProperty("country") @Nullable String country) {
-        this.streetNumber = Optional.ofNullable(streetNumber)
-            .orElseThrow(() -> new IllegalArgumentException("streetNumber cannot be null"));
-        this.street1 = Optional.ofNullable(street1)
-            .orElseThrow(() -> new IllegalArgumentException("street1 cannot be null"));
+        this.streetNumber = JsonNullable.of(streetNumber);
+        this.street1 = JsonNullable.of(street1);
         this.street2 = street2;
         this.city = JsonNullable.of(city);
         this.state = JsonNullable.of(state);
@@ -82,10 +81,8 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
         this.country = JsonNullable.of(country);
     }
     
-    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse(
-            @Nonnull String streetNumber,
-            @Nonnull String street1) {
-        this(streetNumber, street1, null,
+    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse() {
+        this(null, null, null,
             null, null, null,
             null);
     }
@@ -93,14 +90,14 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
     /**
      * Building number for counterparty address. Alphanumeric only.
      */
-    public String streetNumber() {
+    public JsonNullable<String> streetNumber() {
         return this.streetNumber;
     }
 
     /**
      * Street name for counterparty address
      */
-    public String street1() {
+    public JsonNullable<String> street1() {
         return this.street1;
     }
 
@@ -144,8 +141,8 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
     /**
      * Building number for counterparty address. Alphanumeric only.
      */
-    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse withStreetNumber(@Nonnull String streetNumber) {
-        this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse withStreetNumber(@Nullable String streetNumber) {
+        this.streetNumber = JsonNullable.of(streetNumber);
         return this;
     }
 
@@ -153,8 +150,8 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
     /**
      * Street name for counterparty address
      */
-    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse withStreet1(@Nonnull String street1) {
-        this.street1 = Utils.checkNotNull(street1, "street1");
+    public UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse withStreet1(@Nullable String street1) {
+        this.street1 = JsonNullable.of(street1);
         return this;
     }
 
@@ -264,16 +261,16 @@ public class UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse {
         /**
          * Building number for counterparty address. Alphanumeric only.
          */
-        public Builder streetNumber(@Nonnull String streetNumber) {
-            this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+        public Builder streetNumber(@Nullable String streetNumber) {
+            this.streetNumber = streetNumber;
             return this;
         }
 
         /**
          * Street name for counterparty address
          */
-        public Builder street1(@Nonnull String street1) {
-            this.street1 = Utils.checkNotNull(street1, "street1");
+        public Builder street1(@Nullable String street1) {
+            this.street1 = street1;
             return this;
         }
 

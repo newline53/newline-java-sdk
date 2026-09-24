@@ -3,194 +3,88 @@
  */
 package com.newline53.sdk.models.operations;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.newline53.sdk.utils.OneOfDeserializer;
+import com.newline53.sdk.utils.TypedObject;
+import com.newline53.sdk.utils.Utils.JsonShape;
+import com.newline53.sdk.utils.Utils.TypeReferenceWithShape;
 import com.newline53.sdk.utils.Utils;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * PostCombinedTransfersWireTransmitter
  * 
- * <p>Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+ * <p>Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+ * Includes the transmitter's name, identifier, and address.
+ * 
+ * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+ * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+ * required.
  */
+@JsonDeserialize(using = PostCombinedTransfersWireTransmitter._Deserializer.class)
 public class PostCombinedTransfersWireTransmitter {
-    /**
-     * Name of the Transmitter.
-     */
-    @JsonProperty("name")
-    private String name;
 
-    /**
-     * Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
-     */
-    @JsonProperty("transmitter_identifier")
-    private String transmitterIdentifier;
+    @JsonValue
+    private final TypedObject value;
+    
+    private PostCombinedTransfersWireTransmitter(TypedObject value) {
+        this.value = value;
+    }
 
-    /**
-     * Up to 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    @JsonInclude(Include.ALWAYS)
-    @JsonProperty("line1")
-    private JsonNullable<String> line1;
+    public static PostCombinedTransfersWireTransmitter of(WireTransmitterTransferUnstructuredAddress value) {
+        Utils.checkNotNull(value, "value");
+        return new PostCombinedTransfersWireTransmitter(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
 
-    /**
-     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("line2")
-    private JsonNullable<String> line2;
-
-    /**
-     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
-     * $!
-     * 
-     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("line3")
-    private JsonNullable<String> line3;
-
-
-    @JsonProperty("country")
-    private String country;
-
-    @JsonCreator
-    public PostCombinedTransfersWireTransmitter(
-            @JsonProperty("name") @Nonnull String name,
-            @JsonProperty("transmitter_identifier") @Nonnull String transmitterIdentifier,
-            @JsonProperty("line1") @Nullable String line1,
-            @JsonProperty("line2") @Nullable JsonNullable<String> line2,
-            @JsonProperty("line3") @Nullable JsonNullable<String> line3,
-            @JsonProperty("country") @Nonnull String country) {
-        this.name = Optional.ofNullable(name)
-            .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
-        this.transmitterIdentifier = Optional.ofNullable(transmitterIdentifier)
-            .orElseThrow(() -> new IllegalArgumentException("transmitterIdentifier cannot be null"));
-        this.line1 = JsonNullable.of(line1);
-        this.line2 = Optional.ofNullable(line2)
-            .orElse(JsonNullable.undefined());
-        this.line3 = Optional.ofNullable(line3)
-            .orElse(JsonNullable.undefined());
-        this.country = Optional.ofNullable(country)
-            .orElseThrow(() -> new IllegalArgumentException("country cannot be null"));
+    public static PostCombinedTransfersWireTransmitter of(TransferStructuredAddress value) {
+        Utils.checkNotNull(value, "value");
+        return new PostCombinedTransfersWireTransmitter(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
-    public PostCombinedTransfersWireTransmitter(
-            @Nonnull String name,
-            @Nonnull String transmitterIdentifier,
-            @Nonnull String country) {
-        this(name, transmitterIdentifier, null,
-            null, null, country);
-    }
-
     /**
-     * Name of the Transmitter.
+     * Returns an {@link Optional} containing the value if it is of type {@code WireTransmitterTransferUnstructuredAddress},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code WireTransmitterTransferUnstructuredAddress} value, or empty if not of this type
      */
-    public String name() {
-        return this.name;
+    public Optional<WireTransmitterTransferUnstructuredAddress> wireTransmitterTransferUnstructuredAddress() {
+        if (value.value() instanceof WireTransmitterTransferUnstructuredAddress) {
+            return Optional.of((WireTransmitterTransferUnstructuredAddress) value.value());
+        }
+        return Optional.empty();
     }
-
+    
     /**
-     * Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+     * Returns an {@link Optional} containing the value if it is of type {@code TransferStructuredAddress},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code TransferStructuredAddress} value, or empty if not of this type
      */
-    public String transmitterIdentifier() {
-        return this.transmitterIdentifier;
+    public Optional<TransferStructuredAddress> transferStructuredAddress() {
+        if (value.value() instanceof TransferStructuredAddress) {
+            return Optional.of((TransferStructuredAddress) value.value());
+        }
+        return Optional.empty();
     }
-
-    /**
-     * Up to 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public JsonNullable<String> line1() {
-        return this.line1;
-    }
-
-    /**
-     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public JsonNullable<String> line2() {
-        return this.line2;
-    }
-
-    /**
-     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
-     * $!
-     * 
-     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public JsonNullable<String> line3() {
-        return this.line3;
-    }
-
-    public String country() {
-        return this.country;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    /**
-     * Name of the Transmitter.
-     */
-    public PostCombinedTransfersWireTransmitter withName(@Nonnull String name) {
-        this.name = Utils.checkNotNull(name, "name");
-        return this;
-    }
-
-
-    /**
-     * Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
-     */
-    public PostCombinedTransfersWireTransmitter withTransmitterIdentifier(@Nonnull String transmitterIdentifier) {
-        this.transmitterIdentifier = Utils.checkNotNull(transmitterIdentifier, "transmitterIdentifier");
-        return this;
-    }
-
-
-    /**
-     * Up to 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public PostCombinedTransfersWireTransmitter withLine1(@Nullable String line1) {
-        this.line1 = JsonNullable.of(line1);
-        return this;
-    }
-
-
-    /**
-     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public PostCombinedTransfersWireTransmitter withLine2(@Nullable String line2) {
-        this.line2 = JsonNullable.of(line2);
-        return this;
-    }
-
-
-    /**
-     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
-     * $!
-     * 
-     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-     */
-    public PostCombinedTransfersWireTransmitter withLine3(@Nullable String line3) {
-        this.line3 = JsonNullable.of(line3);
-        return this;
-    }
-
-
-    public PostCombinedTransfersWireTransmitter withCountry(@Nonnull String country) {
-        this.country = Utils.checkNotNull(country, "country");
-        return this;
-    }
-
-
+   /**
+    * Returns an {@link Optional} containing the value as a {@code JsonNode}.
+    * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
+    *
+    * @return an {@link Optional} containing the {@code JsonNode} value, or empty if value matched a known type
+    */
+   public Optional<JsonNode> asJson() {
+       if (value.value() instanceof JsonNode) {
+           return Optional.of((JsonNode) value.value());
+       }
+       return Optional.empty();
+   }
+    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -200,105 +94,29 @@ public class PostCombinedTransfersWireTransmitter {
             return false;
         }
         PostCombinedTransfersWireTransmitter other = (PostCombinedTransfersWireTransmitter) o;
-        return 
-            Utils.enhancedDeepEquals(this.name, other.name) &&
-            Utils.enhancedDeepEquals(this.transmitterIdentifier, other.transmitterIdentifier) &&
-            Utils.enhancedDeepEquals(this.line1, other.line1) &&
-            Utils.enhancedDeepEquals(this.line2, other.line2) &&
-            Utils.enhancedDeepEquals(this.line3, other.line3) &&
-            Utils.enhancedDeepEquals(this.country, other.country);
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
     public int hashCode() {
-        return Utils.enhancedHash(
-            name, transmitterIdentifier, line1,
-            line2, line3, country);
+        return Utils.enhancedHash(value.value());
+    }
+    
+    @SuppressWarnings("serial")
+    public static final class _Deserializer extends OneOfDeserializer<PostCombinedTransfersWireTransmitter> {
+
+        public _Deserializer() {
+            super(PostCombinedTransfersWireTransmitter.class, false,
+                  TypeReferenceWithShape.of(new TypeReference<WireTransmitterTransferUnstructuredAddress>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<TransferStructuredAddress>() {}, JsonShape.DEFAULT));
+        }
     }
     
     @Override
     public String toString() {
         return Utils.toString(PostCombinedTransfersWireTransmitter.class,
-                "name", name,
-                "transmitterIdentifier", transmitterIdentifier,
-                "line1", line1,
-                "line2", line2,
-                "line3", line3,
-                "country", country);
+                "value", value);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
-
-        private String name;
-
-        private String transmitterIdentifier;
-
-        private String line1;
-
-        private JsonNullable<String> line2;
-
-        private JsonNullable<String> line3;
-
-        private String country;
-
-        private Builder() {
-          // force use of static builder() method
-        }
-
-        /**
-         * Name of the Transmitter.
-         */
-        public Builder name(@Nonnull String name) {
-            this.name = Utils.checkNotNull(name, "name");
-            return this;
-        }
-
-        /**
-         * Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
-         */
-        public Builder transmitterIdentifier(@Nonnull String transmitterIdentifier) {
-            this.transmitterIdentifier = Utils.checkNotNull(transmitterIdentifier, "transmitterIdentifier");
-            return this;
-        }
-
-        /**
-         * Up to 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-         */
-        public Builder line1(@Nullable String line1) {
-            this.line1 = line1;
-            return this;
-        }
-
-        /**
-         * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-         */
-        public Builder line2(@Nullable String line2) {
-            this.line2 = JsonNullable.of(line2);
-            return this;
-        }
-
-        /**
-         * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
-         * $!
-         * 
-         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
-         */
-        public Builder line3(@Nullable String line3) {
-            this.line3 = JsonNullable.of(line3);
-            return this;
-        }
-
-        public Builder country(@Nonnull String country) {
-            this.country = Utils.checkNotNull(country, "country");
-            return this;
-        }
-
-        public PostCombinedTransfersWireTransmitter build() {
-            return new PostCombinedTransfersWireTransmitter(
-                name, transmitterIdentifier, line1,
-                line2, line3, country);
-        }
-
-    }
 }
+

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.newline53.sdk.SDKConfiguration;
 import com.newline53.sdk.SecuritySource;
 import com.newline53.sdk.models.errors.APIException;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
 import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
@@ -177,6 +178,14 @@ public class PostVirtualReferenceNumbers {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
+            if (Utils.statusCodeMatches(response.statusCode(), "400")) {
+                res.withHeaders(response.headers().map());
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw PostVirtualReferenceNumbersBadRequestException.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
             if (Utils.statusCodeMatches(response.statusCode(), "422")) {
                 res.withHeaders(response.headers().map());
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
@@ -253,6 +262,15 @@ public class PostVirtualReferenceNumbers {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return Utils.unmarshalAsync(response, new TypeReference<PostVirtualReferenceNumbersResponseBody>() {})
                             .thenApply(res::withObject);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "400")) {
+                res.withHeaders(response.headers().map());
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return PostVirtualReferenceNumbersBadRequestException.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }

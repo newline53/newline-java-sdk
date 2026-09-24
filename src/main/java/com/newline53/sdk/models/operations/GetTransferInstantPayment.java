@@ -28,15 +28,31 @@ public class GetTransferInstantPayment {
     @JsonProperty("memo")
     private JsonNullable<String> memo;
 
+    /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("purpose_of_payment")
+    private JsonNullable<GetTransferPurposeOfPayment> purposeOfPayment;
+
     @JsonCreator
     public GetTransferInstantPayment(
-            @JsonProperty("memo") @Nullable JsonNullable<String> memo) {
+            @JsonProperty("memo") @Nullable JsonNullable<String> memo,
+            @JsonProperty("purpose_of_payment") @Nullable JsonNullable<GetTransferPurposeOfPayment> purposeOfPayment) {
         this.memo = Optional.ofNullable(memo)
+            .orElse(JsonNullable.undefined());
+        this.purposeOfPayment = Optional.ofNullable(purposeOfPayment)
             .orElse(JsonNullable.undefined());
     }
     
     public GetTransferInstantPayment() {
-        this(null);
+        this(null, null);
     }
 
     /**
@@ -45,6 +61,19 @@ public class GetTransferInstantPayment {
      */
     public JsonNullable<String> memo() {
         return this.memo;
+    }
+
+    /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    public JsonNullable<GetTransferPurposeOfPayment> purposeOfPayment() {
+        return this.purposeOfPayment;
     }
 
     public static Builder builder() {
@@ -62,6 +91,21 @@ public class GetTransferInstantPayment {
     }
 
 
+    /**
+     * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+     * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+     * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+     * returned as an empty string.
+     * 
+     * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+     * payments.
+     */
+    public GetTransferInstantPayment withPurposeOfPayment(@Nullable GetTransferPurposeOfPayment purposeOfPayment) {
+        this.purposeOfPayment = JsonNullable.of(purposeOfPayment);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -72,25 +116,29 @@ public class GetTransferInstantPayment {
         }
         GetTransferInstantPayment other = (GetTransferInstantPayment) o;
         return 
-            Utils.enhancedDeepEquals(this.memo, other.memo);
+            Utils.enhancedDeepEquals(this.memo, other.memo) &&
+            Utils.enhancedDeepEquals(this.purposeOfPayment, other.purposeOfPayment);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            memo);
+            memo, purposeOfPayment);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetTransferInstantPayment.class,
-                "memo", memo);
+                "memo", memo,
+                "purposeOfPayment", purposeOfPayment);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private JsonNullable<String> memo;
+
+        private JsonNullable<GetTransferPurposeOfPayment> purposeOfPayment;
 
         private Builder() {
           // force use of static builder() method
@@ -105,9 +153,23 @@ public class GetTransferInstantPayment {
             return this;
         }
 
+        /**
+         * An optional code supplied when an instant payment Transfer is initiated, indicating the kind of
+         * transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise
+         * the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is
+         * returned as an empty string.
+         * 
+         * <p>Only applies to Newline initiated instant payments; it is not populated for received instant
+         * payments.
+         */
+        public Builder purposeOfPayment(@Nullable GetTransferPurposeOfPayment purposeOfPayment) {
+            this.purposeOfPayment = JsonNullable.of(purposeOfPayment);
+            return this;
+        }
+
         public GetTransferInstantPayment build() {
             return new GetTransferInstantPayment(
-                memo);
+                memo, purposeOfPayment);
         }
 
     }

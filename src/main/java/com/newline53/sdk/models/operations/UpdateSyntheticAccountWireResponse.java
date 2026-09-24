@@ -22,7 +22,9 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class UpdateSyntheticAccountWireResponse {
     /**
-     * Address of the business or individual who owns the external account.
+     * Address of the business or individual who owns the external account. The accepted format on requests
+     * depends on your program's wire address configuration (`unstructured`, `structured`, or `both`).
+     * Responses always return all fields; fields not applicable to the stored format are `null`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_address")
@@ -41,7 +43,7 @@ public class UpdateSyntheticAccountWireResponse {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_bank_address")
-    private JsonNullable<UpdateSyntheticAccountCounterpartyBankAddressResponse> counterpartyBankAddress;
+    private JsonNullable<UpdateSyntheticAccountUnstructuredAddressResponse> counterpartyBankAddress;
 
     /**
      * Name of the financial institution where the counterparty account is held.
@@ -54,7 +56,7 @@ public class UpdateSyntheticAccountWireResponse {
     public UpdateSyntheticAccountWireResponse(
             @JsonProperty("counterparty_address") @Nullable JsonNullable<UpdateSyntheticAccountWireCounterpartyAddressResponse> counterpartyAddress,
             @JsonProperty("counterparty_name") @Nullable String counterpartyName,
-            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<UpdateSyntheticAccountCounterpartyBankAddressResponse> counterpartyBankAddress,
+            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<UpdateSyntheticAccountUnstructuredAddressResponse> counterpartyBankAddress,
             @JsonProperty("counterparty_bank_name") @Nullable JsonNullable<String> counterpartyBankName) {
         this.counterpartyAddress = Optional.ofNullable(counterpartyAddress)
             .orElse(JsonNullable.undefined());
@@ -71,7 +73,9 @@ public class UpdateSyntheticAccountWireResponse {
     }
 
     /**
-     * Address of the business or individual who owns the external account.
+     * Address of the business or individual who owns the external account. The accepted format on requests
+     * depends on your program's wire address configuration (`unstructured`, `structured`, or `both`).
+     * Responses always return all fields; fields not applicable to the stored format are `null`.
      */
     public JsonNullable<UpdateSyntheticAccountWireCounterpartyAddressResponse> counterpartyAddress() {
         return this.counterpartyAddress;
@@ -88,7 +92,7 @@ public class UpdateSyntheticAccountWireResponse {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public JsonNullable<UpdateSyntheticAccountCounterpartyBankAddressResponse> counterpartyBankAddress() {
+    public JsonNullable<UpdateSyntheticAccountUnstructuredAddressResponse> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
     }
 
@@ -105,7 +109,9 @@ public class UpdateSyntheticAccountWireResponse {
 
 
     /**
-     * Address of the business or individual who owns the external account.
+     * Address of the business or individual who owns the external account. The accepted format on requests
+     * depends on your program's wire address configuration (`unstructured`, `structured`, or `both`).
+     * Responses always return all fields; fields not applicable to the stored format are `null`.
      */
     public UpdateSyntheticAccountWireResponse withCounterpartyAddress(@Nullable UpdateSyntheticAccountWireCounterpartyAddressResponse counterpartyAddress) {
         this.counterpartyAddress = JsonNullable.of(counterpartyAddress);
@@ -126,7 +132,7 @@ public class UpdateSyntheticAccountWireResponse {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public UpdateSyntheticAccountWireResponse withCounterpartyBankAddress(@Nullable UpdateSyntheticAccountCounterpartyBankAddressResponse counterpartyBankAddress) {
+    public UpdateSyntheticAccountWireResponse withCounterpartyBankAddress(@Nullable UpdateSyntheticAccountUnstructuredAddressResponse counterpartyBankAddress) {
         this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
         return this;
     }
@@ -180,7 +186,7 @@ public class UpdateSyntheticAccountWireResponse {
 
         private String counterpartyName;
 
-        private JsonNullable<UpdateSyntheticAccountCounterpartyBankAddressResponse> counterpartyBankAddress;
+        private JsonNullable<UpdateSyntheticAccountUnstructuredAddressResponse> counterpartyBankAddress;
 
         private JsonNullable<String> counterpartyBankName;
 
@@ -189,7 +195,9 @@ public class UpdateSyntheticAccountWireResponse {
         }
 
         /**
-         * Address of the business or individual who owns the external account.
+         * Address of the business or individual who owns the external account. The accepted format on requests
+         * depends on your program's wire address configuration (`unstructured`, `structured`, or `both`).
+         * Responses always return all fields; fields not applicable to the stored format are `null`.
          */
         public Builder counterpartyAddress(@Nullable UpdateSyntheticAccountWireCounterpartyAddressResponse counterpartyAddress) {
             this.counterpartyAddress = JsonNullable.of(counterpartyAddress);
@@ -208,7 +216,7 @@ public class UpdateSyntheticAccountWireResponse {
         /**
          * Address of the financial institution where the external account is held.
          */
-        public Builder counterpartyBankAddress(@Nullable UpdateSyntheticAccountCounterpartyBankAddressResponse counterpartyBankAddress) {
+        public Builder counterpartyBankAddress(@Nullable UpdateSyntheticAccountUnstructuredAddressResponse counterpartyBankAddress) {
             this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
             return this;
         }

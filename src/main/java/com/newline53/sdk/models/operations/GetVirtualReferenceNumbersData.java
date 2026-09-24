@@ -109,6 +109,13 @@ public class GetVirtualReferenceNumbersData {
     @JsonProperty("virtual_reference_number_last_four")
     private String virtualReferenceNumberLastFour;
 
+    /**
+     * The type of VRN.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private GetVirtualReferenceNumbersType type;
+
     @JsonCreator
     public GetVirtualReferenceNumbersData(
             @JsonProperty("uid") @Nullable String uid,
@@ -123,7 +130,8 @@ public class GetVirtualReferenceNumbersData {
             @JsonProperty("routing_number") @Nullable String routingNumber,
             @JsonProperty("status") @Nullable GetVirtualReferenceNumbersDataStatus status,
             @JsonProperty("synthetic_account_uid") @Nullable String syntheticAccountUid,
-            @JsonProperty("virtual_reference_number_last_four") @Nullable String virtualReferenceNumberLastFour) {
+            @JsonProperty("virtual_reference_number_last_four") @Nullable String virtualReferenceNumberLastFour,
+            @JsonProperty("type") @Nullable GetVirtualReferenceNumbersType type) {
         this.uid = uid;
         this.name = name;
         this.archivedAt = archivedAt;
@@ -137,6 +145,7 @@ public class GetVirtualReferenceNumbersData {
         this.status = status;
         this.syntheticAccountUid = syntheticAccountUid;
         this.virtualReferenceNumberLastFour = virtualReferenceNumberLastFour;
+        this.type = type;
     }
     
     public GetVirtualReferenceNumbersData() {
@@ -144,7 +153,7 @@ public class GetVirtualReferenceNumbersData {
             null, null, null,
             null, null, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     /**
@@ -239,6 +248,13 @@ public class GetVirtualReferenceNumbersData {
      */
     public Optional<String> virtualReferenceNumberLastFour() {
         return Optional.ofNullable(this.virtualReferenceNumberLastFour);
+    }
+
+    /**
+     * The type of VRN.
+     */
+    public Optional<GetVirtualReferenceNumbersType> type() {
+        return Optional.ofNullable(this.type);
     }
 
     public static Builder builder() {
@@ -366,6 +382,15 @@ public class GetVirtualReferenceNumbersData {
     }
 
 
+    /**
+     * The type of VRN.
+     */
+    public GetVirtualReferenceNumbersData withType(@Nullable GetVirtualReferenceNumbersType type) {
+        this.type = type;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -388,7 +413,8 @@ public class GetVirtualReferenceNumbersData {
             Utils.enhancedDeepEquals(this.routingNumber, other.routingNumber) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.syntheticAccountUid, other.syntheticAccountUid) &&
-            Utils.enhancedDeepEquals(this.virtualReferenceNumberLastFour, other.virtualReferenceNumberLastFour);
+            Utils.enhancedDeepEquals(this.virtualReferenceNumberLastFour, other.virtualReferenceNumberLastFour) &&
+            Utils.enhancedDeepEquals(this.type, other.type);
     }
     
     @Override
@@ -398,7 +424,7 @@ public class GetVirtualReferenceNumbersData {
             createdAt, custodialAccountUid, externalUid,
             instantPaymentRailRegistrationStatus, lockedAt, lockReason,
             routingNumber, status, syntheticAccountUid,
-            virtualReferenceNumberLastFour);
+            virtualReferenceNumberLastFour, type);
     }
     
     @Override
@@ -416,7 +442,8 @@ public class GetVirtualReferenceNumbersData {
                 "routingNumber", routingNumber,
                 "status", status,
                 "syntheticAccountUid", syntheticAccountUid,
-                "virtualReferenceNumberLastFour", virtualReferenceNumberLastFour);
+                "virtualReferenceNumberLastFour", virtualReferenceNumberLastFour,
+                "type", type);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -447,6 +474,8 @@ public class GetVirtualReferenceNumbersData {
         private String syntheticAccountUid;
 
         private String virtualReferenceNumberLastFour;
+
+        private GetVirtualReferenceNumbersType type;
 
         private Builder() {
           // force use of static builder() method
@@ -559,13 +588,21 @@ public class GetVirtualReferenceNumbersData {
             return this;
         }
 
+        /**
+         * The type of VRN.
+         */
+        public Builder type(@Nullable GetVirtualReferenceNumbersType type) {
+            this.type = type;
+            return this;
+        }
+
         public GetVirtualReferenceNumbersData build() {
             return new GetVirtualReferenceNumbersData(
                 uid, name, archivedAt,
                 createdAt, custodialAccountUid, externalUid,
                 instantPaymentRailRegistrationStatus, lockedAt, lockReason,
                 routingNumber, status, syntheticAccountUid,
-                virtualReferenceNumberLastFour);
+                virtualReferenceNumberLastFour, type);
         }
 
     }

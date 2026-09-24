@@ -35,6 +35,8 @@ func pathPostTransfers(dir *logging.HTTPFileDirectory, rt *tracking.RequestTrack
 			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransferInstantPaymentTransfer0)(w, req)
 		case "createTransfer-wire_transfer[0]":
 			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransferWireTransfer0)(w, req)
+		case "createTransfer-wire_transfer_structured[0]":
+			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransferWireTransferStructured0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -84,13 +86,13 @@ func testCreateTransferCreateTransferAch0(w http.ResponseWriter, req *http.Reque
 			ServiceProcessing:        operations.CreateTransferServiceProcessingResponseSameday.ToPointer(),
 			EffectiveEntryDate:       types.String("2023-12-01"),
 			IDNumber:                 types.String("4270465600"),
-			TransferTraceID:          types.String("A1Z2b3y4c5x6DW78"),
 		},
 		InstantPayment: &operations.CreateTransferInstantPaymentResponse{
-			Memo: optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			Memo:             optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			PurposeOfPayment: optionalnullable.From(operations.CreateTransferPurposeOfPaymentResponsePayr.ToPointer()),
 		},
 		Wire: &operations.CreateTransferWireResponse{
-			IntermediaryBankAddress: &operations.CreateTransferIntermediaryBankAddressResponse{
+			IntermediaryBankAddress: &operations.CreateTransferUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("345 Def Ave")),
 				Line2:   optionalnullable.From(types.String("San Francisco")),
 				Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -101,10 +103,15 @@ func testCreateTransferCreateTransferAch0(w http.ResponseWriter, req *http.Reque
 			WireTransmitter: &operations.CreateTransferWireTransmitterResponse{
 				Name:                  "Marge's Roofing Inc",
 				TransmitterIdentifier: "123456789012ABC",
-				Line1:                 types.String("123 Abc St."),
+				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
 				Line2:                 optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:                 nil,
-				Country:               "US",
+				BuildingNumber:        optionalnullable.From(types.String("123")),
+				StreetName:            optionalnullable.From(types.String("Main St")),
+				City:                  optionalnullable.From(types.String("Cincinnati")),
+				State:                 optionalnullable.From(types.String("OH")),
+				PostalCode:            optionalnullable.From(types.String("45202")),
+				Country:               optionalnullable.From(types.String("US")),
 			},
 			WireInstructions: types.String("Send ASAP"),
 		},
@@ -174,13 +181,13 @@ func testCreateTransferCreateTransferInstantPayment0(w http.ResponseWriter, req 
 			ServiceProcessing:        operations.CreateTransferServiceProcessingResponseSameday.ToPointer(),
 			EffectiveEntryDate:       types.String("2023-12-01"),
 			IDNumber:                 types.String("4270465600"),
-			TransferTraceID:          types.String("A1Z2b3y4c5x6DW78"),
 		},
 		InstantPayment: &operations.CreateTransferInstantPaymentResponse{
-			Memo: optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			Memo:             optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			PurposeOfPayment: optionalnullable.From(operations.CreateTransferPurposeOfPaymentResponsePayr.ToPointer()),
 		},
 		Wire: &operations.CreateTransferWireResponse{
-			IntermediaryBankAddress: &operations.CreateTransferIntermediaryBankAddressResponse{
+			IntermediaryBankAddress: &operations.CreateTransferUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("345 Def Ave")),
 				Line2:   optionalnullable.From(types.String("San Francisco")),
 				Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -191,10 +198,15 @@ func testCreateTransferCreateTransferInstantPayment0(w http.ResponseWriter, req 
 			WireTransmitter: &operations.CreateTransferWireTransmitterResponse{
 				Name:                  "Marge's Roofing Inc",
 				TransmitterIdentifier: "123456789012ABC",
-				Line1:                 types.String("123 Abc St."),
+				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
 				Line2:                 optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:                 nil,
-				Country:               "US",
+				BuildingNumber:        optionalnullable.From(types.String("123")),
+				StreetName:            optionalnullable.From(types.String("Main St")),
+				City:                  optionalnullable.From(types.String("Cincinnati")),
+				State:                 optionalnullable.From(types.String("OH")),
+				PostalCode:            optionalnullable.From(types.String("45202")),
+				Country:               optionalnullable.From(types.String("US")),
 			},
 			WireInstructions: types.String("Send ASAP"),
 		},
@@ -264,13 +276,13 @@ func testCreateTransferCreateTransferWire0(w http.ResponseWriter, req *http.Requ
 			ServiceProcessing:        operations.CreateTransferServiceProcessingResponseSameday.ToPointer(),
 			EffectiveEntryDate:       types.String("2023-12-01"),
 			IDNumber:                 types.String("4270465600"),
-			TransferTraceID:          types.String("A1Z2b3y4c5x6DW78"),
 		},
 		InstantPayment: &operations.CreateTransferInstantPaymentResponse{
-			Memo: optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			Memo:             optionalnullable.From(types.String("For the 6-5-23 shipment of pineapple popsicles")),
+			PurposeOfPayment: optionalnullable.From(operations.CreateTransferPurposeOfPaymentResponsePayr.ToPointer()),
 		},
 		Wire: &operations.CreateTransferWireResponse{
-			IntermediaryBankAddress: &operations.CreateTransferIntermediaryBankAddressResponse{
+			IntermediaryBankAddress: &operations.CreateTransferUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("345 Def Ave")),
 				Line2:   optionalnullable.From(types.String("San Francisco")),
 				Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -281,10 +293,15 @@ func testCreateTransferCreateTransferWire0(w http.ResponseWriter, req *http.Requ
 			WireTransmitter: &operations.CreateTransferWireTransmitterResponse{
 				Name:                  "Marge's Roofing Inc",
 				TransmitterIdentifier: "123456789012ABC",
-				Line1:                 types.String("123 Abc St."),
+				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
 				Line2:                 optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:                 nil,
-				Country:               "US",
+				BuildingNumber:        optionalnullable.From(types.String("123")),
+				StreetName:            optionalnullable.From(types.String("Main St")),
+				City:                  optionalnullable.From(types.String("Cincinnati")),
+				State:                 optionalnullable.From(types.String("OH")),
+				PostalCode:            optionalnullable.From(types.String("45202")),
+				Country:               optionalnullable.From(types.String("US")),
 			},
 			WireInstructions: types.String("Send ASAP"),
 		},
@@ -398,7 +415,8 @@ func testCreateTransferCreateTransferInstantPaymentTransfer0(w http.ResponseWrit
 		},
 		UsdTransferAmount: types.String("32.13"),
 		InstantPayment: &operations.CreateTransferInstantPaymentResponse{
-			Memo: optionalnullable.From(types.String("To unfreeze the prince's assets")),
+			Memo:             optionalnullable.From(types.String("To unfreeze the prince's assets")),
+			PurposeOfPayment: optionalnullable.From(operations.CreateTransferPurposeOfPaymentResponsePayr.ToPointer()),
 		},
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
@@ -445,7 +463,7 @@ func testCreateTransferCreateTransferWireTransfer0(w http.ResponseWriter, req *h
 		TransactionUids:                []string{},
 		UsdTransferAmount:              types.String("33.12"),
 		Wire: &operations.CreateTransferWireResponse{
-			IntermediaryBankAddress: &operations.CreateTransferIntermediaryBankAddressResponse{
+			IntermediaryBankAddress: &operations.CreateTransferUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("345 Def Ave")),
 				Line2:   optionalnullable.From(types.String("San Francisco")),
 				Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -456,8 +474,83 @@ func testCreateTransferCreateTransferWireTransfer0(w http.ResponseWriter, req *h
 			WireTransmitter: &operations.CreateTransferWireTransmitterResponse{
 				Name:                  "Top Tier Tacos",
 				TransmitterIdentifier: "123456789",
-				Line1:                 types.String("123 Abc St."),
-				Country:               "US",
+				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
+				Line2:                 nil,
+				Line3:                 nil,
+				BuildingNumber:        nil,
+				StreetName:            nil,
+				City:                  nil,
+				State:                 nil,
+				PostalCode:            nil,
+				Country:               optionalnullable.From(types.String("US")),
+			},
+			WireInstructions: types.String("Please send ASAP"),
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testCreateTransferCreateTransferWireTransferStructured0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.ContentType(req, "application/json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *operations.CreateTransferResponseBody = &operations.CreateTransferResponseBody{
+		SourceSyntheticAccountUID:      types.String("4XkJnsfHsuqrxmeX"),
+		DestinationSyntheticAccountUID: types.String("exMDShw6yM3NHLYV"),
+		InitiatingCustomerUID:          types.String("iDtmSA52zRhgN4iy"),
+		DestinationCustomerUID:         types.String("iDtmSA52zRhgN4iy"),
+		Status:                         operations.CreateTransferStatusPending.ToPointer(),
+		InitiatorType:                  operations.CreateTransferInitiatorTypeResponseTransmitter.ToPointer(),
+		CreatedAt:                      types.MustNewTimeFromString("2019-10-14T03:21:53.301Z"),
+		UID:                            types.String("EhrQZJNjCd79LLYq"),
+		ExternalUID:                    types.String("partner-generated-id"),
+		TransactionUids:                []string{},
+		UsdTransferAmount:              types.String("33.12"),
+		Wire: &operations.CreateTransferWireResponse{
+			IntermediaryBankAddress: &operations.CreateTransferUnstructuredAddressResponse{
+				Line1:   optionalnullable.From(types.String("345 Def Ave")),
+				Line2:   optionalnullable.From(types.String("San Francisco")),
+				Line3:   optionalnullable.From(types.String("CA 94016")),
+				Country: optionalnullable.From(types.String("US")),
+			},
+			IntermediaryBankName:          types.String("Fidelity Fiduciary Bank"),
+			IntermediaryBankRoutingNumber: types.String("923456789"),
+			WireTransmitter: &operations.CreateTransferWireTransmitterResponse{
+				Name:                  "Top Tier Tacos",
+				TransmitterIdentifier: "123456789",
+				Line1:                 nil,
+				Line2:                 nil,
+				Line3:                 nil,
+				BuildingNumber:        optionalnullable.From(types.String("123")),
+				StreetName:            optionalnullable.From(types.String("Abc St.")),
+				City:                  optionalnullable.From(types.String("Boring")),
+				State:                 optionalnullable.From(types.String("OR")),
+				PostalCode:            optionalnullable.From(types.String("97009")),
+				Country:               optionalnullable.From(types.String("US")),
 			},
 			WireInstructions: types.String("Please send ASAP"),
 		},

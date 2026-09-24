@@ -26,14 +26,14 @@ public class ListSyntheticAccountsWire {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_name")
-    private String counterpartyName;
+    private JsonNullable<String> counterpartyName;
 
     /**
      * Address of the financial institution where the external account is held.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_bank_address")
-    private JsonNullable<ListSyntheticAccountsCounterpartyBankAddress> counterpartyBankAddress;
+    private JsonNullable<ListSyntheticAccountsUnstructuredAddress> counterpartyBankAddress;
 
     /**
      * Name of the financial institution where the counterparty account is held.
@@ -44,10 +44,11 @@ public class ListSyntheticAccountsWire {
 
     @JsonCreator
     public ListSyntheticAccountsWire(
-            @JsonProperty("counterparty_name") @Nullable String counterpartyName,
-            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<ListSyntheticAccountsCounterpartyBankAddress> counterpartyBankAddress,
+            @JsonProperty("counterparty_name") @Nullable JsonNullable<String> counterpartyName,
+            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<ListSyntheticAccountsUnstructuredAddress> counterpartyBankAddress,
             @JsonProperty("counterparty_bank_name") @Nullable JsonNullable<String> counterpartyBankName) {
-        this.counterpartyName = counterpartyName;
+        this.counterpartyName = Optional.ofNullable(counterpartyName)
+            .orElse(JsonNullable.undefined());
         this.counterpartyBankAddress = Optional.ofNullable(counterpartyBankAddress)
             .orElse(JsonNullable.undefined());
         this.counterpartyBankName = Optional.ofNullable(counterpartyBankName)
@@ -61,14 +62,14 @@ public class ListSyntheticAccountsWire {
     /**
      * Name of the business or individual who owns the counterparty Account.
      */
-    public Optional<String> counterpartyName() {
-        return Optional.ofNullable(this.counterpartyName);
+    public JsonNullable<String> counterpartyName() {
+        return this.counterpartyName;
     }
 
     /**
      * Address of the financial institution where the external account is held.
      */
-    public JsonNullable<ListSyntheticAccountsCounterpartyBankAddress> counterpartyBankAddress() {
+    public JsonNullable<ListSyntheticAccountsUnstructuredAddress> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
     }
 
@@ -88,7 +89,7 @@ public class ListSyntheticAccountsWire {
      * Name of the business or individual who owns the counterparty Account.
      */
     public ListSyntheticAccountsWire withCounterpartyName(@Nullable String counterpartyName) {
-        this.counterpartyName = counterpartyName;
+        this.counterpartyName = JsonNullable.of(counterpartyName);
         return this;
     }
 
@@ -96,7 +97,7 @@ public class ListSyntheticAccountsWire {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public ListSyntheticAccountsWire withCounterpartyBankAddress(@Nullable ListSyntheticAccountsCounterpartyBankAddress counterpartyBankAddress) {
+    public ListSyntheticAccountsWire withCounterpartyBankAddress(@Nullable ListSyntheticAccountsUnstructuredAddress counterpartyBankAddress) {
         this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
         return this;
     }
@@ -143,9 +144,9 @@ public class ListSyntheticAccountsWire {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String counterpartyName;
+        private JsonNullable<String> counterpartyName;
 
-        private JsonNullable<ListSyntheticAccountsCounterpartyBankAddress> counterpartyBankAddress;
+        private JsonNullable<ListSyntheticAccountsUnstructuredAddress> counterpartyBankAddress;
 
         private JsonNullable<String> counterpartyBankName;
 
@@ -157,14 +158,14 @@ public class ListSyntheticAccountsWire {
          * Name of the business or individual who owns the counterparty Account.
          */
         public Builder counterpartyName(@Nullable String counterpartyName) {
-            this.counterpartyName = counterpartyName;
+            this.counterpartyName = JsonNullable.of(counterpartyName);
             return this;
         }
 
         /**
          * Address of the financial institution where the external account is held.
          */
-        public Builder counterpartyBankAddress(@Nullable ListSyntheticAccountsCounterpartyBankAddress counterpartyBankAddress) {
+        public Builder counterpartyBankAddress(@Nullable ListSyntheticAccountsUnstructuredAddress counterpartyBankAddress) {
             this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
             return this;
         }

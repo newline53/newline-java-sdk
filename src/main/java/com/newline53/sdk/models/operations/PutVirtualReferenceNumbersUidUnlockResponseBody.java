@@ -114,6 +114,13 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
     private String virtualReferenceNumberLastFour;
 
     /**
+     * The type of VRN.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private PutVirtualReferenceNumbersUidUnlockType type;
+
+    /**
      * The VRN
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -135,6 +142,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
             @JsonProperty("synthetic_account_uid") @Nullable String syntheticAccountUid,
             @JsonProperty("uid") @Nullable String uid,
             @JsonProperty("virtual_reference_number_last_four") @Nullable String virtualReferenceNumberLastFour,
+            @JsonProperty("type") @Nullable PutVirtualReferenceNumbersUidUnlockType type,
             @JsonProperty("virtual_reference_number") @Nullable String virtualReferenceNumber) {
         this.archivedAt = archivedAt;
         this.createdAt = createdAt;
@@ -149,6 +157,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
         this.syntheticAccountUid = syntheticAccountUid;
         this.uid = uid;
         this.virtualReferenceNumberLastFour = virtualReferenceNumberLastFour;
+        this.type = type;
         this.virtualReferenceNumber = virtualReferenceNumber;
     }
     
@@ -157,7 +166,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -252,6 +261,13 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
      */
     public Optional<String> virtualReferenceNumberLastFour() {
         return Optional.ofNullable(this.virtualReferenceNumberLastFour);
+    }
+
+    /**
+     * The type of VRN.
+     */
+    public Optional<PutVirtualReferenceNumbersUidUnlockType> type() {
+        return Optional.ofNullable(this.type);
     }
 
     /**
@@ -387,6 +403,15 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
 
 
     /**
+     * The type of VRN.
+     */
+    public PutVirtualReferenceNumbersUidUnlockResponseBody withType(@Nullable PutVirtualReferenceNumbersUidUnlockType type) {
+        this.type = type;
+        return this;
+    }
+
+
+    /**
      * The VRN
      */
     public PutVirtualReferenceNumbersUidUnlockResponseBody withVirtualReferenceNumber(@Nullable String virtualReferenceNumber) {
@@ -418,6 +443,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
             Utils.enhancedDeepEquals(this.syntheticAccountUid, other.syntheticAccountUid) &&
             Utils.enhancedDeepEquals(this.uid, other.uid) &&
             Utils.enhancedDeepEquals(this.virtualReferenceNumberLastFour, other.virtualReferenceNumberLastFour) &&
+            Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.virtualReferenceNumber, other.virtualReferenceNumber);
     }
     
@@ -428,7 +454,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
             externalUid, instantPaymentRailRegistrationStatus, lockedAt,
             lockReason, name, routingNumber,
             status, syntheticAccountUid, uid,
-            virtualReferenceNumberLastFour, virtualReferenceNumber);
+            virtualReferenceNumberLastFour, type, virtualReferenceNumber);
     }
     
     @Override
@@ -447,6 +473,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
                 "syntheticAccountUid", syntheticAccountUid,
                 "uid", uid,
                 "virtualReferenceNumberLastFour", virtualReferenceNumberLastFour,
+                "type", type,
                 "virtualReferenceNumber", virtualReferenceNumber);
     }
 
@@ -478,6 +505,8 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
         private String uid;
 
         private String virtualReferenceNumberLastFour;
+
+        private PutVirtualReferenceNumbersUidUnlockType type;
 
         private String virtualReferenceNumber;
 
@@ -593,6 +622,14 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
         }
 
         /**
+         * The type of VRN.
+         */
+        public Builder type(@Nullable PutVirtualReferenceNumbersUidUnlockType type) {
+            this.type = type;
+            return this;
+        }
+
+        /**
          * The VRN
          */
         public Builder virtualReferenceNumber(@Nullable String virtualReferenceNumber) {
@@ -606,7 +643,7 @@ public class PutVirtualReferenceNumbersUidUnlockResponseBody {
                 externalUid, instantPaymentRailRegistrationStatus, lockedAt,
                 lockReason, name, routingNumber,
                 status, syntheticAccountUid, uid,
-                virtualReferenceNumberLastFour, virtualReferenceNumber);
+                virtualReferenceNumberLastFour, type, virtualReferenceNumber);
         }
 
     }

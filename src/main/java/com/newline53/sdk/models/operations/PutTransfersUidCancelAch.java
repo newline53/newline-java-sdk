@@ -116,13 +116,6 @@ public class PutTransfersUidCancelAch {
     private String idNumber;
 
     /**
-     * Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("transfer_trace_id")
-    private String transferTraceId;
-
-    /**
      * Optional additional payment-related information, such as invoice numbers, originator/receiver
      * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
      * codes other than TEL.
@@ -145,7 +138,6 @@ public class PutTransfersUidCancelAch {
             @JsonProperty("service_processing") @Nullable PutTransfersUidCancelServiceProcessing serviceProcessing,
             @JsonProperty("effective_entry_date") @Nullable String effectiveEntryDate,
             @JsonProperty("id_number") @Nullable String idNumber,
-            @JsonProperty("transfer_trace_id") @Nullable String transferTraceId,
             @JsonProperty("addenda") @Nullable String addenda) {
         this.originatorName = originatorName;
         this.companyId = companyId;
@@ -157,7 +149,6 @@ public class PutTransfersUidCancelAch {
         this.serviceProcessing = serviceProcessing;
         this.effectiveEntryDate = effectiveEntryDate;
         this.idNumber = idNumber;
-        this.transferTraceId = transferTraceId;
         this.addenda = addenda;
     }
     
@@ -165,7 +156,7 @@ public class PutTransfersUidCancelAch {
         this(null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null);
     }
 
     /**
@@ -261,13 +252,6 @@ public class PutTransfersUidCancelAch {
      */
     public Optional<String> idNumber() {
         return Optional.ofNullable(this.idNumber);
-    }
-
-    /**
-     * Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-     */
-    public Optional<String> transferTraceId() {
-        return Optional.ofNullable(this.transferTraceId);
     }
 
     /**
@@ -402,15 +386,6 @@ public class PutTransfersUidCancelAch {
 
 
     /**
-     * Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-     */
-    public PutTransfersUidCancelAch withTransferTraceId(@Nullable String transferTraceId) {
-        this.transferTraceId = transferTraceId;
-        return this;
-    }
-
-
-    /**
      * Optional additional payment-related information, such as invoice numbers, originator/receiver
      * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
      * codes other than TEL.
@@ -443,7 +418,6 @@ public class PutTransfersUidCancelAch {
             Utils.enhancedDeepEquals(this.serviceProcessing, other.serviceProcessing) &&
             Utils.enhancedDeepEquals(this.effectiveEntryDate, other.effectiveEntryDate) &&
             Utils.enhancedDeepEquals(this.idNumber, other.idNumber) &&
-            Utils.enhancedDeepEquals(this.transferTraceId, other.transferTraceId) &&
             Utils.enhancedDeepEquals(this.addenda, other.addenda);
     }
     
@@ -453,7 +427,7 @@ public class PutTransfersUidCancelAch {
             originatorName, companyId, companyDiscretionaryData,
             prenote, secCode, paymentType,
             entryDescription, serviceProcessing, effectiveEntryDate,
-            idNumber, transferTraceId, addenda);
+            idNumber, addenda);
     }
     
     @Override
@@ -469,7 +443,6 @@ public class PutTransfersUidCancelAch {
                 "serviceProcessing", serviceProcessing,
                 "effectiveEntryDate", effectiveEntryDate,
                 "idNumber", idNumber,
-                "transferTraceId", transferTraceId,
                 "addenda", addenda);
     }
 
@@ -495,8 +468,6 @@ public class PutTransfersUidCancelAch {
         private String effectiveEntryDate;
 
         private String idNumber;
-
-        private String transferTraceId;
 
         private String addenda;
 
@@ -610,14 +581,6 @@ public class PutTransfersUidCancelAch {
         }
 
         /**
-         * Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-         */
-        public Builder transferTraceId(@Nullable String transferTraceId) {
-            this.transferTraceId = transferTraceId;
-            return this;
-        }
-
-        /**
          * Optional additional payment-related information, such as invoice numbers, originator/receiver
          * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
          * codes other than TEL.
@@ -634,7 +597,7 @@ public class PutTransfersUidCancelAch {
                 originatorName, companyId, companyDiscretionaryData,
                 prenote, secCode, paymentType,
                 entryDescription, serviceProcessing, effectiveEntryDate,
-                idNumber, transferTraceId, addenda);
+                idNumber, addenda);
         }
 
     }

@@ -155,6 +155,33 @@ func (e *DeleteVirtualReferenceNumbersUIDStatus) UnmarshalJSON(data []byte) erro
 	}
 }
 
+// DeleteVirtualReferenceNumbersUIDType - The type of VRN.
+type DeleteVirtualReferenceNumbersUIDType string
+
+const (
+	DeleteVirtualReferenceNumbersUIDTypeBusiness DeleteVirtualReferenceNumbersUIDType = "business"
+	DeleteVirtualReferenceNumbersUIDTypeConsumer DeleteVirtualReferenceNumbersUIDType = "consumer"
+)
+
+func (e DeleteVirtualReferenceNumbersUIDType) ToPointer() *DeleteVirtualReferenceNumbersUIDType {
+	return &e
+}
+func (e *DeleteVirtualReferenceNumbersUIDType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = DeleteVirtualReferenceNumbersUIDType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for DeleteVirtualReferenceNumbersUIDType: %v", v)
+	}
+}
+
 // DeleteVirtualReferenceNumbersUIDResponseBody - Virtual Reference Number is archived successfully
 type DeleteVirtualReferenceNumbersUIDResponseBody struct {
 	// The DateTime at which this VRN was archived. This value will be present if the status is archived. If in another state, the value will be null.
@@ -184,6 +211,8 @@ type DeleteVirtualReferenceNumbersUIDResponseBody struct {
 	UID *string `json:"uid,omitempty"`
 	// Last 4 digits of the VRN
 	VirtualReferenceNumberLastFour *string `json:"virtual_reference_number_last_four,omitempty"`
+	// The type of VRN.
+	Type *DeleteVirtualReferenceNumbersUIDType `json:"type,omitempty"`
 	// The VRN
 	VirtualReferenceNumber *string `json:"virtual_reference_number,omitempty"`
 }
@@ -277,6 +306,13 @@ func (o *DeleteVirtualReferenceNumbersUIDResponseBody) GetVirtualReferenceNumber
 		return nil
 	}
 	return o.VirtualReferenceNumberLastFour
+}
+
+func (o *DeleteVirtualReferenceNumbersUIDResponseBody) GetType() *DeleteVirtualReferenceNumbersUIDType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }
 
 func (o *DeleteVirtualReferenceNumbersUIDResponseBody) GetVirtualReferenceNumber() *string {

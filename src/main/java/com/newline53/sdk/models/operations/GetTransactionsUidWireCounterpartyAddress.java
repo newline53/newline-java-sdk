@@ -12,6 +12,7 @@ import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * GetTransactionsUidWireCounterpartyAddress
@@ -20,59 +21,183 @@ import java.util.Optional;
  */
 public class GetTransactionsUidWireCounterpartyAddress {
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("line1")
-    private String line1;
+    private JsonNullable<String> line1;
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("line2")
-    private String line2;
+    private JsonNullable<String> line2;
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
+     * $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("line3")
-    private String line3;
+    private JsonNullable<String> line3;
+
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("building_number")
+    private JsonNullable<String> buildingNumber;
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("street_name")
+    private JsonNullable<String> streetName;
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("city")
+    private JsonNullable<String> city;
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("state")
+    private JsonNullable<String> state;
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("postal_code")
+    private JsonNullable<String> postalCode;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("country")
+    private JsonNullable<String> country;
 
     @JsonCreator
     public GetTransactionsUidWireCounterpartyAddress(
-            @JsonProperty("line1") @Nullable String line1,
-            @JsonProperty("line2") @Nullable String line2,
-            @JsonProperty("line3") @Nullable String line3) {
-        this.line1 = line1;
-        this.line2 = line2;
-        this.line3 = line3;
+            @JsonProperty("line1") @Nullable JsonNullable<String> line1,
+            @JsonProperty("line2") @Nullable JsonNullable<String> line2,
+            @JsonProperty("line3") @Nullable JsonNullable<String> line3,
+            @JsonProperty("building_number") @Nullable JsonNullable<String> buildingNumber,
+            @JsonProperty("street_name") @Nullable JsonNullable<String> streetName,
+            @JsonProperty("city") @Nullable JsonNullable<String> city,
+            @JsonProperty("state") @Nullable JsonNullable<String> state,
+            @JsonProperty("postal_code") @Nullable JsonNullable<String> postalCode,
+            @JsonProperty("country") @Nullable JsonNullable<String> country) {
+        this.line1 = Optional.ofNullable(line1)
+            .orElse(JsonNullable.undefined());
+        this.line2 = Optional.ofNullable(line2)
+            .orElse(JsonNullable.undefined());
+        this.line3 = Optional.ofNullable(line3)
+            .orElse(JsonNullable.undefined());
+        this.buildingNumber = Optional.ofNullable(buildingNumber)
+            .orElse(JsonNullable.undefined());
+        this.streetName = Optional.ofNullable(streetName)
+            .orElse(JsonNullable.undefined());
+        this.city = Optional.ofNullable(city)
+            .orElse(JsonNullable.undefined());
+        this.state = Optional.ofNullable(state)
+            .orElse(JsonNullable.undefined());
+        this.postalCode = Optional.ofNullable(postalCode)
+            .orElse(JsonNullable.undefined());
+        this.country = Optional.ofNullable(country)
+            .orElse(JsonNullable.undefined());
     }
     
     public GetTransactionsUidWireCounterpartyAddress() {
-        this(null, null, null);
+        this(null, null, null,
+            null, null, null,
+            null, null, null);
     }
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
-    public Optional<String> line1() {
-        return Optional.ofNullable(this.line1);
+    public JsonNullable<String> line1() {
+        return this.line1;
     }
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
-    public Optional<String> line2() {
-        return Optional.ofNullable(this.line2);
+    public JsonNullable<String> line2() {
+        return this.line2;
     }
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
+     * $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
-    public Optional<String> line3() {
-        return Optional.ofNullable(this.line3);
+    public JsonNullable<String> line3() {
+        return this.line3;
+    }
+
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> buildingNumber() {
+        return this.buildingNumber;
+    }
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> streetName() {
+        return this.streetName;
+    }
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> city() {
+        return this.city;
+    }
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> state() {
+        return this.state;
+    }
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    public JsonNullable<String> postalCode() {
+        return this.postalCode;
+    }
+
+    public JsonNullable<String> country() {
+        return this.country;
     }
 
     public static Builder builder() {
@@ -81,28 +206,90 @@ public class GetTransactionsUidWireCounterpartyAddress {
 
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     public GetTransactionsUidWireCounterpartyAddress withLine1(@Nullable String line1) {
-        this.line1 = line1;
+        this.line1 = JsonNullable.of(line1);
         return this;
     }
 
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     public GetTransactionsUidWireCounterpartyAddress withLine2(@Nullable String line2) {
-        this.line2 = line2;
+        this.line2 = JsonNullable.of(line2);
         return this;
     }
 
 
     /**
-     * Part of an unparsed address. Data may vary or be null.
+     * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
+     * $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
      */
     public GetTransactionsUidWireCounterpartyAddress withLine3(@Nullable String line3) {
-        this.line3 = line3;
+        this.line3 = JsonNullable.of(line3);
+        return this;
+    }
+
+
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public GetTransactionsUidWireCounterpartyAddress withBuildingNumber(@Nullable String buildingNumber) {
+        this.buildingNumber = JsonNullable.of(buildingNumber);
+        return this;
+    }
+
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public GetTransactionsUidWireCounterpartyAddress withStreetName(@Nullable String streetName) {
+        this.streetName = JsonNullable.of(streetName);
+        return this;
+    }
+
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public GetTransactionsUidWireCounterpartyAddress withCity(@Nullable String city) {
+        this.city = JsonNullable.of(city);
+        return this;
+    }
+
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public GetTransactionsUidWireCounterpartyAddress withState(@Nullable String state) {
+        this.state = JsonNullable.of(state);
+        return this;
+    }
+
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    public GetTransactionsUidWireCounterpartyAddress withPostalCode(@Nullable String postalCode) {
+        this.postalCode = JsonNullable.of(postalCode);
+        return this;
+    }
+
+
+    public GetTransactionsUidWireCounterpartyAddress withCountry(@Nullable String country) {
+        this.country = JsonNullable.of(country);
         return this;
     }
 
@@ -119,13 +306,21 @@ public class GetTransactionsUidWireCounterpartyAddress {
         return 
             Utils.enhancedDeepEquals(this.line1, other.line1) &&
             Utils.enhancedDeepEquals(this.line2, other.line2) &&
-            Utils.enhancedDeepEquals(this.line3, other.line3);
+            Utils.enhancedDeepEquals(this.line3, other.line3) &&
+            Utils.enhancedDeepEquals(this.buildingNumber, other.buildingNumber) &&
+            Utils.enhancedDeepEquals(this.streetName, other.streetName) &&
+            Utils.enhancedDeepEquals(this.city, other.city) &&
+            Utils.enhancedDeepEquals(this.state, other.state) &&
+            Utils.enhancedDeepEquals(this.postalCode, other.postalCode) &&
+            Utils.enhancedDeepEquals(this.country, other.country);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            line1, line2, line3);
+            line1, line2, line3,
+            buildingNumber, streetName, city,
+            state, postalCode, country);
     }
     
     @Override
@@ -133,49 +328,125 @@ public class GetTransactionsUidWireCounterpartyAddress {
         return Utils.toString(GetTransactionsUidWireCounterpartyAddress.class,
                 "line1", line1,
                 "line2", line2,
-                "line3", line3);
+                "line3", line3,
+                "buildingNumber", buildingNumber,
+                "streetName", streetName,
+                "city", city,
+                "state", state,
+                "postalCode", postalCode,
+                "country", country);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String line1;
+        private JsonNullable<String> line1;
 
-        private String line2;
+        private JsonNullable<String> line2;
 
-        private String line3;
+        private JsonNullable<String> line3;
+
+        private JsonNullable<String> buildingNumber;
+
+        private JsonNullable<String> streetName;
+
+        private JsonNullable<String> city;
+
+        private JsonNullable<String> state;
+
+        private JsonNullable<String> postalCode;
+
+        private JsonNullable<String> country;
 
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * Part of an unparsed address. Data may vary or be null.
+         * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
          */
         public Builder line1(@Nullable String line1) {
-            this.line1 = line1;
+            this.line1 = JsonNullable.of(line1);
             return this;
         }
 
         /**
-         * Part of an unparsed address. Data may vary or be null.
+         * Optional 35 characters. Cannot contain \# @ $! " % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
          */
         public Builder line2(@Nullable String line2) {
-            this.line2 = line2;
+            this.line2 = JsonNullable.of(line2);
             return this;
         }
 
         /**
-         * Part of an unparsed address. Data may vary or be null.
+         * Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @
+         * $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
          */
         public Builder line3(@Nullable String line3) {
-            this.line3 = line3;
+            this.line3 = JsonNullable.of(line3);
+            return this;
+        }
+
+        /**
+         * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder buildingNumber(@Nullable String buildingNumber) {
+            this.buildingNumber = JsonNullable.of(buildingNumber);
+            return this;
+        }
+
+        /**
+         * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder streetName(@Nullable String streetName) {
+            this.streetName = JsonNullable.of(streetName);
+            return this;
+        }
+
+        /**
+         * City. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder city(@Nullable String city) {
+            this.city = JsonNullable.of(city);
+            return this;
+        }
+
+        /**
+         * State or province. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder state(@Nullable String state) {
+            this.state = JsonNullable.of(state);
+            return this;
+        }
+
+        /**
+         * US ZIP code (5-digit) or ZIP+4.
+         */
+        public Builder postalCode(@Nullable String postalCode) {
+            this.postalCode = JsonNullable.of(postalCode);
+            return this;
+        }
+
+        public Builder country(@Nullable String country) {
+            this.country = JsonNullable.of(country);
             return this;
         }
 
         public GetTransactionsUidWireCounterpartyAddress build() {
             return new GetTransactionsUidWireCounterpartyAddress(
-                line1, line2, line3);
+                line1, line2, line3,
+                buildingNumber, streetName, city,
+                state, postalCode, country);
         }
 
     }

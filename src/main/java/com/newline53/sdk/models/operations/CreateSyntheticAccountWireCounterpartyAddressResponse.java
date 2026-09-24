@@ -17,7 +17,9 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * CreateSyntheticAccountWireCounterpartyAddressResponse
  * 
- * <p>Address of the business or individual who owns the external account.
+ * <p>Address of the business or individual who owns the external account. The accepted format on requests
+ * depends on your program's wire address configuration (`unstructured`, `structured`, or `both`).
+ * Responses always return all fields; fields not applicable to the stored format are `null`.
  */
 public class CreateSyntheticAccountWireCounterpartyAddressResponse {
     /**
@@ -44,6 +46,49 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
     @JsonProperty("line3")
     private JsonNullable<String> line3;
 
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("building_number")
+    private JsonNullable<String> buildingNumber;
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("street_name")
+    private JsonNullable<String> streetName;
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("city")
+    private JsonNullable<String> city;
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("state")
+    private JsonNullable<String> state;
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("postal_code")
+    private JsonNullable<String> postalCode;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("country")
@@ -54,6 +99,11 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
             @JsonProperty("line1") @Nullable JsonNullable<String> line1,
             @JsonProperty("line2") @Nullable JsonNullable<String> line2,
             @JsonProperty("line3") @Nullable JsonNullable<String> line3,
+            @JsonProperty("building_number") @Nullable JsonNullable<String> buildingNumber,
+            @JsonProperty("street_name") @Nullable JsonNullable<String> streetName,
+            @JsonProperty("city") @Nullable JsonNullable<String> city,
+            @JsonProperty("state") @Nullable JsonNullable<String> state,
+            @JsonProperty("postal_code") @Nullable JsonNullable<String> postalCode,
             @JsonProperty("country") @Nullable JsonNullable<String> country) {
         this.line1 = Optional.ofNullable(line1)
             .orElse(JsonNullable.undefined());
@@ -61,13 +111,24 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
             .orElse(JsonNullable.undefined());
         this.line3 = Optional.ofNullable(line3)
             .orElse(JsonNullable.undefined());
+        this.buildingNumber = Optional.ofNullable(buildingNumber)
+            .orElse(JsonNullable.undefined());
+        this.streetName = Optional.ofNullable(streetName)
+            .orElse(JsonNullable.undefined());
+        this.city = Optional.ofNullable(city)
+            .orElse(JsonNullable.undefined());
+        this.state = Optional.ofNullable(state)
+            .orElse(JsonNullable.undefined());
+        this.postalCode = Optional.ofNullable(postalCode)
+            .orElse(JsonNullable.undefined());
         this.country = Optional.ofNullable(country)
             .orElse(JsonNullable.undefined());
     }
     
     public CreateSyntheticAccountWireCounterpartyAddressResponse() {
         this(null, null, null,
-            null);
+            null, null, null,
+            null, null, null);
     }
 
     /**
@@ -92,6 +153,49 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
      */
     public JsonNullable<String> line3() {
         return this.line3;
+    }
+
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> buildingNumber() {
+        return this.buildingNumber;
+    }
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> streetName() {
+        return this.streetName;
+    }
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> city() {
+        return this.city;
+    }
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public JsonNullable<String> state() {
+        return this.state;
+    }
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    public JsonNullable<String> postalCode() {
+        return this.postalCode;
     }
 
     public JsonNullable<String> country() {
@@ -133,6 +237,59 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
     }
 
 
+    /**
+     * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public CreateSyntheticAccountWireCounterpartyAddressResponse withBuildingNumber(@Nullable String buildingNumber) {
+        this.buildingNumber = JsonNullable.of(buildingNumber);
+        return this;
+    }
+
+
+    /**
+     * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public CreateSyntheticAccountWireCounterpartyAddressResponse withStreetName(@Nullable String streetName) {
+        this.streetName = JsonNullable.of(streetName);
+        return this;
+    }
+
+
+    /**
+     * City. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public CreateSyntheticAccountWireCounterpartyAddressResponse withCity(@Nullable String city) {
+        this.city = JsonNullable.of(city);
+        return this;
+    }
+
+
+    /**
+     * State or province. Optional 33 characters. Cannot contain \# @ $!
+     * 
+     * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+     */
+    public CreateSyntheticAccountWireCounterpartyAddressResponse withState(@Nullable String state) {
+        this.state = JsonNullable.of(state);
+        return this;
+    }
+
+
+    /**
+     * US ZIP code (5-digit) or ZIP+4.
+     */
+    public CreateSyntheticAccountWireCounterpartyAddressResponse withPostalCode(@Nullable String postalCode) {
+        this.postalCode = JsonNullable.of(postalCode);
+        return this;
+    }
+
+
     public CreateSyntheticAccountWireCounterpartyAddressResponse withCountry(@Nullable String country) {
         this.country = JsonNullable.of(country);
         return this;
@@ -152,6 +309,11 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
             Utils.enhancedDeepEquals(this.line1, other.line1) &&
             Utils.enhancedDeepEquals(this.line2, other.line2) &&
             Utils.enhancedDeepEquals(this.line3, other.line3) &&
+            Utils.enhancedDeepEquals(this.buildingNumber, other.buildingNumber) &&
+            Utils.enhancedDeepEquals(this.streetName, other.streetName) &&
+            Utils.enhancedDeepEquals(this.city, other.city) &&
+            Utils.enhancedDeepEquals(this.state, other.state) &&
+            Utils.enhancedDeepEquals(this.postalCode, other.postalCode) &&
             Utils.enhancedDeepEquals(this.country, other.country);
     }
     
@@ -159,7 +321,8 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
     public int hashCode() {
         return Utils.enhancedHash(
             line1, line2, line3,
-            country);
+            buildingNumber, streetName, city,
+            state, postalCode, country);
     }
     
     @Override
@@ -168,6 +331,11 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
                 "line1", line1,
                 "line2", line2,
                 "line3", line3,
+                "buildingNumber", buildingNumber,
+                "streetName", streetName,
+                "city", city,
+                "state", state,
+                "postalCode", postalCode,
                 "country", country);
     }
 
@@ -179,6 +347,16 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
         private JsonNullable<String> line2;
 
         private JsonNullable<String> line3;
+
+        private JsonNullable<String> buildingNumber;
+
+        private JsonNullable<String> streetName;
+
+        private JsonNullable<String> city;
+
+        private JsonNullable<String> state;
+
+        private JsonNullable<String> postalCode;
 
         private JsonNullable<String> country;
 
@@ -213,6 +391,54 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
             return this;
         }
 
+        /**
+         * Parsed building or house number. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder buildingNumber(@Nullable String buildingNumber) {
+            this.buildingNumber = JsonNullable.of(buildingNumber);
+            return this;
+        }
+
+        /**
+         * Parsed street name. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder streetName(@Nullable String streetName) {
+            this.streetName = JsonNullable.of(streetName);
+            return this;
+        }
+
+        /**
+         * City. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder city(@Nullable String city) {
+            this.city = JsonNullable.of(city);
+            return this;
+        }
+
+        /**
+         * State or province. Optional 33 characters. Cannot contain \# @ $!
+         * 
+         * <p>" % &amp; * ; &lt; &gt; { } [ ] _ ^ \ ~
+         */
+        public Builder state(@Nullable String state) {
+            this.state = JsonNullable.of(state);
+            return this;
+        }
+
+        /**
+         * US ZIP code (5-digit) or ZIP+4.
+         */
+        public Builder postalCode(@Nullable String postalCode) {
+            this.postalCode = JsonNullable.of(postalCode);
+            return this;
+        }
+
         public Builder country(@Nullable String country) {
             this.country = JsonNullable.of(country);
             return this;
@@ -221,7 +447,8 @@ public class CreateSyntheticAccountWireCounterpartyAddressResponse {
         public CreateSyntheticAccountWireCounterpartyAddressResponse build() {
             return new CreateSyntheticAccountWireCounterpartyAddressResponse(
                 line1, line2, line3,
-                country);
+                buildingNumber, streetName, city,
+                state, postalCode, country);
         }
 
     }

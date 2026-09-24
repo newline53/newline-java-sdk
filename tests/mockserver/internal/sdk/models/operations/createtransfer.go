@@ -4,6 +4,7 @@ package operations
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/optionalnullable"
@@ -321,12 +322,72 @@ func (o *CreateTransferInstantPaymentTransmitter) GetCountry() *string {
 	return o.Country
 }
 
+// CreateTransferPurposeOfPaymentRequest - An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+type CreateTransferPurposeOfPaymentRequest string
+
+const (
+	CreateTransferPurposeOfPaymentRequestNows CreateTransferPurposeOfPaymentRequest = "NOWS"
+	CreateTransferPurposeOfPaymentRequestGdds CreateTransferPurposeOfPaymentRequest = "GDDS"
+	CreateTransferPurposeOfPaymentRequestScve CreateTransferPurposeOfPaymentRequest = "SCVE"
+	CreateTransferPurposeOfPaymentRequestInsc CreateTransferPurposeOfPaymentRequest = "INSC"
+	CreateTransferPurposeOfPaymentRequestInsm CreateTransferPurposeOfPaymentRequest = "INSM"
+	CreateTransferPurposeOfPaymentRequestInvs CreateTransferPurposeOfPaymentRequest = "INVS"
+	CreateTransferPurposeOfPaymentRequestPayr CreateTransferPurposeOfPaymentRequest = "PAYR"
+	CreateTransferPurposeOfPaymentRequestUbil CreateTransferPurposeOfPaymentRequest = "UBIL"
+	CreateTransferPurposeOfPaymentRequestPdep CreateTransferPurposeOfPaymentRequest = "PDEP"
+	CreateTransferPurposeOfPaymentRequestAcct CreateTransferPurposeOfPaymentRequest = "ACCT"
+	CreateTransferPurposeOfPaymentRequestCblk CreateTransferPurposeOfPaymentRequest = "CBLK"
+	CreateTransferPurposeOfPaymentRequestMp2P CreateTransferPurposeOfPaymentRequest = "MP2P"
+)
+
+func (e CreateTransferPurposeOfPaymentRequest) ToPointer() *CreateTransferPurposeOfPaymentRequest {
+	return &e
+}
+func (e *CreateTransferPurposeOfPaymentRequest) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "NOWS":
+		fallthrough
+	case "GDDS":
+		fallthrough
+	case "SCVE":
+		fallthrough
+	case "INSC":
+		fallthrough
+	case "INSM":
+		fallthrough
+	case "INVS":
+		fallthrough
+	case "PAYR":
+		fallthrough
+	case "UBIL":
+		fallthrough
+	case "PDEP":
+		fallthrough
+	case "ACCT":
+		fallthrough
+	case "CBLK":
+		fallthrough
+	case "MP2P":
+		*e = CreateTransferPurposeOfPaymentRequest(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateTransferPurposeOfPaymentRequest: %v", v)
+	}
+}
+
 // CreateTransferInstantPaymentRequest - Instant payment information. Only present if the Transfer is an instant payment.
 type CreateTransferInstantPaymentRequest struct {
 	InstantPaymentTransmitter *CreateTransferInstantPaymentTransmitter `json:"instant_payment_transmitter,omitempty"`
 	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
+	// An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+	//
+	PurposeOfPayment optionalnullable.OptionalNullable[CreateTransferPurposeOfPaymentRequest] `json:"purpose_of_payment,omitempty"`
 }
 
 func (o *CreateTransferInstantPaymentRequest) GetInstantPaymentTransmitter() *CreateTransferInstantPaymentTransmitter {
@@ -343,7 +404,14 @@ func (o *CreateTransferInstantPaymentRequest) GetMemo() optionalnullable.Optiona
 	return o.Memo
 }
 
-type CreateTransferIntermediaryBankAddressRequest struct {
+func (o *CreateTransferInstantPaymentRequest) GetPurposeOfPayment() optionalnullable.OptionalNullable[CreateTransferPurposeOfPaymentRequest] {
+	if o == nil {
+		return nil
+	}
+	return o.PurposeOfPayment
+}
+
+type CreateTransferIntermediaryBankAddressUnstructuredAddressRequest struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -356,110 +424,291 @@ type CreateTransferIntermediaryBankAddressRequest struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *CreateTransferIntermediaryBankAddressRequest) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateTransferIntermediaryBankAddressRequest) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateTransferIntermediaryBankAddressRequest) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateTransferIntermediaryBankAddressRequest) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// CreateTransferWireTransmitterRequest - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
-type CreateTransferWireTransmitterRequest struct {
+// CreateTransferStructuredAddress - Structured wire address using ISO-style parsed fields. Accepted when your program's wire address configuration is set to `structured` or `both`. Required fields: `city` and `country`.
+type CreateTransferStructuredAddress struct {
+	// Full street line (alternative to `building_number` + `street_name`). Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional continuation, unit, or suite. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// Required. 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City string `json:"city"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    string                                    `json:"country"`
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
-	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
-	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	Line1 *string `json:"line1"`
-	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	//
-	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
-	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country string                                    `json:"country"`
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetName() string {
+func (c CreateTransferStructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateTransferStructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"city", "country", "name", "transmitter_identifier"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *CreateTransferStructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *CreateTransferStructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *CreateTransferStructuredAddress) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *CreateTransferStructuredAddress) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *CreateTransferStructuredAddress) GetCity() string {
+	if o == nil {
+		return ""
+	}
+	return o.City
+}
+
+func (o *CreateTransferStructuredAddress) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *CreateTransferStructuredAddress) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *CreateTransferStructuredAddress) GetCountry() string {
+	if o == nil {
+		return ""
+	}
+	return o.Country
+}
+
+func (o *CreateTransferStructuredAddress) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetTransmitterIdentifier() string {
+func (o *CreateTransferStructuredAddress) GetTransmitterIdentifier() string {
 	if o == nil {
 		return ""
 	}
 	return o.TransmitterIdentifier
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetLine1() *string {
+type CreateTransferWireTransmitterUnstructuredAddress struct {
+	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	Country *string                                   `json:"country,omitempty"`
+	// Name of the Transmitter.
+	//
+	Name string `json:"name"`
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
+	TransmitterIdentifier string `json:"transmitter_identifier"`
+}
+
+func (c CreateTransferWireTransmitterUnstructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateTransferWireTransmitterUnstructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "transmitter_identifier"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateTransferWireTransmitterRequest) GetCountry() string {
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetCountry() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetName() string {
 	if o == nil {
 		return ""
 	}
-	return o.Country
+	return o.Name
+}
+
+func (o *CreateTransferWireTransmitterUnstructuredAddress) GetTransmitterIdentifier() string {
+	if o == nil {
+		return ""
+	}
+	return o.TransmitterIdentifier
+}
+
+type CreateTransferWireTransmitterRequestType string
+
+const (
+	CreateTransferWireTransmitterRequestTypeCreateTransferWireTransmitterUnstructuredAddress CreateTransferWireTransmitterRequestType = "createTransfer_wire_transmitter_Unstructured Address"
+	CreateTransferWireTransmitterRequestTypeCreateTransferStructuredAddress                  CreateTransferWireTransmitterRequestType = "createTransfer_Structured Address"
+)
+
+// CreateTransferWireTransmitterRequest - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The accepted address format depends on your program's wire address configuration. For `unstructured` format: `line1` and `country` are required. For `structured` format: `city` and `country` are required.
+type CreateTransferWireTransmitterRequest struct {
+	CreateTransferWireTransmitterUnstructuredAddress *CreateTransferWireTransmitterUnstructuredAddress `queryParam:"inline"`
+	CreateTransferStructuredAddress                  *CreateTransferStructuredAddress                  `queryParam:"inline"`
+
+	Type CreateTransferWireTransmitterRequestType
+}
+
+func CreateCreateTransferWireTransmitterRequestCreateTransferWireTransmitterUnstructuredAddress(createTransferWireTransmitterUnstructuredAddress CreateTransferWireTransmitterUnstructuredAddress) CreateTransferWireTransmitterRequest {
+	typ := CreateTransferWireTransmitterRequestTypeCreateTransferWireTransmitterUnstructuredAddress
+
+	return CreateTransferWireTransmitterRequest{
+		CreateTransferWireTransmitterUnstructuredAddress: &createTransferWireTransmitterUnstructuredAddress,
+		Type: typ,
+	}
+}
+
+func CreateCreateTransferWireTransmitterRequestCreateTransferStructuredAddress(createTransferStructuredAddress CreateTransferStructuredAddress) CreateTransferWireTransmitterRequest {
+	typ := CreateTransferWireTransmitterRequestTypeCreateTransferStructuredAddress
+
+	return CreateTransferWireTransmitterRequest{
+		CreateTransferStructuredAddress: &createTransferStructuredAddress,
+		Type:                            typ,
+	}
+}
+
+func (u *CreateTransferWireTransmitterRequest) UnmarshalJSON(data []byte) error {
+
+	var createTransferStructuredAddress CreateTransferStructuredAddress = CreateTransferStructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &createTransferStructuredAddress, "", true, nil); err == nil {
+		u.CreateTransferStructuredAddress = &createTransferStructuredAddress
+		u.Type = CreateTransferWireTransmitterRequestTypeCreateTransferStructuredAddress
+		return nil
+	}
+
+	var createTransferWireTransmitterUnstructuredAddress CreateTransferWireTransmitterUnstructuredAddress = CreateTransferWireTransmitterUnstructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &createTransferWireTransmitterUnstructuredAddress, "", true, nil); err == nil {
+		u.CreateTransferWireTransmitterUnstructuredAddress = &createTransferWireTransmitterUnstructuredAddress
+		u.Type = CreateTransferWireTransmitterRequestTypeCreateTransferWireTransmitterUnstructuredAddress
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateTransferWireTransmitterRequest", string(data))
+}
+
+func (u CreateTransferWireTransmitterRequest) MarshalJSON() ([]byte, error) {
+	if u.CreateTransferWireTransmitterUnstructuredAddress != nil {
+		return utils.MarshalJSON(u.CreateTransferWireTransmitterUnstructuredAddress, "", true)
+	}
+
+	if u.CreateTransferStructuredAddress != nil {
+		return utils.MarshalJSON(u.CreateTransferStructuredAddress, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CreateTransferWireTransmitterRequest: all fields are null")
 }
 
 // CreateTransferWireRequest - Wire-specific information. Only present if the Transfer is a wire.
 type CreateTransferWireRequest struct {
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *CreateTransferIntermediaryBankAddressRequest `json:"intermediary_bank_address,omitempty"`
-	IntermediaryBankName    *string                                       `json:"intermediary_bank_name,omitempty"`
+	IntermediaryBankAddress *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankName    *string                                                          `json:"intermediary_bank_name,omitempty"`
 	// The ABA routing number associated with the intermediary bank involved in the wire transfer. This value is required if intermediary_bank_name or intermediary_bank_address is present; optional otherwise
 	//
 	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
 	// Additional details or instructions for the wire, issued to the recipient financial institution when the wire is executed.
 	//
-	WireInstructions *string                               `json:"wire_instructions,omitempty"`
-	WireTransmitter  *CreateTransferWireTransmitterRequest `json:"wire_transmitter,omitempty"`
+	WireInstructions *string `json:"wire_instructions,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The accepted address format depends on your program's wire address configuration. For `unstructured` format: `line1` and `country` are required. For `structured` format: `city` and `country` are required.
+	//
+	WireTransmitter *CreateTransferWireTransmitterRequest `json:"wire_transmitter,omitempty"`
 }
 
-func (o *CreateTransferWireRequest) GetIntermediaryBankAddress() *CreateTransferIntermediaryBankAddressRequest {
+func (o *CreateTransferWireRequest) GetIntermediaryBankAddress() *CreateTransferIntermediaryBankAddressUnstructuredAddressRequest {
 	if o == nil {
 		return nil
 	}
@@ -780,8 +1029,6 @@ type CreateTransferAchResponse struct {
 	// Unique identifier supplied by the originator of a transaction (e.g. invoice number). 1 to 22 characters depending on SEC code, alphanumeric. If the SEC value is anything other than CIE, then this is an optional field and can be up to 15 characters. If SEC value CIE is provided, then the ID number is mandatory, and the character length can be up to 22 characters.
 	//
 	IDNumber *string `json:"id_number,omitempty"`
-	// Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-	TransferTraceID *string `json:"transfer_trace_id,omitempty"`
 	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
 	//
 	Addenda *string `json:"addenda,omitempty"`
@@ -857,13 +1104,6 @@ func (o *CreateTransferAchResponse) GetIDNumber() *string {
 	return o.IDNumber
 }
 
-func (o *CreateTransferAchResponse) GetTransferTraceID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TransferTraceID
-}
-
 func (o *CreateTransferAchResponse) GetAddenda() *string {
 	if o == nil {
 		return nil
@@ -871,11 +1111,71 @@ func (o *CreateTransferAchResponse) GetAddenda() *string {
 	return o.Addenda
 }
 
+// CreateTransferPurposeOfPaymentResponse - An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+type CreateTransferPurposeOfPaymentResponse string
+
+const (
+	CreateTransferPurposeOfPaymentResponseNows CreateTransferPurposeOfPaymentResponse = "NOWS"
+	CreateTransferPurposeOfPaymentResponseGdds CreateTransferPurposeOfPaymentResponse = "GDDS"
+	CreateTransferPurposeOfPaymentResponseScve CreateTransferPurposeOfPaymentResponse = "SCVE"
+	CreateTransferPurposeOfPaymentResponseInsc CreateTransferPurposeOfPaymentResponse = "INSC"
+	CreateTransferPurposeOfPaymentResponseInsm CreateTransferPurposeOfPaymentResponse = "INSM"
+	CreateTransferPurposeOfPaymentResponseInvs CreateTransferPurposeOfPaymentResponse = "INVS"
+	CreateTransferPurposeOfPaymentResponsePayr CreateTransferPurposeOfPaymentResponse = "PAYR"
+	CreateTransferPurposeOfPaymentResponseUbil CreateTransferPurposeOfPaymentResponse = "UBIL"
+	CreateTransferPurposeOfPaymentResponsePdep CreateTransferPurposeOfPaymentResponse = "PDEP"
+	CreateTransferPurposeOfPaymentResponseAcct CreateTransferPurposeOfPaymentResponse = "ACCT"
+	CreateTransferPurposeOfPaymentResponseCblk CreateTransferPurposeOfPaymentResponse = "CBLK"
+	CreateTransferPurposeOfPaymentResponseMp2P CreateTransferPurposeOfPaymentResponse = "MP2P"
+)
+
+func (e CreateTransferPurposeOfPaymentResponse) ToPointer() *CreateTransferPurposeOfPaymentResponse {
+	return &e
+}
+func (e *CreateTransferPurposeOfPaymentResponse) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "NOWS":
+		fallthrough
+	case "GDDS":
+		fallthrough
+	case "SCVE":
+		fallthrough
+	case "INSC":
+		fallthrough
+	case "INSM":
+		fallthrough
+	case "INVS":
+		fallthrough
+	case "PAYR":
+		fallthrough
+	case "UBIL":
+		fallthrough
+	case "PDEP":
+		fallthrough
+	case "ACCT":
+		fallthrough
+	case "CBLK":
+		fallthrough
+	case "MP2P":
+		*e = CreateTransferPurposeOfPaymentResponse(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateTransferPurposeOfPaymentResponse: %v", v)
+	}
+}
+
 // CreateTransferInstantPaymentResponse - Instant payment information. Only present if the Transfer is an instant payment.
 type CreateTransferInstantPaymentResponse struct {
 	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
+	// An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+	//
+	PurposeOfPayment optionalnullable.OptionalNullable[CreateTransferPurposeOfPaymentResponse] `json:"purpose_of_payment,omitempty"`
 }
 
 func (o *CreateTransferInstantPaymentResponse) GetMemo() optionalnullable.OptionalNullable[string] {
@@ -885,8 +1185,15 @@ func (o *CreateTransferInstantPaymentResponse) GetMemo() optionalnullable.Option
 	return o.Memo
 }
 
-// CreateTransferIntermediaryBankAddressResponse - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
-type CreateTransferIntermediaryBankAddressResponse struct {
+func (o *CreateTransferInstantPaymentResponse) GetPurposeOfPayment() optionalnullable.OptionalNullable[CreateTransferPurposeOfPaymentResponse] {
+	if o == nil {
+		return nil
+	}
+	return o.PurposeOfPayment
+}
+
+// CreateTransferUnstructuredAddressResponse - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+type CreateTransferUnstructuredAddressResponse struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -899,50 +1206,61 @@ type CreateTransferIntermediaryBankAddressResponse struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *CreateTransferIntermediaryBankAddressResponse) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferUnstructuredAddressResponse) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateTransferIntermediaryBankAddressResponse) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferUnstructuredAddressResponse) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateTransferIntermediaryBankAddressResponse) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferUnstructuredAddressResponse) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateTransferIntermediaryBankAddressResponse) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CreateTransferUnstructuredAddressResponse) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// CreateTransferWireTransmitterResponse - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+// CreateTransferWireTransmitterResponse - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
 type CreateTransferWireTransmitterResponse struct {
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
-	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
-	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	Line1 *string `json:"line1"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
 	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country string                                    `json:"country"`
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
 func (o *CreateTransferWireTransmitterResponse) GetName() string {
@@ -959,7 +1277,7 @@ func (o *CreateTransferWireTransmitterResponse) GetTransmitterIdentifier() strin
 	return o.TransmitterIdentifier
 }
 
-func (o *CreateTransferWireTransmitterResponse) GetLine1() *string {
+func (o *CreateTransferWireTransmitterResponse) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -980,9 +1298,44 @@ func (o *CreateTransferWireTransmitterResponse) GetLine3() optionalnullable.Opti
 	return o.Line3
 }
 
-func (o *CreateTransferWireTransmitterResponse) GetCountry() string {
+func (o *CreateTransferWireTransmitterResponse) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
-		return ""
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *CreateTransferWireTransmitterResponse) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *CreateTransferWireTransmitterResponse) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *CreateTransferWireTransmitterResponse) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *CreateTransferWireTransmitterResponse) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *CreateTransferWireTransmitterResponse) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
 	}
 	return o.Country
 }
@@ -991,20 +1344,22 @@ func (o *CreateTransferWireTransmitterResponse) GetCountry() string {
 type CreateTransferWireResponse struct {
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *CreateTransferIntermediaryBankAddressResponse `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankAddress *CreateTransferUnstructuredAddressResponse `json:"intermediary_bank_address,omitempty"`
 	// Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
 	//
 	IntermediaryBankName *string `json:"intermediary_bank_name,omitempty"`
 	// The ABA routing number associated with the intermediary bank involved in the wire transfer
 	//
-	IntermediaryBankRoutingNumber *string                                `json:"intermediary_bank_routing_number,omitempty"`
-	WireTransmitter               *CreateTransferWireTransmitterResponse `json:"wire_transmitter,omitempty"`
+	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
+	//
+	WireTransmitter *CreateTransferWireTransmitterResponse `json:"wire_transmitter,omitempty"`
 	// Additional details or instructions for the wire, issued to the recipient financial institution when the wire is executed.
 	//
 	WireInstructions *string `json:"wire_instructions,omitempty"`
 }
 
-func (o *CreateTransferWireResponse) GetIntermediaryBankAddress() *CreateTransferIntermediaryBankAddressResponse {
+func (o *CreateTransferWireResponse) GetIntermediaryBankAddress() *CreateTransferUnstructuredAddressResponse {
 	if o == nil {
 		return nil
 	}

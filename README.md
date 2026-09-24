@@ -150,6 +150,15 @@ public class Application {
 ```
 
 [comp-fut]: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
+
+#### Union Consumption Patterns
+
+When a response field is a union model:
+
+- Discriminated unions: branch on the discriminator (`switch`) and then narrow to the concrete type.
+- Non-discriminated unions: use generated accessors (for example `string()`, `asLong()`, `simpleObject()`) to determine the active variant.
+
+For full model-specific examples (including Java 11/16/21 variants), see each union model's **Supported Types** section in the generated model docs.
 <!-- End SDK Example Usage [usage] -->
 
 <!-- Start Asynchronous Support [async-support] -->
@@ -458,7 +467,7 @@ public class Application {
 **Primary error:**
 * [`NewlineException`](./src/main/java/models/errors/NewlineException.java): The base class for HTTP error responses.
 
-<details><summary>Less common errors (38)</summary>
+<details><summary>Less common errors (39)</summary>
 
 <br />
 
@@ -471,6 +480,7 @@ many more subclasses in the JDK platform).
 * [`com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException.java): A Synthetic Account is not updated if a required parameter is missing. Status code `400`. Applicable to 1 of 52 methods.*
 * [`com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransfersUidCancelBadRequestException.java): The transfer is not eligible for cancellation. Status code `400`. Applicable to 1 of 52 methods.*
 * [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeBadRequestException.java): Bad authorization request. Status code `400`. Applicable to 1 of 52 methods.*
+* [`com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException.java): Bad request. Status code `400`. Applicable to 1 of 52 methods.*
 * [`com.newline53.sdk.models.errors.PostReturnsBadRequestException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PostReturnsBadRequestException.java): Creation Error. Status code `400`. Applicable to 1 of 52 methods.*
 * [`com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.PutTransactionsUidAuthorizeForbiddenException.java): Client authorization disabled. (The Program is not configured for Client Authorization). Status code `403`. Applicable to 1 of 52 methods.*
 * [`com.newline53.sdk.models.errors.GetReturnsForbiddenException`](./src/main/java/models/errors/com.newline53.sdk.models.errors.GetReturnsForbiddenException.java): Denied access to Returns. Status code `403`. Applicable to 1 of 52 methods.*

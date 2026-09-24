@@ -36,14 +36,16 @@ public class ListTransfersInstantPaymentTransmitter {
     /**
      * Building number for Transmitter address. Alphanumeric only.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("street_number")
-    private String streetNumber;
+    private JsonNullable<String> streetNumber;
 
     /**
      * Street name for Transmitter address
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("street1")
-    private String street1;
+    private JsonNullable<String> street1;
 
     /**
      * Maximum 35 characters
@@ -75,8 +77,8 @@ public class ListTransfersInstantPaymentTransmitter {
     public ListTransfersInstantPaymentTransmitter(
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("transmitter_identifier") @Nonnull String transmitterIdentifier,
-            @JsonProperty("street_number") @Nonnull String streetNumber,
-            @JsonProperty("street1") @Nonnull String street1,
+            @JsonProperty("street_number") @Nullable String streetNumber,
+            @JsonProperty("street1") @Nullable String street1,
             @JsonProperty("city") @Nullable String city,
             @JsonProperty("state") @Nullable String state,
             @JsonProperty("postal_code") @Nullable String postalCode,
@@ -85,10 +87,8 @@ public class ListTransfersInstantPaymentTransmitter {
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
         this.transmitterIdentifier = Optional.ofNullable(transmitterIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("transmitterIdentifier cannot be null"));
-        this.streetNumber = Optional.ofNullable(streetNumber)
-            .orElseThrow(() -> new IllegalArgumentException("streetNumber cannot be null"));
-        this.street1 = Optional.ofNullable(street1)
-            .orElseThrow(() -> new IllegalArgumentException("street1 cannot be null"));
+        this.streetNumber = JsonNullable.of(streetNumber);
+        this.street1 = JsonNullable.of(street1);
         this.city = JsonNullable.of(city);
         this.state = JsonNullable.of(state);
         this.postalCode = JsonNullable.of(postalCode);
@@ -97,11 +97,9 @@ public class ListTransfersInstantPaymentTransmitter {
     
     public ListTransfersInstantPaymentTransmitter(
             @Nonnull String name,
-            @Nonnull String transmitterIdentifier,
-            @Nonnull String streetNumber,
-            @Nonnull String street1) {
-        this(name, transmitterIdentifier, streetNumber,
-            street1, null, null,
+            @Nonnull String transmitterIdentifier) {
+        this(name, transmitterIdentifier, null,
+            null, null, null,
             null, null);
     }
 
@@ -122,14 +120,14 @@ public class ListTransfersInstantPaymentTransmitter {
     /**
      * Building number for Transmitter address. Alphanumeric only.
      */
-    public String streetNumber() {
+    public JsonNullable<String> streetNumber() {
         return this.streetNumber;
     }
 
     /**
      * Street name for Transmitter address
      */
-    public String street1() {
+    public JsonNullable<String> street1() {
         return this.street1;
     }
 
@@ -184,8 +182,8 @@ public class ListTransfersInstantPaymentTransmitter {
     /**
      * Building number for Transmitter address. Alphanumeric only.
      */
-    public ListTransfersInstantPaymentTransmitter withStreetNumber(@Nonnull String streetNumber) {
-        this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+    public ListTransfersInstantPaymentTransmitter withStreetNumber(@Nullable String streetNumber) {
+        this.streetNumber = JsonNullable.of(streetNumber);
         return this;
     }
 
@@ -193,8 +191,8 @@ public class ListTransfersInstantPaymentTransmitter {
     /**
      * Street name for Transmitter address
      */
-    public ListTransfersInstantPaymentTransmitter withStreet1(@Nonnull String street1) {
-        this.street1 = Utils.checkNotNull(street1, "street1");
+    public ListTransfersInstantPaymentTransmitter withStreet1(@Nullable String street1) {
+        this.street1 = JsonNullable.of(street1);
         return this;
     }
 
@@ -315,16 +313,16 @@ public class ListTransfersInstantPaymentTransmitter {
         /**
          * Building number for Transmitter address. Alphanumeric only.
          */
-        public Builder streetNumber(@Nonnull String streetNumber) {
-            this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+        public Builder streetNumber(@Nullable String streetNumber) {
+            this.streetNumber = streetNumber;
             return this;
         }
 
         /**
          * Street name for Transmitter address
          */
-        public Builder street1(@Nonnull String street1) {
-            this.street1 = Utils.checkNotNull(street1, "street1");
+        public Builder street1(@Nullable String street1) {
+            this.street1 = street1;
             return this;
         }
 

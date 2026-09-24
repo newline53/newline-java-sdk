@@ -61,7 +61,7 @@ func testListTransfersListTransfersTransactions0(w http.ResponseWriter, req *htt
 				TransactionUids:                []string{},
 				UsdTransferAmount:              types.String("33.12"),
 				Wire: &operations.ListTransfersWire{
-					IntermediaryBankAddress: &operations.ListTransfersIntermediaryBankAddress{
+					IntermediaryBankAddress: &operations.ListTransfersUnstructuredAddress{
 						Line1:   optionalnullable.From(types.String("345 Def Ave")),
 						Line2:   optionalnullable.From(types.String("San Francisco")),
 						Line3:   optionalnullable.From(types.String("CA 94016")),
@@ -72,8 +72,15 @@ func testListTransfersListTransfersTransactions0(w http.ResponseWriter, req *htt
 					WireTransmitter: &operations.ListTransfersWireTransmitter{
 						Name:                  "Top Tier Tacos",
 						TransmitterIdentifier: "123456789",
-						Line1:                 types.String("123 Abc St."),
-						Country:               "US",
+						Line1:                 optionalnullable.From(types.String("123 Abc St.")),
+						Line2:                 nil,
+						Line3:                 nil,
+						BuildingNumber:        nil,
+						StreetName:            nil,
+						City:                  nil,
+						State:                 nil,
+						PostalCode:            nil,
+						Country:               optionalnullable.From(types.String("US")),
 					},
 				},
 			},
@@ -95,8 +102,8 @@ func testListTransfersListTransfersTransactions0(w http.ResponseWriter, req *htt
 					InstantPaymentTransmitter: &operations.ListTransfersInstantPaymentTransmitter{
 						Name:                  "Royalty Asset Management",
 						TransmitterIdentifier: "123456789",
-						StreetNumber:          "123",
-						Street1:               "Abc St.",
+						StreetNumber:          types.String("123"),
+						Street1:               types.String("Abc St."),
 						City:                  types.String("Boring"),
 						State:                 types.String("OR"),
 						PostalCode:            types.String("97009"),

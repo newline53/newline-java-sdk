@@ -427,8 +427,8 @@ func (o *ListSyntheticAccountsInstantPayment) GetPhone() optionalnullable.Option
 	return o.Phone
 }
 
-// ListSyntheticAccountsCounterpartyBankAddress - Address of the financial institution where the external account is held.
-type ListSyntheticAccountsCounterpartyBankAddress struct {
+// ListSyntheticAccountsUnstructuredAddress - Address of the financial institution where the external account is held.
+type ListSyntheticAccountsUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -441,28 +441,28 @@ type ListSyntheticAccountsCounterpartyBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *ListSyntheticAccountsCounterpartyBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *ListSyntheticAccountsUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *ListSyntheticAccountsCounterpartyBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *ListSyntheticAccountsUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *ListSyntheticAccountsCounterpartyBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *ListSyntheticAccountsUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *ListSyntheticAccountsCounterpartyBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *ListSyntheticAccountsUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -473,23 +473,23 @@ func (o *ListSyntheticAccountsCounterpartyBankAddress) GetCountry() optionalnull
 type ListSyntheticAccountsWire struct {
 	// Name of the business or individual who owns the counterparty Account.
 	//
-	CounterpartyName *string `json:"counterparty_name,omitempty"`
+	CounterpartyName optionalnullable.OptionalNullable[string] `json:"counterparty_name,omitempty"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[ListSyntheticAccountsCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[ListSyntheticAccountsUnstructuredAddress] `json:"counterparty_bank_address,omitempty"`
 	// Name of the financial institution where the counterparty account is held.
 	//
 	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
 }
 
-func (o *ListSyntheticAccountsWire) GetCounterpartyName() *string {
+func (o *ListSyntheticAccountsWire) GetCounterpartyName() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.CounterpartyName
 }
 
-func (o *ListSyntheticAccountsWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[ListSyntheticAccountsCounterpartyBankAddress] {
+func (o *ListSyntheticAccountsWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[ListSyntheticAccountsUnstructuredAddress] {
 	if o == nil {
 		return nil
 	}

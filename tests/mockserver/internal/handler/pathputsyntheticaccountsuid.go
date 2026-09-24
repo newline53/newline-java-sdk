@@ -31,6 +31,8 @@ func pathPutSyntheticAccountsUID(dir *logging.HTTPFileDirectory, rt *tracking.Re
 			dir.HandlerFunc("updateSyntheticAccount", testUpdateSyntheticAccountUpdateSyntheticAccountWireSyntheticAccount0)(w, req)
 		case "updateSyntheticAccount-ach_account[0]":
 			dir.HandlerFunc("updateSyntheticAccount", testUpdateSyntheticAccountUpdateSyntheticAccountAchAccount0)(w, req)
+		case "updateSyntheticAccount-wire_synthetic_account_structured[0]":
+			dir.HandlerFunc("updateSyntheticAccount", testUpdateSyntheticAccountUpdateSyntheticAccountWireSyntheticAccountStructured0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -87,13 +89,18 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountGeneralSyntheticAccount0(w 
 		AccountNumber:         optionalnullable.From(types.String("1234567890")),
 		Wire: &operations.UpdateSyntheticAccountWireResponse{
 			CounterpartyAddress: optionalnullable.From(&operations.UpdateSyntheticAccountWireCounterpartyAddressResponse{
-				Line1:   optionalnullable.From(types.String("234 Xyz Rd")),
-				Line2:   optionalnullable.From(types.String("APT 5")),
-				Line3:   optionalnullable.From(types.String("Boston, MA 02110")),
-				Country: optionalnullable.From(types.String("US")),
+				Line1:          optionalnullable.From(types.String("234 Xyz Rd")),
+				Line2:          nil,
+				Line3:          nil,
+				BuildingNumber: nil,
+				StreetName:     nil,
+				City:           nil,
+				State:          nil,
+				PostalCode:     nil,
+				Country:        optionalnullable.From(types.String("US")),
 			}),
 			CounterpartyName: types.String("Marge's Roofing Inc"),
-			CounterpartyBankAddress: optionalnullable.From(&operations.UpdateSyntheticAccountCounterpartyBankAddressResponse{
+			CounterpartyBankAddress: optionalnullable.From(&operations.UpdateSyntheticAccountUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("123 Abc St.")),
 				Line2:   optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:   nil,
@@ -166,8 +173,8 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountInstantPaymentSyntheticAcco
 		AccountNumber:         nil,
 		InstantPayment: &operations.UpdateSyntheticAccountInstantPaymentResponse{
 			CounterpartyAddress: &operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse{
-				StreetNumber: "242",
-				Street1:      "Marble St",
+				StreetNumber: types.String("242"),
+				Street1:      types.String("Marble St"),
 				City:         types.String("Marblehead"),
 				State:        types.String("MA"),
 				PostalCode:   types.String("21945"),
@@ -242,13 +249,18 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountWireSyntheticAccount0(w htt
 		AccountNumber:         nil,
 		Wire: &operations.UpdateSyntheticAccountWireResponse{
 			CounterpartyAddress: optionalnullable.From(&operations.UpdateSyntheticAccountWireCounterpartyAddressResponse{
-				Line1:   optionalnullable.From(types.String("333 Swamp St")),
-				Line2:   optionalnullable.From(types.String("Bagdad, FL 32530")),
-				Line3:   nil,
-				Country: optionalnullable.From(types.String("US")),
+				Line1:          optionalnullable.From(types.String("333 Swamp St")),
+				Line2:          optionalnullable.From(types.String("Bagdad, FL 32530")),
+				Line3:          nil,
+				BuildingNumber: nil,
+				StreetName:     nil,
+				City:           nil,
+				State:          nil,
+				PostalCode:     nil,
+				Country:        optionalnullable.From(types.String("US")),
 			}),
 			CounterpartyName: types.String("Aunt Sandy"),
-			CounterpartyBankAddress: optionalnullable.From(&operations.UpdateSyntheticAccountCounterpartyBankAddressResponse{
+			CounterpartyBankAddress: optionalnullable.From(&operations.UpdateSyntheticAccountUnstructuredAddressResponse{
 				Line1:   optionalnullable.From(types.String("334 Swamp St")),
 				Line2:   optionalnullable.From(types.String("Bagdad, FL 32530")),
 				Line3:   nil,
@@ -322,6 +334,90 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountAchAccount0(w http.Response
 		Ach: &operations.UpdateSyntheticAccountAchResponse{
 			AccountType:      operations.UpdateSyntheticAccountAccountTypeResponseChecking.ToPointer(),
 			CounterpartyName: types.String("Arnold Arnoldson"),
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testUpdateSyntheticAccountUpdateSyntheticAccountWireSyntheticAccountStructured0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.ContentType(req, "application/json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *operations.UpdateSyntheticAccountResponseBody = &operations.UpdateSyntheticAccountResponseBody{
+		UID:                     types.String("exMDShw6yM3NHLYV"),
+		ExternalUID:             types.String("60689018-94e9-4870-970a-cc22f52c9c65"),
+		Name:                    types.String("Wire Account (Structured Address)"),
+		PoolUID:                 types.String("wTSMX1GubP21ev2h"),
+		SyntheticAccountTypeUID: types.String("VMwzNGctNAbSmHXJ"),
+		CustodialAccountUids: []string{
+			"NPeYkNMDVBWnKVXJ",
+		},
+		SyntheticAccountCategory: operations.UpdateSyntheticAccountSyntheticAccountCategoryWireExternal.ToPointer(),
+		Status:                   operations.UpdateSyntheticAccountStatusActive.ToPointer(),
+		Liability:                types.Bool(false),
+		NetUsdBalance:            nil,
+		NetUsdPendingBalance:     nil,
+		NetUsdAvailableBalance:   nil,
+		AssetBalances: []*operations.UpdateSyntheticAccountAssetBalance{
+			&operations.UpdateSyntheticAccountAssetBalance{
+				AssetQuantity:        types.String("12.23"),
+				AssetType:            types.String("USD"),
+				CurrentUsdValue:      types.String("122.12"),
+				CustodialAccountUID:  types.String("wZgfnLrLJcCAscnH"),
+				CustodialAccountName: types.String("First Checking"),
+				Debit:                types.Bool(true),
+			},
+		},
+		MasterAccount:         types.Bool(false),
+		RoutingNumber:         optionalnullable.From(types.String("123456789")),
+		AccountNumberLastFour: optionalnullable.From(types.String("9012")),
+		OpenedAt:              types.MustNewTimeFromString("2018-03-08T19:07:18.049Z"),
+		ClosedAt:              nil,
+		AccountNumber:         nil,
+		Wire: &operations.UpdateSyntheticAccountWireResponse{
+			CounterpartyAddress: optionalnullable.From(&operations.UpdateSyntheticAccountWireCounterpartyAddressResponse{
+				Line1:          nil,
+				Line2:          nil,
+				Line3:          nil,
+				BuildingNumber: optionalnullable.From(types.String("333")),
+				StreetName:     optionalnullable.From(types.String("Swamp St")),
+				City:           optionalnullable.From(types.String("Bagdad")),
+				State:          optionalnullable.From(types.String("FL")),
+				PostalCode:     optionalnullable.From(types.String("32530")),
+				Country:        optionalnullable.From(types.String("US")),
+			}),
+			CounterpartyName: types.String("Aunt Sandy"),
+			CounterpartyBankAddress: optionalnullable.From(&operations.UpdateSyntheticAccountUnstructuredAddressResponse{
+				Line1:   optionalnullable.From(types.String("334 Swamp St")),
+				Line2:   optionalnullable.From(types.String("Bagdad, FL 32530")),
+				Line3:   nil,
+				Country: optionalnullable.From(types.String("US")),
+			}),
+			CounterpartyBankName: optionalnullable.From(types.String("First Beach Bank")),
 		},
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)

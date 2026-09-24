@@ -385,9 +385,9 @@ type ListTransfersInstantPaymentTransmitter struct {
 	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
 	// Building number for Transmitter address. Alphanumeric only.
-	StreetNumber string `json:"street_number"`
+	StreetNumber *string `json:"street_number"`
 	// Street name for Transmitter address
-	Street1 string `json:"street1"`
+	Street1 *string `json:"street1"`
 	// Maximum 35 characters
 	City *string `json:"city"`
 	// 2 characters. Must be a valid US state abbreviation.
@@ -411,16 +411,16 @@ func (o *ListTransfersInstantPaymentTransmitter) GetTransmitterIdentifier() stri
 	return o.TransmitterIdentifier
 }
 
-func (o *ListTransfersInstantPaymentTransmitter) GetStreetNumber() string {
+func (o *ListTransfersInstantPaymentTransmitter) GetStreetNumber() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.StreetNumber
 }
 
-func (o *ListTransfersInstantPaymentTransmitter) GetStreet1() string {
+func (o *ListTransfersInstantPaymentTransmitter) GetStreet1() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Street1
 }
@@ -465,8 +465,8 @@ func (o *ListTransfersInstantPayment) GetInstantPaymentTransmitter() *ListTransf
 	return o.InstantPaymentTransmitter
 }
 
-// ListTransfersIntermediaryBankAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
-type ListTransfersIntermediaryBankAddress struct {
+// ListTransfersUnstructuredAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+type ListTransfersUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -479,50 +479,61 @@ type ListTransfersIntermediaryBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *ListTransfersIntermediaryBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *ListTransfersUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *ListTransfersIntermediaryBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *ListTransfersUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *ListTransfersIntermediaryBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *ListTransfersUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *ListTransfersIntermediaryBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *ListTransfersUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// ListTransfersWireTransmitter - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+// ListTransfersWireTransmitter - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
 type ListTransfersWireTransmitter struct {
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
-	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
-	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	Line1 *string `json:"line1"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
 	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country string                                    `json:"country"`
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
 func (o *ListTransfersWireTransmitter) GetName() string {
@@ -539,7 +550,7 @@ func (o *ListTransfersWireTransmitter) GetTransmitterIdentifier() string {
 	return o.TransmitterIdentifier
 }
 
-func (o *ListTransfersWireTransmitter) GetLine1() *string {
+func (o *ListTransfersWireTransmitter) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -560,9 +571,44 @@ func (o *ListTransfersWireTransmitter) GetLine3() optionalnullable.OptionalNulla
 	return o.Line3
 }
 
-func (o *ListTransfersWireTransmitter) GetCountry() string {
+func (o *ListTransfersWireTransmitter) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
-		return ""
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *ListTransfersWireTransmitter) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *ListTransfersWireTransmitter) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *ListTransfersWireTransmitter) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *ListTransfersWireTransmitter) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *ListTransfersWireTransmitter) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
 	}
 	return o.Country
 }
@@ -570,17 +616,19 @@ func (o *ListTransfersWireTransmitter) GetCountry() string {
 type ListTransfersWire struct {
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *ListTransfersIntermediaryBankAddress `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankAddress *ListTransfersUnstructuredAddress `json:"intermediary_bank_address,omitempty"`
 	// Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
 	//
 	IntermediaryBankName *string `json:"intermediary_bank_name,omitempty"`
 	// The ABA routing number associated with the intermediary bank involved in the wire transfer
 	//
-	IntermediaryBankRoutingNumber *string                       `json:"intermediary_bank_routing_number,omitempty"`
-	WireTransmitter               *ListTransfersWireTransmitter `json:"wire_transmitter,omitempty"`
+	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
+	//
+	WireTransmitter *ListTransfersWireTransmitter `json:"wire_transmitter,omitempty"`
 }
 
-func (o *ListTransfersWire) GetIntermediaryBankAddress() *ListTransfersIntermediaryBankAddress {
+func (o *ListTransfersWire) GetIntermediaryBankAddress() *ListTransfersUnstructuredAddress {
 	if o == nil {
 		return nil
 	}

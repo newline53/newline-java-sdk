@@ -114,8 +114,8 @@ func testListSyntheticAccountsListSyntheticAccountsSyntheticAccountsList0(w http
 				ClosedAt:              nil,
 				InstantPayment:        nil,
 				Wire: optionalnullable.From(&operations.ListSyntheticAccountsWire{
-					CounterpartyName: types.String("Aunt Sandy"),
-					CounterpartyBankAddress: optionalnullable.From(&operations.ListSyntheticAccountsCounterpartyBankAddress{
+					CounterpartyName: optionalnullable.From(types.String("Aunt Sandy")),
+					CounterpartyBankAddress: optionalnullable.From(&operations.ListSyntheticAccountsUnstructuredAddress{
 						Line1:   optionalnullable.From(types.String("334 Swamp St")),
 						Line2:   optionalnullable.From(types.String("Bagdad, FL 32530")),
 						Line3:   nil,

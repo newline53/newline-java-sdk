@@ -211,8 +211,6 @@ type GetTransferAch struct {
 	// Unique identifier supplied by the originator of a transaction (e.g. invoice number). 1 to 22 characters depending on SEC code, alphanumeric. If the SEC value is anything other than CIE, then this is an optional field and can be up to 15 characters. If SEC value CIE is provided, then the ID number is mandatory, and the character length can be up to 22 characters.
 	//
 	IDNumber *string `json:"id_number,omitempty"`
-	// Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
-	TransferTraceID *string `json:"transfer_trace_id,omitempty"`
 	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
 	//
 	Addenda *string `json:"addenda,omitempty"`
@@ -288,13 +286,6 @@ func (o *GetTransferAch) GetIDNumber() *string {
 	return o.IDNumber
 }
 
-func (o *GetTransferAch) GetTransferTraceID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TransferTraceID
-}
-
 func (o *GetTransferAch) GetAddenda() *string {
 	if o == nil {
 		return nil
@@ -302,11 +293,71 @@ func (o *GetTransferAch) GetAddenda() *string {
 	return o.Addenda
 }
 
+// GetTransferPurposeOfPayment - An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+type GetTransferPurposeOfPayment string
+
+const (
+	GetTransferPurposeOfPaymentNows GetTransferPurposeOfPayment = "NOWS"
+	GetTransferPurposeOfPaymentGdds GetTransferPurposeOfPayment = "GDDS"
+	GetTransferPurposeOfPaymentScve GetTransferPurposeOfPayment = "SCVE"
+	GetTransferPurposeOfPaymentInsc GetTransferPurposeOfPayment = "INSC"
+	GetTransferPurposeOfPaymentInsm GetTransferPurposeOfPayment = "INSM"
+	GetTransferPurposeOfPaymentInvs GetTransferPurposeOfPayment = "INVS"
+	GetTransferPurposeOfPaymentPayr GetTransferPurposeOfPayment = "PAYR"
+	GetTransferPurposeOfPaymentUbil GetTransferPurposeOfPayment = "UBIL"
+	GetTransferPurposeOfPaymentPdep GetTransferPurposeOfPayment = "PDEP"
+	GetTransferPurposeOfPaymentAcct GetTransferPurposeOfPayment = "ACCT"
+	GetTransferPurposeOfPaymentCblk GetTransferPurposeOfPayment = "CBLK"
+	GetTransferPurposeOfPaymentMp2P GetTransferPurposeOfPayment = "MP2P"
+)
+
+func (e GetTransferPurposeOfPayment) ToPointer() *GetTransferPurposeOfPayment {
+	return &e
+}
+func (e *GetTransferPurposeOfPayment) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "NOWS":
+		fallthrough
+	case "GDDS":
+		fallthrough
+	case "SCVE":
+		fallthrough
+	case "INSC":
+		fallthrough
+	case "INSM":
+		fallthrough
+	case "INVS":
+		fallthrough
+	case "PAYR":
+		fallthrough
+	case "UBIL":
+		fallthrough
+	case "PDEP":
+		fallthrough
+	case "ACCT":
+		fallthrough
+	case "CBLK":
+		fallthrough
+	case "MP2P":
+		*e = GetTransferPurposeOfPayment(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetTransferPurposeOfPayment: %v", v)
+	}
+}
+
 // GetTransferInstantPayment - Instant payment information. Only present if the Transfer is an instant payment.
 type GetTransferInstantPayment struct {
 	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
+	// An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+	//
+	PurposeOfPayment optionalnullable.OptionalNullable[GetTransferPurposeOfPayment] `json:"purpose_of_payment,omitempty"`
 }
 
 func (o *GetTransferInstantPayment) GetMemo() optionalnullable.OptionalNullable[string] {
@@ -316,8 +367,15 @@ func (o *GetTransferInstantPayment) GetMemo() optionalnullable.OptionalNullable[
 	return o.Memo
 }
 
-// GetTransferIntermediaryBankAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
-type GetTransferIntermediaryBankAddress struct {
+func (o *GetTransferInstantPayment) GetPurposeOfPayment() optionalnullable.OptionalNullable[GetTransferPurposeOfPayment] {
+	if o == nil {
+		return nil
+	}
+	return o.PurposeOfPayment
+}
+
+// GetTransferUnstructuredAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+type GetTransferUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -330,50 +388,61 @@ type GetTransferIntermediaryBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *GetTransferIntermediaryBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *GetTransferUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *GetTransferIntermediaryBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *GetTransferUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *GetTransferIntermediaryBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *GetTransferUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *GetTransferIntermediaryBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *GetTransferUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// GetTransferWireTransmitter - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+// GetTransferWireTransmitter - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
 type GetTransferWireTransmitter struct {
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
-	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
-	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	Line1 *string `json:"line1"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
 	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country string                                    `json:"country"`
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
 func (o *GetTransferWireTransmitter) GetName() string {
@@ -390,7 +459,7 @@ func (o *GetTransferWireTransmitter) GetTransmitterIdentifier() string {
 	return o.TransmitterIdentifier
 }
 
-func (o *GetTransferWireTransmitter) GetLine1() *string {
+func (o *GetTransferWireTransmitter) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -411,9 +480,44 @@ func (o *GetTransferWireTransmitter) GetLine3() optionalnullable.OptionalNullabl
 	return o.Line3
 }
 
-func (o *GetTransferWireTransmitter) GetCountry() string {
+func (o *GetTransferWireTransmitter) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
-		return ""
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *GetTransferWireTransmitter) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *GetTransferWireTransmitter) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetTransferWireTransmitter) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetTransferWireTransmitter) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetTransferWireTransmitter) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
 	}
 	return o.Country
 }
@@ -422,20 +526,22 @@ func (o *GetTransferWireTransmitter) GetCountry() string {
 type GetTransferWire struct {
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *GetTransferIntermediaryBankAddress `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankAddress *GetTransferUnstructuredAddress `json:"intermediary_bank_address,omitempty"`
 	// Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
 	//
 	IntermediaryBankName *string `json:"intermediary_bank_name,omitempty"`
 	// The ABA routing number associated with the intermediary bank involved in the wire transfer
 	//
-	IntermediaryBankRoutingNumber *string                     `json:"intermediary_bank_routing_number,omitempty"`
-	WireTransmitter               *GetTransferWireTransmitter `json:"wire_transmitter,omitempty"`
+	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
+	//
+	WireTransmitter *GetTransferWireTransmitter `json:"wire_transmitter,omitempty"`
 	// Additional details or instructions for the wire, issued to the recipient financial institution when the wire is executed.
 	//
 	WireInstructions *string `json:"wire_instructions,omitempty"`
 }
 
-func (o *GetTransferWire) GetIntermediaryBankAddress() *GetTransferIntermediaryBankAddress {
+func (o *GetTransferWire) GetIntermediaryBankAddress() *GetTransferUnstructuredAddress {
 	if o == nil {
 		return nil
 	}

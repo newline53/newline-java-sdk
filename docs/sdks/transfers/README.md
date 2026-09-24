@@ -182,14 +182,16 @@ import com.newline53.sdk.models.operations.CreateTransferAchRequest;
 import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressRequest;
+import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.CreateTransferPaymentTypeRequest;
+import com.newline53.sdk.models.operations.CreateTransferPurposeOfPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferRequest;
 import com.newline53.sdk.models.operations.CreateTransferResponse;
 import com.newline53.sdk.models.operations.CreateTransferSecCodeRequest;
 import com.newline53.sdk.models.operations.CreateTransferServiceProcessingRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireTransmitterRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterUnstructuredAddress;
 import java.lang.Exception;
 
 public class Application {
@@ -235,9 +237,10 @@ public class Application {
                         .country(null)
                         .build())
                     .memo("For the 6-5-23 shipment of pineapple popsicles")
+                    .purposeOfPayment(CreateTransferPurposeOfPaymentRequest.PAYR)
                     .build())
                 .wire(CreateTransferWireRequest.builder()
-                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressRequest.builder()
+                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                         .line1("345 Def Ave")
                         .line2("San Francisco")
                         .line3("CA 94016")
@@ -246,14 +249,14 @@ public class Application {
                     .intermediaryBankName("Fidelity Fiduciary Bank")
                     .intermediaryBankRoutingNumber("923456789")
                     .wireInstructions("Send ASAP")
-                    .wireTransmitter(CreateTransferWireTransmitterRequest.builder()
+                    .wireTransmitter(CreateTransferWireTransmitterRequest.of(CreateTransferWireTransmitterUnstructuredAddress.builder()
                         .name("Marge's Roofing Inc")
                         .transmitterIdentifier("123456789012ABC")
                         .line1("123 Abc St.")
-                        .country("US")
                         .line2("Boring, Oregon 97009")
                         .line3(null)
-                        .build())
+                        .country("US")
+                        .build()))
                     .build())
                 .build();
 
@@ -278,6 +281,7 @@ import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentTransmitter;
+import com.newline53.sdk.models.operations.CreateTransferPurposeOfPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferRequest;
 import com.newline53.sdk.models.operations.CreateTransferResponse;
 import java.lang.Exception;
@@ -313,6 +317,7 @@ public class Application {
                         .country(null)
                         .build())
                     .memo("To unfreeze the prince's assets")
+                    .purposeOfPayment(CreateTransferPurposeOfPaymentRequest.PAYR)
                     .build())
                 .build();
 
@@ -338,14 +343,16 @@ import com.newline53.sdk.models.operations.CreateTransferAchRequest;
 import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressRequest;
+import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.CreateTransferPaymentTypeRequest;
+import com.newline53.sdk.models.operations.CreateTransferPurposeOfPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferRequest;
 import com.newline53.sdk.models.operations.CreateTransferResponse;
 import com.newline53.sdk.models.operations.CreateTransferSecCodeRequest;
 import com.newline53.sdk.models.operations.CreateTransferServiceProcessingRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireTransmitterRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterUnstructuredAddress;
 import java.lang.Exception;
 
 public class Application {
@@ -391,9 +398,10 @@ public class Application {
                         .country(null)
                         .build())
                     .memo("For the 6-5-23 shipment of pineapple popsicles")
+                    .purposeOfPayment(CreateTransferPurposeOfPaymentRequest.PAYR)
                     .build())
                 .wire(CreateTransferWireRequest.builder()
-                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressRequest.builder()
+                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                         .line1("345 Def Ave")
                         .line2("San Francisco")
                         .line3("CA 94016")
@@ -402,14 +410,14 @@ public class Application {
                     .intermediaryBankName("Fidelity Fiduciary Bank")
                     .intermediaryBankRoutingNumber("923456789")
                     .wireInstructions("Send ASAP")
-                    .wireTransmitter(CreateTransferWireTransmitterRequest.builder()
+                    .wireTransmitter(CreateTransferWireTransmitterRequest.of(CreateTransferWireTransmitterUnstructuredAddress.builder()
                         .name("Marge's Roofing Inc")
                         .transmitterIdentifier("123456789012ABC")
                         .line1("123 Abc St.")
-                        .country("US")
                         .line2("Boring, Oregon 97009")
                         .line3(null)
-                        .build())
+                        .country("US")
+                        .build()))
                     .build())
                 .build();
 
@@ -432,11 +440,12 @@ package hello.world;
 import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
-import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressRequest;
+import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.CreateTransferRequest;
 import com.newline53.sdk.models.operations.CreateTransferResponse;
 import com.newline53.sdk.models.operations.CreateTransferWireRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireTransmitterRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterUnstructuredAddress;
 import java.lang.Exception;
 
 public class Application {
@@ -459,7 +468,7 @@ public class Application {
                 .destinationCustomerUid("iDtmSA52zRhgN4iy")
                 .initiatorType(CreateTransferInitiatorTypeRequest.CUSTOMER)
                 .wire(CreateTransferWireRequest.builder()
-                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressRequest.builder()
+                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                         .line1("345 Def Ave")
                         .line2("San Francisco")
                         .line3("CA 94016")
@@ -468,12 +477,12 @@ public class Application {
                     .intermediaryBankName("Fidelity Fiduciary Bank")
                     .intermediaryBankRoutingNumber("923456789")
                     .wireInstructions("Please send ASAP")
-                    .wireTransmitter(CreateTransferWireTransmitterRequest.builder()
+                    .wireTransmitter(CreateTransferWireTransmitterRequest.of(CreateTransferWireTransmitterUnstructuredAddress.builder()
                         .name("Top Tier Tacos")
                         .transmitterIdentifier("123456789")
                         .line1("123 Abc St.")
                         .country("US")
-                        .build())
+                        .build()))
                     .build())
                 .build();
 
@@ -499,14 +508,16 @@ import com.newline53.sdk.models.operations.CreateTransferAchRequest;
 import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressRequest;
+import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.CreateTransferPaymentTypeRequest;
+import com.newline53.sdk.models.operations.CreateTransferPurposeOfPaymentRequest;
 import com.newline53.sdk.models.operations.CreateTransferRequest;
 import com.newline53.sdk.models.operations.CreateTransferResponse;
 import com.newline53.sdk.models.operations.CreateTransferSecCodeRequest;
 import com.newline53.sdk.models.operations.CreateTransferServiceProcessingRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireRequest;
 import com.newline53.sdk.models.operations.CreateTransferWireTransmitterRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterUnstructuredAddress;
 import java.lang.Exception;
 
 public class Application {
@@ -552,9 +563,10 @@ public class Application {
                         .country(null)
                         .build())
                     .memo("For the 6-5-23 shipment of pineapple popsicles")
+                    .purposeOfPayment(CreateTransferPurposeOfPaymentRequest.PAYR)
                     .build())
                 .wire(CreateTransferWireRequest.builder()
-                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressRequest.builder()
+                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                         .line1("345 Def Ave")
                         .line2("San Francisco")
                         .line3("CA 94016")
@@ -563,14 +575,114 @@ public class Application {
                     .intermediaryBankName("Fidelity Fiduciary Bank")
                     .intermediaryBankRoutingNumber("923456789")
                     .wireInstructions("Send ASAP")
-                    .wireTransmitter(CreateTransferWireTransmitterRequest.builder()
+                    .wireTransmitter(CreateTransferWireTransmitterRequest.of(CreateTransferWireTransmitterUnstructuredAddress.builder()
                         .name("Marge's Roofing Inc")
                         .transmitterIdentifier("123456789012ABC")
                         .line1("123 Abc St.")
-                        .country("US")
                         .line2("Boring, Oregon 97009")
                         .line3(null)
+                        .country("US")
+                        .build()))
+                    .build())
+                .build();
+
+        CreateTransferResponse res = sdk.transfers().create()
+                .request(req)
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
+        }
+    }
+}
+```
+### Example Usage: wire_transfer_structured
+
+<!-- UsageSnippet language="java" operationID="createTransfer" method="post" path="/transfers" example="wire_transfer_structured" -->
+```java
+package hello.world;
+
+import com.newline53.sdk.NewlineSDK;
+import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.operations.CreateTransferAchRequest;
+import com.newline53.sdk.models.operations.CreateTransferInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.CreateTransferInstantPaymentRequest;
+import com.newline53.sdk.models.operations.CreateTransferInstantPaymentTransmitter;
+import com.newline53.sdk.models.operations.CreateTransferIntermediaryBankAddressUnstructuredAddressRequest;
+import com.newline53.sdk.models.operations.CreateTransferPaymentTypeRequest;
+import com.newline53.sdk.models.operations.CreateTransferPurposeOfPaymentRequest;
+import com.newline53.sdk.models.operations.CreateTransferRequest;
+import com.newline53.sdk.models.operations.CreateTransferResponse;
+import com.newline53.sdk.models.operations.CreateTransferSecCodeRequest;
+import com.newline53.sdk.models.operations.CreateTransferServiceProcessingRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterRequest;
+import com.newline53.sdk.models.operations.CreateTransferWireTransmitterUnstructuredAddress;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        NewlineSDK sdk = NewlineSDK.builder()
+                .security(Security.builder()
+                    .programUid(System.getenv().getOrDefault("PROGRAM_UID", ""))
+                    .hmacKey(System.getenv().getOrDefault("HMAC_KEY", ""))
+                    .build())
+            .build();
+
+        CreateTransferRequest req = CreateTransferRequest.builder()
+                .sourceSyntheticAccountUid("4XkJnsfHsuqrxmeX")
+                .destinationSyntheticAccountUid("exMDShw6yM3NHLYV")
+                .initiatingCustomerUid("iDtmSA52zRhgN4iy")
+                .usdTransferAmount("12.34")
+                .externalUid("partner-generated-id")
+                .destinationCustomerUid("iDtmSA52zRhgN4iy")
+                .initiatorType(CreateTransferInitiatorTypeRequest.CUSTOMER)
+                .ach(CreateTransferAchRequest.builder()
+                    .originatorName("J. Fred Muggs")
+                    .secCode(CreateTransferSecCodeRequest.CIE)
+                    .entryDescription("ACH Entry")
+                    .serviceProcessing(CreateTransferServiceProcessingRequest.SAMEDAY)
+                    .effectiveEntryDate("2023-12-01")
+                    .companyId("ABC-123456")
+                    .companyDiscretionaryData("ABC.123")
+                    .prenote(false)
+                    .paymentType(CreateTransferPaymentTypeRequest.ST)
+                    .idNumber("4270465600")
+                    .build())
+                .instantPayment(CreateTransferInstantPaymentRequest.builder()
+                    .instantPaymentTransmitter(CreateTransferInstantPaymentTransmitter.builder()
+                        .name("Marge's Roofing Inc")
+                        .transmitterIdentifier("123456789012ABC")
+                        .streetNumber("123abc")
+                        .street1("Abc St.")
+                        .city("Chicago")
+                        .state("IL")
+                        .postalCode("60301")
+                        .country(null)
                         .build())
+                    .memo("For the 6-5-23 shipment of pineapple popsicles")
+                    .purposeOfPayment(CreateTransferPurposeOfPaymentRequest.PAYR)
+                    .build())
+                .wire(CreateTransferWireRequest.builder()
+                    .intermediaryBankAddress(CreateTransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
+                        .line1("345 Def Ave")
+                        .line2("San Francisco")
+                        .line3("CA 94016")
+                        .country("US")
+                        .build())
+                    .intermediaryBankName("Fidelity Fiduciary Bank")
+                    .intermediaryBankRoutingNumber("923456789")
+                    .wireInstructions("Send ASAP")
+                    .wireTransmitter(CreateTransferWireTransmitterRequest.of(CreateTransferWireTransmitterUnstructuredAddress.builder()
+                        .name("Marge's Roofing Inc")
+                        .transmitterIdentifier("123456789012ABC")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country("US")
+                        .build()))
                     .build())
                 .build();
 
@@ -706,6 +818,38 @@ public class Application {
 ### Example Usage: wire_transfer
 
 <!-- UsageSnippet language="java" operationID="getTransfer" method="get" path="/transfers/{uid}" example="wire_transfer" -->
+```java
+package hello.world;
+
+import com.newline53.sdk.NewlineSDK;
+import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.operations.GetTransferResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        NewlineSDK sdk = NewlineSDK.builder()
+                .security(Security.builder()
+                    .programUid(System.getenv().getOrDefault("PROGRAM_UID", ""))
+                    .hmacKey(System.getenv().getOrDefault("HMAC_KEY", ""))
+                    .build())
+            .build();
+
+        GetTransferResponse res = sdk.transfers().get()
+                .uid("<id>")
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
+        }
+    }
+}
+```
+### Example Usage: wire_transfer_structured
+
+<!-- UsageSnippet language="java" operationID="getTransfer" method="get" path="/transfers/{uid}" example="wire_transfer_structured" -->
 ```java
 package hello.world;
 

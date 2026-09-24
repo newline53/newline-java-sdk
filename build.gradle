@@ -112,9 +112,9 @@ task mergeJUnitReports {
 
 
 dependencies {
-    antJUnit 'org.apache.ant:ant-junit:1.9.16'
+    antJUnit 'org.apache.ant:ant-junit:[1.10.18,2.0)'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:[2.22.2,3.0)'
     api 'com.fasterxml.jackson.core:jackson-annotations:2.22'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.22.0'
     api('org.openapitools:jackson-databind-nullable:0.2.6') {exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'}

@@ -25,7 +25,7 @@ public class PutTransfersUidCancelWire {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("intermediary_bank_address")
-    private PutTransfersUidCancelIntermediaryBankAddress intermediaryBankAddress;
+    private PutTransfersUidCancelUnstructuredAddress intermediaryBankAddress;
 
     /**
      * Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
@@ -41,7 +41,13 @@ public class PutTransfersUidCancelWire {
     @JsonProperty("intermediary_bank_routing_number")
     private String intermediaryBankRoutingNumber;
 
-
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire_transmitter")
     private PutTransfersUidCancelWireTransmitter wireTransmitter;
@@ -56,7 +62,7 @@ public class PutTransfersUidCancelWire {
 
     @JsonCreator
     public PutTransfersUidCancelWire(
-            @JsonProperty("intermediary_bank_address") @Nullable PutTransfersUidCancelIntermediaryBankAddress intermediaryBankAddress,
+            @JsonProperty("intermediary_bank_address") @Nullable PutTransfersUidCancelUnstructuredAddress intermediaryBankAddress,
             @JsonProperty("intermediary_bank_name") @Nullable String intermediaryBankName,
             @JsonProperty("intermediary_bank_routing_number") @Nullable String intermediaryBankRoutingNumber,
             @JsonProperty("wire_transmitter") @Nullable PutTransfersUidCancelWireTransmitter wireTransmitter,
@@ -77,7 +83,7 @@ public class PutTransfersUidCancelWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public Optional<PutTransfersUidCancelIntermediaryBankAddress> intermediaryBankAddress() {
+    public Optional<PutTransfersUidCancelUnstructuredAddress> intermediaryBankAddress() {
         return Optional.ofNullable(this.intermediaryBankAddress);
     }
 
@@ -95,6 +101,13 @@ public class PutTransfersUidCancelWire {
         return Optional.ofNullable(this.intermediaryBankRoutingNumber);
     }
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     public Optional<PutTransfersUidCancelWireTransmitter> wireTransmitter() {
         return Optional.ofNullable(this.wireTransmitter);
     }
@@ -116,7 +129,7 @@ public class PutTransfersUidCancelWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public PutTransfersUidCancelWire withIntermediaryBankAddress(@Nullable PutTransfersUidCancelIntermediaryBankAddress intermediaryBankAddress) {
+    public PutTransfersUidCancelWire withIntermediaryBankAddress(@Nullable PutTransfersUidCancelUnstructuredAddress intermediaryBankAddress) {
         this.intermediaryBankAddress = intermediaryBankAddress;
         return this;
     }
@@ -140,6 +153,13 @@ public class PutTransfersUidCancelWire {
     }
 
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     public PutTransfersUidCancelWire withWireTransmitter(@Nullable PutTransfersUidCancelWireTransmitter wireTransmitter) {
         this.wireTransmitter = wireTransmitter;
         return this;
@@ -193,7 +213,7 @@ public class PutTransfersUidCancelWire {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private PutTransfersUidCancelIntermediaryBankAddress intermediaryBankAddress;
+        private PutTransfersUidCancelUnstructuredAddress intermediaryBankAddress;
 
         private String intermediaryBankName;
 
@@ -211,7 +231,7 @@ public class PutTransfersUidCancelWire {
          * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
          * wire transfer.
          */
-        public Builder intermediaryBankAddress(@Nullable PutTransfersUidCancelIntermediaryBankAddress intermediaryBankAddress) {
+        public Builder intermediaryBankAddress(@Nullable PutTransfersUidCancelUnstructuredAddress intermediaryBankAddress) {
             this.intermediaryBankAddress = intermediaryBankAddress;
             return this;
         }
@@ -232,6 +252,13 @@ public class PutTransfersUidCancelWire {
             return this;
         }
 
+        /**
+         * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+         * Includes the transmitter's name, identifier, and address.
+         * 
+         * <p>The address format on requests depends on your program's wire address configuration. Responses
+         * always return all address fields; fields not applicable to the stored format are `null`.
+         */
         public Builder wireTransmitter(@Nullable PutTransfersUidCancelWireTransmitter wireTransmitter) {
             this.wireTransmitter = wireTransmitter;
             return this;

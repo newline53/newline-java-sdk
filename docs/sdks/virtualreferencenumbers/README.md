@@ -88,6 +88,7 @@ package hello.world;
 
 import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
 import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
@@ -95,7 +96,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
+    public static void main(String[] args) throws PostVirtualReferenceNumbersBadRequestException, PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
 
         NewlineSDK sdk = NewlineSDK.builder()
                 .security(Security.builder()
@@ -129,6 +130,7 @@ package hello.world;
 
 import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
 import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
@@ -136,7 +138,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
+    public static void main(String[] args) throws PostVirtualReferenceNumbersBadRequestException, PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
 
         NewlineSDK sdk = NewlineSDK.builder()
                 .security(Security.builder()
@@ -170,6 +172,7 @@ package hello.world;
 
 import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
 import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
@@ -177,7 +180,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
+    public static void main(String[] args) throws PostVirtualReferenceNumbersBadRequestException, PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
 
         NewlineSDK sdk = NewlineSDK.builder()
                 .security(Security.builder()
@@ -211,6 +214,7 @@ package hello.world;
 
 import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
 import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
 import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
@@ -218,7 +222,49 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
+    public static void main(String[] args) throws PostVirtualReferenceNumbersBadRequestException, PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
+
+        NewlineSDK sdk = NewlineSDK.builder()
+                .security(Security.builder()
+                    .programUid(System.getenv().getOrDefault("PROGRAM_UID", ""))
+                    .hmacKey(System.getenv().getOrDefault("HMAC_KEY", ""))
+                    .build())
+            .build();
+
+        PostVirtualReferenceNumbersRequest req = PostVirtualReferenceNumbersRequest.builder()
+                .syntheticAccountUid("Dg1EPao8XukUpHG8")
+                .routingNumber("123456789")
+                .externalUid("partner-generated-id")
+                .name("greenfield1")
+                .build();
+
+        PostVirtualReferenceNumbersResponse res = sdk.virtualReferenceNumbers().create()
+                .request(req)
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
+        }
+    }
+}
+```
+### Example Usage: vrn_type_not_allowed
+
+<!-- UsageSnippet language="java" operationID="post_/virtual_reference_numbers" method="post" path="/virtual_reference_numbers" example="vrn_type_not_allowed" -->
+```java
+package hello.world;
+
+import com.newline53.sdk.NewlineSDK;
+import com.newline53.sdk.models.components.Security;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersBadRequestException;
+import com.newline53.sdk.models.errors.PostVirtualReferenceNumbersUnprocessableEntityException;
+import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersRequest;
+import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws PostVirtualReferenceNumbersBadRequestException, PostVirtualReferenceNumbersUnprocessableEntityException, Exception {
 
         NewlineSDK sdk = NewlineSDK.builder()
                 .security(Security.builder()
@@ -259,6 +305,7 @@ public class Application {
 
 | Error Type                                                            | Status Code                                                           | Content Type                                                          |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| models/errors/PostVirtualReferenceNumbersBadRequestException          | 400                                                                   | application/json                                                      |
 | models/errors/PostVirtualReferenceNumbersUnprocessableEntityException | 422                                                                   | application/json                                                      |
 | models/errors/APIException                                            | 4XX, 5XX                                                              | \*/\*                                                                 |
 

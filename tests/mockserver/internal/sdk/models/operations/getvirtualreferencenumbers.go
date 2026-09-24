@@ -240,6 +240,33 @@ func (e *GetVirtualReferenceNumbersDataStatus) UnmarshalJSON(data []byte) error 
 	}
 }
 
+// GetVirtualReferenceNumbersType - The type of VRN.
+type GetVirtualReferenceNumbersType string
+
+const (
+	GetVirtualReferenceNumbersTypeBusiness GetVirtualReferenceNumbersType = "business"
+	GetVirtualReferenceNumbersTypeConsumer GetVirtualReferenceNumbersType = "consumer"
+)
+
+func (e GetVirtualReferenceNumbersType) ToPointer() *GetVirtualReferenceNumbersType {
+	return &e
+}
+func (e *GetVirtualReferenceNumbersType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = GetVirtualReferenceNumbersType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetVirtualReferenceNumbersType: %v", v)
+	}
+}
+
 type GetVirtualReferenceNumbersData struct {
 	// Unique identifier for the VRN
 	UID *string `json:"uid,omitempty"`
@@ -268,6 +295,8 @@ type GetVirtualReferenceNumbersData struct {
 	SyntheticAccountUID *string `json:"synthetic_account_uid,omitempty"`
 	// Last 4 digits of the VRN
 	VirtualReferenceNumberLastFour *string `json:"virtual_reference_number_last_four,omitempty"`
+	// The type of VRN.
+	Type *GetVirtualReferenceNumbersType `json:"type,omitempty"`
 }
 
 func (o *GetVirtualReferenceNumbersData) GetUID() *string {
@@ -359,6 +388,13 @@ func (o *GetVirtualReferenceNumbersData) GetVirtualReferenceNumberLastFour() *st
 		return nil
 	}
 	return o.VirtualReferenceNumberLastFour
+}
+
+func (o *GetVirtualReferenceNumbersData) GetType() *GetVirtualReferenceNumbersType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }
 
 // GetVirtualReferenceNumbersResponseBody - A list of Virtual Reference Numbers is returned

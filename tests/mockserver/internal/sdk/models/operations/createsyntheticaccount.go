@@ -4,6 +4,7 @@ package operations
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/optionalnullable"
@@ -168,8 +169,93 @@ func (o *CreateSyntheticAccountInstantPaymentRequest) GetPhone() optionalnullabl
 	return o.Phone
 }
 
-// CreateSyntheticAccountWireCounterpartyAddressRequest - Address of the business or individual who owns the external account.
-type CreateSyntheticAccountWireCounterpartyAddressRequest struct {
+// CreateSyntheticAccountStructuredAddress - Structured wire address using ISO-style parsed fields. Accepted when your program's wire address configuration is set to `structured` or `both`. Required fields: `city` and `country`.
+type CreateSyntheticAccountStructuredAddress struct {
+	// Full street line (alternative to `building_number` + `street_name`). Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional continuation, unit, or suite. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// Required. 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City string `json:"city"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    string                                    `json:"country"`
+}
+
+func (c CreateSyntheticAccountStructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateSyntheticAccountStructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"city", "country"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetCity() string {
+	if o == nil {
+		return ""
+	}
+	return o.City
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *CreateSyntheticAccountStructuredAddress) GetCountry() string {
+	if o == nil {
+		return ""
+	}
+	return o.Country
+}
+
+type CreateSyntheticAccountCounterpartyAddressUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -182,36 +268,111 @@ type CreateSyntheticAccountWireCounterpartyAddressRequest struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *CreateSyntheticAccountWireCounterpartyAddressRequest) GetLine1() optionalnullable.OptionalNullable[string] {
+func (c CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateSyntheticAccountWireCounterpartyAddressRequest) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateSyntheticAccountWireCounterpartyAddressRequest) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateSyntheticAccountWireCounterpartyAddressRequest) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// CreateSyntheticAccountCounterpartyBankAddressRequest - Address of the financial institution where the external account is held.
-type CreateSyntheticAccountCounterpartyBankAddressRequest struct {
+type CreateSyntheticAccountCounterpartyAddressUnionType string
+
+const (
+	CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountCounterpartyAddressUnstructuredAddress CreateSyntheticAccountCounterpartyAddressUnionType = "createSyntheticAccount_counterparty_address_Unstructured Address"
+	CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountStructuredAddress                      CreateSyntheticAccountCounterpartyAddressUnionType = "createSyntheticAccount_Structured Address"
+)
+
+// CreateSyntheticAccountCounterpartyAddressUnion - Address of the business or individual who owns the external account. The accepted format depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Unstructured format uses `line1`/`line2`/`line3`/`country`. Structured format uses `building_number`/`street_name`/`city`/`postal_code`/`state`/`country` (with `city` and `country` required).
+type CreateSyntheticAccountCounterpartyAddressUnion struct {
+	CreateSyntheticAccountCounterpartyAddressUnstructuredAddress *CreateSyntheticAccountCounterpartyAddressUnstructuredAddress `queryParam:"inline"`
+	CreateSyntheticAccountStructuredAddress                      *CreateSyntheticAccountStructuredAddress                      `queryParam:"inline"`
+
+	Type CreateSyntheticAccountCounterpartyAddressUnionType
+}
+
+func CreateCreateSyntheticAccountCounterpartyAddressUnionCreateSyntheticAccountCounterpartyAddressUnstructuredAddress(createSyntheticAccountCounterpartyAddressUnstructuredAddress CreateSyntheticAccountCounterpartyAddressUnstructuredAddress) CreateSyntheticAccountCounterpartyAddressUnion {
+	typ := CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountCounterpartyAddressUnstructuredAddress
+
+	return CreateSyntheticAccountCounterpartyAddressUnion{
+		CreateSyntheticAccountCounterpartyAddressUnstructuredAddress: &createSyntheticAccountCounterpartyAddressUnstructuredAddress,
+		Type: typ,
+	}
+}
+
+func CreateCreateSyntheticAccountCounterpartyAddressUnionCreateSyntheticAccountStructuredAddress(createSyntheticAccountStructuredAddress CreateSyntheticAccountStructuredAddress) CreateSyntheticAccountCounterpartyAddressUnion {
+	typ := CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountStructuredAddress
+
+	return CreateSyntheticAccountCounterpartyAddressUnion{
+		CreateSyntheticAccountStructuredAddress: &createSyntheticAccountStructuredAddress,
+		Type:                                    typ,
+	}
+}
+
+func (u *CreateSyntheticAccountCounterpartyAddressUnion) UnmarshalJSON(data []byte) error {
+
+	var createSyntheticAccountStructuredAddress CreateSyntheticAccountStructuredAddress = CreateSyntheticAccountStructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &createSyntheticAccountStructuredAddress, "", true, nil); err == nil {
+		u.CreateSyntheticAccountStructuredAddress = &createSyntheticAccountStructuredAddress
+		u.Type = CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountStructuredAddress
+		return nil
+	}
+
+	var createSyntheticAccountCounterpartyAddressUnstructuredAddress CreateSyntheticAccountCounterpartyAddressUnstructuredAddress = CreateSyntheticAccountCounterpartyAddressUnstructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &createSyntheticAccountCounterpartyAddressUnstructuredAddress, "", true, nil); err == nil {
+		u.CreateSyntheticAccountCounterpartyAddressUnstructuredAddress = &createSyntheticAccountCounterpartyAddressUnstructuredAddress
+		u.Type = CreateSyntheticAccountCounterpartyAddressUnionTypeCreateSyntheticAccountCounterpartyAddressUnstructuredAddress
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateSyntheticAccountCounterpartyAddressUnion", string(data))
+}
+
+func (u CreateSyntheticAccountCounterpartyAddressUnion) MarshalJSON() ([]byte, error) {
+	if u.CreateSyntheticAccountCounterpartyAddressUnstructuredAddress != nil {
+		return utils.MarshalJSON(u.CreateSyntheticAccountCounterpartyAddressUnstructuredAddress, "", true)
+	}
+
+	if u.CreateSyntheticAccountStructuredAddress != nil {
+		return utils.MarshalJSON(u.CreateSyntheticAccountStructuredAddress, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CreateSyntheticAccountCounterpartyAddressUnion: all fields are null")
+}
+
+// CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest - Address of the financial institution where the external account is held.
+type CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -224,28 +385,28 @@ type CreateSyntheticAccountCounterpartyBankAddressRequest struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressRequest) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressRequest) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressRequest) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressRequest) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -254,21 +415,21 @@ func (o *CreateSyntheticAccountCounterpartyBankAddressRequest) GetCountry() opti
 
 // CreateSyntheticAccountWireRequest - Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
 type CreateSyntheticAccountWireRequest struct {
-	// Address of the business or individual who owns the external account.
+	// Address of the business or individual who owns the external account. The accepted format depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Unstructured format uses `line1`/`line2`/`line3`/`country`. Structured format uses `building_number`/`street_name`/`city`/`postal_code`/`state`/`country` (with `city` and `country` required).
 	//
-	CounterpartyAddress optionalnullable.OptionalNullable[CreateSyntheticAccountWireCounterpartyAddressRequest] `json:"counterparty_address,omitempty"`
+	CounterpartyAddress optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyAddressUnion] `json:"counterparty_address,omitempty"`
 	// Name of the business or individual who owns the counterparty Account. Required for synthetic accounts in the wire_external category. Maximum 35 characters.
 	//
 	CounterpartyName string `json:"counterparty_name"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressRequest] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest] `json:"counterparty_bank_address,omitempty"`
 	// Name of the financial institution where the counterparty account is held.
 	//
 	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
 }
 
-func (o *CreateSyntheticAccountWireRequest) GetCounterpartyAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountWireCounterpartyAddressRequest] {
+func (o *CreateSyntheticAccountWireRequest) GetCounterpartyAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyAddressUnion] {
 	if o == nil {
 		return nil
 	}
@@ -282,7 +443,7 @@ func (o *CreateSyntheticAccountWireRequest) GetCounterpartyName() string {
 	return o.CounterpartyName
 }
 
-func (o *CreateSyntheticAccountWireRequest) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressRequest] {
+func (o *CreateSyntheticAccountWireRequest) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest] {
 	if o == nil {
 		return nil
 	}
@@ -612,9 +773,9 @@ func (o *CreateSyntheticAccountAchResponse) GetCounterpartyName() *string {
 
 type CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse struct {
 	// Building number for counterparty address. Alphanumeric only.
-	StreetNumber string `json:"street_number"`
+	StreetNumber *string `json:"street_number"`
 	// Street name for counterparty address
-	Street1 string `json:"street1"`
+	Street1 *string `json:"street1"`
 	// Optional second line of street
 	Street2 *string `json:"street2,omitempty"`
 	// Maximum 35 characters
@@ -626,16 +787,16 @@ type CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse struct {
 	Country    *string `json:"country"`
 }
 
-func (o *CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse) GetStreetNumber() string {
+func (o *CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse) GetStreetNumber() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.StreetNumber
 }
 
-func (o *CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse) GetStreet1() string {
+func (o *CreateSyntheticAccountInstantPaymentCounterpartyAddressResponse) GetStreet1() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Street1
 }
@@ -716,7 +877,7 @@ func (o *CreateSyntheticAccountInstantPaymentResponse) GetPhone() optionalnullab
 	return o.Phone
 }
 
-// CreateSyntheticAccountWireCounterpartyAddressResponse - Address of the business or individual who owns the external account.
+// CreateSyntheticAccountWireCounterpartyAddressResponse - Address of the business or individual who owns the external account. The accepted format on requests depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Responses always return all fields; fields not applicable to the stored format are `null`.
 type CreateSyntheticAccountWireCounterpartyAddressResponse struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
@@ -726,8 +887,18 @@ type CreateSyntheticAccountWireCounterpartyAddressResponse struct {
 	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
 	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
 func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetLine1() optionalnullable.OptionalNullable[string] {
@@ -751,6 +922,41 @@ func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetLine3() optio
 	return o.Line3
 }
 
+func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
 func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
@@ -758,8 +964,8 @@ func (o *CreateSyntheticAccountWireCounterpartyAddressResponse) GetCountry() opt
 	return o.Country
 }
 
-// CreateSyntheticAccountCounterpartyBankAddressResponse - Address of the financial institution where the external account is held.
-type CreateSyntheticAccountCounterpartyBankAddressResponse struct {
+// CreateSyntheticAccountUnstructuredAddressResponse - Address of the financial institution where the external account is held.
+type CreateSyntheticAccountUnstructuredAddressResponse struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -772,28 +978,28 @@ type CreateSyntheticAccountCounterpartyBankAddressResponse struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressResponse) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountUnstructuredAddressResponse) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressResponse) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountUnstructuredAddressResponse) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressResponse) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountUnstructuredAddressResponse) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *CreateSyntheticAccountCounterpartyBankAddressResponse) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CreateSyntheticAccountUnstructuredAddressResponse) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -802,7 +1008,7 @@ func (o *CreateSyntheticAccountCounterpartyBankAddressResponse) GetCountry() opt
 
 // CreateSyntheticAccountWireResponse - Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
 type CreateSyntheticAccountWireResponse struct {
-	// Address of the business or individual who owns the external account.
+	// Address of the business or individual who owns the external account. The accepted format on requests depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Responses always return all fields; fields not applicable to the stored format are `null`.
 	//
 	CounterpartyAddress optionalnullable.OptionalNullable[CreateSyntheticAccountWireCounterpartyAddressResponse] `json:"counterparty_address,omitempty"`
 	// Name of the business or individual who owns the counterparty Account. Required for synthetic accounts in the wire_external category. Maximum 35 characters.
@@ -810,7 +1016,7 @@ type CreateSyntheticAccountWireResponse struct {
 	CounterpartyName *string `json:"counterparty_name,omitempty"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressResponse] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[CreateSyntheticAccountUnstructuredAddressResponse] `json:"counterparty_bank_address,omitempty"`
 	// Name of the financial institution where the counterparty account is held.
 	//
 	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
@@ -830,7 +1036,7 @@ func (o *CreateSyntheticAccountWireResponse) GetCounterpartyName() *string {
 	return o.CounterpartyName
 }
 
-func (o *CreateSyntheticAccountWireResponse) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountCounterpartyBankAddressResponse] {
+func (o *CreateSyntheticAccountWireResponse) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[CreateSyntheticAccountUnstructuredAddressResponse] {
 	if o == nil {
 		return nil
 	}

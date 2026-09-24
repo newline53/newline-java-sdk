@@ -4,9 +4,11 @@ package operations
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/optionalnullable"
+	"mockserver/internal/sdk/utils"
 )
 
 // PostCombinedTransfersAccountType - The type of ACH account
@@ -166,8 +168,93 @@ func (o *SyntheticAccountInstantPayment) GetPhone() optionalnullable.OptionalNul
 	return o.Phone
 }
 
-// PostCombinedTransfersWireCounterpartyAddress - Address of the business or individual who owns the external account.
-type PostCombinedTransfersWireCounterpartyAddress struct {
+// SyntheticAccountStructuredAddress - Structured wire address using ISO-style parsed fields. Accepted when your program's wire address configuration is set to `structured` or `both`. Required fields: `city` and `country`.
+type SyntheticAccountStructuredAddress struct {
+	// Full street line (alternative to `building_number` + `street_name`). Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional continuation, unit, or suite. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// Required. 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City string `json:"city"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    string                                    `json:"country"`
+}
+
+func (s SyntheticAccountStructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SyntheticAccountStructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"city", "country"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *SyntheticAccountStructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *SyntheticAccountStructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *SyntheticAccountStructuredAddress) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *SyntheticAccountStructuredAddress) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *SyntheticAccountStructuredAddress) GetCity() string {
+	if o == nil {
+		return ""
+	}
+	return o.City
+}
+
+func (o *SyntheticAccountStructuredAddress) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *SyntheticAccountStructuredAddress) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *SyntheticAccountStructuredAddress) GetCountry() string {
+	if o == nil {
+		return ""
+	}
+	return o.Country
+}
+
+type CounterpartyAddressSyntheticAccountUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -180,36 +267,111 @@ type PostCombinedTransfersWireCounterpartyAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *PostCombinedTransfersWireCounterpartyAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (c CounterpartyAddressSyntheticAccountUnstructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CounterpartyAddressSyntheticAccountUnstructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *CounterpartyAddressSyntheticAccountUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *PostCombinedTransfersWireCounterpartyAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *CounterpartyAddressSyntheticAccountUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *PostCombinedTransfersWireCounterpartyAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *CounterpartyAddressSyntheticAccountUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *PostCombinedTransfersWireCounterpartyAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *CounterpartyAddressSyntheticAccountUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// PostCombinedTransfersCounterpartyBankAddress - Address of the financial institution where the external account is held.
-type PostCombinedTransfersCounterpartyBankAddress struct {
+type PostCombinedTransfersCounterpartyAddressUnionType string
+
+const (
+	PostCombinedTransfersCounterpartyAddressUnionTypeCounterpartyAddressSyntheticAccountUnstructuredAddress PostCombinedTransfersCounterpartyAddressUnionType = "counterparty_address_synthetic_account_Unstructured Address"
+	PostCombinedTransfersCounterpartyAddressUnionTypeSyntheticAccountStructuredAddress                      PostCombinedTransfersCounterpartyAddressUnionType = "synthetic_account_Structured Address"
+)
+
+// PostCombinedTransfersCounterpartyAddressUnion - Address of the business or individual who owns the external account. The accepted format depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Unstructured format uses `line1`/`line2`/`line3`/`country`. Structured format uses `building_number`/`street_name`/`city`/`postal_code`/`state`/`country` (with `city` and `country` required).
+type PostCombinedTransfersCounterpartyAddressUnion struct {
+	CounterpartyAddressSyntheticAccountUnstructuredAddress *CounterpartyAddressSyntheticAccountUnstructuredAddress `queryParam:"inline"`
+	SyntheticAccountStructuredAddress                      *SyntheticAccountStructuredAddress                      `queryParam:"inline"`
+
+	Type PostCombinedTransfersCounterpartyAddressUnionType
+}
+
+func CreatePostCombinedTransfersCounterpartyAddressUnionCounterpartyAddressSyntheticAccountUnstructuredAddress(counterpartyAddressSyntheticAccountUnstructuredAddress CounterpartyAddressSyntheticAccountUnstructuredAddress) PostCombinedTransfersCounterpartyAddressUnion {
+	typ := PostCombinedTransfersCounterpartyAddressUnionTypeCounterpartyAddressSyntheticAccountUnstructuredAddress
+
+	return PostCombinedTransfersCounterpartyAddressUnion{
+		CounterpartyAddressSyntheticAccountUnstructuredAddress: &counterpartyAddressSyntheticAccountUnstructuredAddress,
+		Type: typ,
+	}
+}
+
+func CreatePostCombinedTransfersCounterpartyAddressUnionSyntheticAccountStructuredAddress(syntheticAccountStructuredAddress SyntheticAccountStructuredAddress) PostCombinedTransfersCounterpartyAddressUnion {
+	typ := PostCombinedTransfersCounterpartyAddressUnionTypeSyntheticAccountStructuredAddress
+
+	return PostCombinedTransfersCounterpartyAddressUnion{
+		SyntheticAccountStructuredAddress: &syntheticAccountStructuredAddress,
+		Type:                              typ,
+	}
+}
+
+func (u *PostCombinedTransfersCounterpartyAddressUnion) UnmarshalJSON(data []byte) error {
+
+	var syntheticAccountStructuredAddress SyntheticAccountStructuredAddress = SyntheticAccountStructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &syntheticAccountStructuredAddress, "", true, nil); err == nil {
+		u.SyntheticAccountStructuredAddress = &syntheticAccountStructuredAddress
+		u.Type = PostCombinedTransfersCounterpartyAddressUnionTypeSyntheticAccountStructuredAddress
+		return nil
+	}
+
+	var counterpartyAddressSyntheticAccountUnstructuredAddress CounterpartyAddressSyntheticAccountUnstructuredAddress = CounterpartyAddressSyntheticAccountUnstructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &counterpartyAddressSyntheticAccountUnstructuredAddress, "", true, nil); err == nil {
+		u.CounterpartyAddressSyntheticAccountUnstructuredAddress = &counterpartyAddressSyntheticAccountUnstructuredAddress
+		u.Type = PostCombinedTransfersCounterpartyAddressUnionTypeCounterpartyAddressSyntheticAccountUnstructuredAddress
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PostCombinedTransfersCounterpartyAddressUnion", string(data))
+}
+
+func (u PostCombinedTransfersCounterpartyAddressUnion) MarshalJSON() ([]byte, error) {
+	if u.CounterpartyAddressSyntheticAccountUnstructuredAddress != nil {
+		return utils.MarshalJSON(u.CounterpartyAddressSyntheticAccountUnstructuredAddress, "", true)
+	}
+
+	if u.SyntheticAccountStructuredAddress != nil {
+		return utils.MarshalJSON(u.SyntheticAccountStructuredAddress, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PostCombinedTransfersCounterpartyAddressUnion: all fields are null")
+}
+
+// SyntheticAccountCounterpartyBankAddressUnstructuredAddress - Address of the financial institution where the external account is held.
+type SyntheticAccountCounterpartyBankAddressUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -222,28 +384,28 @@ type PostCombinedTransfersCounterpartyBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *PostCombinedTransfersCounterpartyBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *SyntheticAccountCounterpartyBankAddressUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *PostCombinedTransfersCounterpartyBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *SyntheticAccountCounterpartyBankAddressUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *PostCombinedTransfersCounterpartyBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *SyntheticAccountCounterpartyBankAddressUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *PostCombinedTransfersCounterpartyBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *SyntheticAccountCounterpartyBankAddressUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -252,21 +414,21 @@ func (o *PostCombinedTransfersCounterpartyBankAddress) GetCountry() optionalnull
 
 // SyntheticAccountWire - Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
 type SyntheticAccountWire struct {
-	// Address of the business or individual who owns the external account.
+	// Address of the business or individual who owns the external account. The accepted format depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Unstructured format uses `line1`/`line2`/`line3`/`country`. Structured format uses `building_number`/`street_name`/`city`/`postal_code`/`state`/`country` (with `city` and `country` required).
 	//
-	CounterpartyAddress optionalnullable.OptionalNullable[PostCombinedTransfersWireCounterpartyAddress] `json:"counterparty_address,omitempty"`
+	CounterpartyAddress optionalnullable.OptionalNullable[PostCombinedTransfersCounterpartyAddressUnion] `json:"counterparty_address,omitempty"`
 	// Name of the business or individual who owns the counterparty Account. Required for synthetic accounts in the wire_external category. Maximum 35 characters.
 	//
 	CounterpartyName string `json:"counterparty_name"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[PostCombinedTransfersCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[SyntheticAccountCounterpartyBankAddressUnstructuredAddress] `json:"counterparty_bank_address,omitempty"`
 	// Name of the financial institution where the counterparty account is held.
 	//
 	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
 }
 
-func (o *SyntheticAccountWire) GetCounterpartyAddress() optionalnullable.OptionalNullable[PostCombinedTransfersWireCounterpartyAddress] {
+func (o *SyntheticAccountWire) GetCounterpartyAddress() optionalnullable.OptionalNullable[PostCombinedTransfersCounterpartyAddressUnion] {
 	if o == nil {
 		return nil
 	}
@@ -280,7 +442,7 @@ func (o *SyntheticAccountWire) GetCounterpartyName() string {
 	return o.CounterpartyName
 }
 
-func (o *SyntheticAccountWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[PostCombinedTransfersCounterpartyBankAddress] {
+func (o *SyntheticAccountWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[SyntheticAccountCounterpartyBankAddressUnstructuredAddress] {
 	if o == nil {
 		return nil
 	}
@@ -703,12 +865,72 @@ func (o *PostCombinedTransfersInstantPaymentTransmitter) GetCountry() *string {
 	return o.Country
 }
 
+// PostCombinedTransfersPurposeOfPayment - An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+type PostCombinedTransfersPurposeOfPayment string
+
+const (
+	PostCombinedTransfersPurposeOfPaymentNows PostCombinedTransfersPurposeOfPayment = "NOWS"
+	PostCombinedTransfersPurposeOfPaymentGdds PostCombinedTransfersPurposeOfPayment = "GDDS"
+	PostCombinedTransfersPurposeOfPaymentScve PostCombinedTransfersPurposeOfPayment = "SCVE"
+	PostCombinedTransfersPurposeOfPaymentInsc PostCombinedTransfersPurposeOfPayment = "INSC"
+	PostCombinedTransfersPurposeOfPaymentInsm PostCombinedTransfersPurposeOfPayment = "INSM"
+	PostCombinedTransfersPurposeOfPaymentInvs PostCombinedTransfersPurposeOfPayment = "INVS"
+	PostCombinedTransfersPurposeOfPaymentPayr PostCombinedTransfersPurposeOfPayment = "PAYR"
+	PostCombinedTransfersPurposeOfPaymentUbil PostCombinedTransfersPurposeOfPayment = "UBIL"
+	PostCombinedTransfersPurposeOfPaymentPdep PostCombinedTransfersPurposeOfPayment = "PDEP"
+	PostCombinedTransfersPurposeOfPaymentAcct PostCombinedTransfersPurposeOfPayment = "ACCT"
+	PostCombinedTransfersPurposeOfPaymentCblk PostCombinedTransfersPurposeOfPayment = "CBLK"
+	PostCombinedTransfersPurposeOfPaymentMp2P PostCombinedTransfersPurposeOfPayment = "MP2P"
+)
+
+func (e PostCombinedTransfersPurposeOfPayment) ToPointer() *PostCombinedTransfersPurposeOfPayment {
+	return &e
+}
+func (e *PostCombinedTransfersPurposeOfPayment) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "NOWS":
+		fallthrough
+	case "GDDS":
+		fallthrough
+	case "SCVE":
+		fallthrough
+	case "INSC":
+		fallthrough
+	case "INSM":
+		fallthrough
+	case "INVS":
+		fallthrough
+	case "PAYR":
+		fallthrough
+	case "UBIL":
+		fallthrough
+	case "PDEP":
+		fallthrough
+	case "ACCT":
+		fallthrough
+	case "CBLK":
+		fallthrough
+	case "MP2P":
+		*e = PostCombinedTransfersPurposeOfPayment(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostCombinedTransfersPurposeOfPayment: %v", v)
+	}
+}
+
 // TransferInstantPayment - Instant payment information. Only present if the Transfer is an instant payment.
 type TransferInstantPayment struct {
 	InstantPaymentTransmitter *PostCombinedTransfersInstantPaymentTransmitter `json:"instant_payment_transmitter,omitempty"`
 	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
 	Memo optionalnullable.OptionalNullable[string] `json:"memo,omitempty"`
+	// An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+	//
+	PurposeOfPayment optionalnullable.OptionalNullable[PostCombinedTransfersPurposeOfPayment] `json:"purpose_of_payment,omitempty"`
 }
 
 func (o *TransferInstantPayment) GetInstantPaymentTransmitter() *PostCombinedTransfersInstantPaymentTransmitter {
@@ -725,7 +947,14 @@ func (o *TransferInstantPayment) GetMemo() optionalnullable.OptionalNullable[str
 	return o.Memo
 }
 
-type PostCombinedTransfersIntermediaryBankAddress struct {
+func (o *TransferInstantPayment) GetPurposeOfPayment() optionalnullable.OptionalNullable[PostCombinedTransfersPurposeOfPayment] {
+	if o == nil {
+		return nil
+	}
+	return o.PurposeOfPayment
+}
+
+type TransferIntermediaryBankAddressUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -738,110 +967,291 @@ type PostCombinedTransfersIntermediaryBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *PostCombinedTransfersIntermediaryBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *TransferIntermediaryBankAddressUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *PostCombinedTransfersIntermediaryBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *TransferIntermediaryBankAddressUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *PostCombinedTransfersIntermediaryBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *TransferIntermediaryBankAddressUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *PostCombinedTransfersIntermediaryBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *TransferIntermediaryBankAddressUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Country
 }
 
-// PostCombinedTransfersWireTransmitter - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
-type PostCombinedTransfersWireTransmitter struct {
+// TransferStructuredAddress - Structured wire address using ISO-style parsed fields. Accepted when your program's wire address configuration is set to `structured` or `both`. Required fields: `city` and `country`.
+type TransferStructuredAddress struct {
+	// Full street line (alternative to `building_number` + `street_name`). Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional continuation, unit, or suite. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// Required. 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City string `json:"city"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    string                                    `json:"country"`
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
-	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
 	TransmitterIdentifier string `json:"transmitter_identifier"`
-	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	Line1 *string `json:"line1"`
-	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	//
-	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
-	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
-	//
-	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
-	Country string                                    `json:"country"`
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetName() string {
+func (t TransferStructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TransferStructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"city", "country", "name", "transmitter_identifier"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *TransferStructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *TransferStructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *TransferStructuredAddress) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *TransferStructuredAddress) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *TransferStructuredAddress) GetCity() string {
+	if o == nil {
+		return ""
+	}
+	return o.City
+}
+
+func (o *TransferStructuredAddress) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *TransferStructuredAddress) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *TransferStructuredAddress) GetCountry() string {
+	if o == nil {
+		return ""
+	}
+	return o.Country
+}
+
+func (o *TransferStructuredAddress) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetTransmitterIdentifier() string {
+func (o *TransferStructuredAddress) GetTransmitterIdentifier() string {
 	if o == nil {
 		return ""
 	}
 	return o.TransmitterIdentifier
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetLine1() *string {
+type WireTransmitterTransferUnstructuredAddress struct {
+	// Up to 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	Country *string                                   `json:"country,omitempty"`
+	// Name of the Transmitter.
+	//
+	Name string `json:"name"`
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
+	TransmitterIdentifier string `json:"transmitter_identifier"`
+}
+
+func (w WireTransmitterTransferUnstructuredAddress) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(w, "", false)
+}
+
+func (w *WireTransmitterTransferUnstructuredAddress) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &w, "", false, []string{"name", "transmitter_identifier"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *WireTransmitterTransferUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *WireTransmitterTransferUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *WireTransmitterTransferUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *PostCombinedTransfersWireTransmitter) GetCountry() string {
+func (o *WireTransmitterTransferUnstructuredAddress) GetCountry() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+func (o *WireTransmitterTransferUnstructuredAddress) GetName() string {
 	if o == nil {
 		return ""
 	}
-	return o.Country
+	return o.Name
+}
+
+func (o *WireTransmitterTransferUnstructuredAddress) GetTransmitterIdentifier() string {
+	if o == nil {
+		return ""
+	}
+	return o.TransmitterIdentifier
+}
+
+type PostCombinedTransfersWireTransmitterType string
+
+const (
+	PostCombinedTransfersWireTransmitterTypeWireTransmitterTransferUnstructuredAddress PostCombinedTransfersWireTransmitterType = "wire_transmitter_transfer_Unstructured Address"
+	PostCombinedTransfersWireTransmitterTypeTransferStructuredAddress                  PostCombinedTransfersWireTransmitterType = "transfer_Structured Address"
+)
+
+// PostCombinedTransfersWireTransmitter - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The accepted address format depends on your program's wire address configuration. For `unstructured` format: `line1` and `country` are required. For `structured` format: `city` and `country` are required.
+type PostCombinedTransfersWireTransmitter struct {
+	WireTransmitterTransferUnstructuredAddress *WireTransmitterTransferUnstructuredAddress `queryParam:"inline"`
+	TransferStructuredAddress                  *TransferStructuredAddress                  `queryParam:"inline"`
+
+	Type PostCombinedTransfersWireTransmitterType
+}
+
+func CreatePostCombinedTransfersWireTransmitterWireTransmitterTransferUnstructuredAddress(wireTransmitterTransferUnstructuredAddress WireTransmitterTransferUnstructuredAddress) PostCombinedTransfersWireTransmitter {
+	typ := PostCombinedTransfersWireTransmitterTypeWireTransmitterTransferUnstructuredAddress
+
+	return PostCombinedTransfersWireTransmitter{
+		WireTransmitterTransferUnstructuredAddress: &wireTransmitterTransferUnstructuredAddress,
+		Type: typ,
+	}
+}
+
+func CreatePostCombinedTransfersWireTransmitterTransferStructuredAddress(transferStructuredAddress TransferStructuredAddress) PostCombinedTransfersWireTransmitter {
+	typ := PostCombinedTransfersWireTransmitterTypeTransferStructuredAddress
+
+	return PostCombinedTransfersWireTransmitter{
+		TransferStructuredAddress: &transferStructuredAddress,
+		Type:                      typ,
+	}
+}
+
+func (u *PostCombinedTransfersWireTransmitter) UnmarshalJSON(data []byte) error {
+
+	var transferStructuredAddress TransferStructuredAddress = TransferStructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &transferStructuredAddress, "", true, nil); err == nil {
+		u.TransferStructuredAddress = &transferStructuredAddress
+		u.Type = PostCombinedTransfersWireTransmitterTypeTransferStructuredAddress
+		return nil
+	}
+
+	var wireTransmitterTransferUnstructuredAddress WireTransmitterTransferUnstructuredAddress = WireTransmitterTransferUnstructuredAddress{}
+	if err := utils.UnmarshalJSON(data, &wireTransmitterTransferUnstructuredAddress, "", true, nil); err == nil {
+		u.WireTransmitterTransferUnstructuredAddress = &wireTransmitterTransferUnstructuredAddress
+		u.Type = PostCombinedTransfersWireTransmitterTypeWireTransmitterTransferUnstructuredAddress
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PostCombinedTransfersWireTransmitter", string(data))
+}
+
+func (u PostCombinedTransfersWireTransmitter) MarshalJSON() ([]byte, error) {
+	if u.WireTransmitterTransferUnstructuredAddress != nil {
+		return utils.MarshalJSON(u.WireTransmitterTransferUnstructuredAddress, "", true)
+	}
+
+	if u.TransferStructuredAddress != nil {
+		return utils.MarshalJSON(u.TransferStructuredAddress, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PostCombinedTransfersWireTransmitter: all fields are null")
 }
 
 // TransferWire - Wire-specific information. Only present if the Transfer is a wire.
 type TransferWire struct {
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *PostCombinedTransfersIntermediaryBankAddress `json:"intermediary_bank_address,omitempty"`
-	IntermediaryBankName    *string                                       `json:"intermediary_bank_name,omitempty"`
+	IntermediaryBankAddress *TransferIntermediaryBankAddressUnstructuredAddress `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankName    *string                                             `json:"intermediary_bank_name,omitempty"`
 	// The ABA routing number associated with the intermediary bank involved in the wire transfer. This value is required if intermediary_bank_name or intermediary_bank_address is present; optional otherwise
 	//
 	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
 	// Additional details or instructions for the wire, issued to the recipient financial institution when the wire is executed.
 	//
-	WireInstructions *string                               `json:"wire_instructions,omitempty"`
-	WireTransmitter  *PostCombinedTransfersWireTransmitter `json:"wire_transmitter,omitempty"`
+	WireInstructions *string `json:"wire_instructions,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The accepted address format depends on your program's wire address configuration. For `unstructured` format: `line1` and `country` are required. For `structured` format: `city` and `country` are required.
+	//
+	WireTransmitter *PostCombinedTransfersWireTransmitter `json:"wire_transmitter,omitempty"`
 }
 
-func (o *TransferWire) GetIntermediaryBankAddress() *PostCombinedTransfersIntermediaryBankAddress {
+func (o *TransferWire) GetIntermediaryBankAddress() *TransferIntermediaryBankAddressUnstructuredAddress {
 	if o == nil {
 		return nil
 	}

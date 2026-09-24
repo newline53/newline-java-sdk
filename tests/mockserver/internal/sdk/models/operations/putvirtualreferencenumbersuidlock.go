@@ -250,6 +250,33 @@ func (e *PutVirtualReferenceNumbersUIDLockStatus) UnmarshalJSON(data []byte) err
 	}
 }
 
+// PutVirtualReferenceNumbersUIDLockType - The type of VRN.
+type PutVirtualReferenceNumbersUIDLockType string
+
+const (
+	PutVirtualReferenceNumbersUIDLockTypeBusiness PutVirtualReferenceNumbersUIDLockType = "business"
+	PutVirtualReferenceNumbersUIDLockTypeConsumer PutVirtualReferenceNumbersUIDLockType = "consumer"
+)
+
+func (e PutVirtualReferenceNumbersUIDLockType) ToPointer() *PutVirtualReferenceNumbersUIDLockType {
+	return &e
+}
+func (e *PutVirtualReferenceNumbersUIDLockType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = PutVirtualReferenceNumbersUIDLockType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PutVirtualReferenceNumbersUIDLockType: %v", v)
+	}
+}
+
 // PutVirtualReferenceNumbersUIDLockResponseBody - The locked Virtual Reference Number resource is returned
 type PutVirtualReferenceNumbersUIDLockResponseBody struct {
 	// The DateTime at which this VRN was archived. This value will be present if the status is archived. If in another state, the value will be null.
@@ -279,6 +306,8 @@ type PutVirtualReferenceNumbersUIDLockResponseBody struct {
 	UID *string `json:"uid,omitempty"`
 	// Last 4 digits of the VRN
 	VirtualReferenceNumberLastFour *string `json:"virtual_reference_number_last_four,omitempty"`
+	// The type of VRN.
+	Type *PutVirtualReferenceNumbersUIDLockType `json:"type,omitempty"`
 	// The VRN
 	VirtualReferenceNumber *string `json:"virtual_reference_number,omitempty"`
 }
@@ -372,6 +401,13 @@ func (o *PutVirtualReferenceNumbersUIDLockResponseBody) GetVirtualReferenceNumbe
 		return nil
 	}
 	return o.VirtualReferenceNumberLastFour
+}
+
+func (o *PutVirtualReferenceNumbersUIDLockResponseBody) GetType() *PutVirtualReferenceNumbersUIDLockType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }
 
 func (o *PutVirtualReferenceNumbersUIDLockResponseBody) GetVirtualReferenceNumber() *string {

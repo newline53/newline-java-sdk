@@ -21,7 +21,7 @@ public class ListTransfersWire {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("intermediary_bank_address")
-    private ListTransfersIntermediaryBankAddress intermediaryBankAddress;
+    private ListTransfersUnstructuredAddress intermediaryBankAddress;
 
     /**
      * Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
@@ -37,14 +37,20 @@ public class ListTransfersWire {
     @JsonProperty("intermediary_bank_routing_number")
     private String intermediaryBankRoutingNumber;
 
-
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire_transmitter")
     private ListTransfersWireTransmitter wireTransmitter;
 
     @JsonCreator
     public ListTransfersWire(
-            @JsonProperty("intermediary_bank_address") @Nullable ListTransfersIntermediaryBankAddress intermediaryBankAddress,
+            @JsonProperty("intermediary_bank_address") @Nullable ListTransfersUnstructuredAddress intermediaryBankAddress,
             @JsonProperty("intermediary_bank_name") @Nullable String intermediaryBankName,
             @JsonProperty("intermediary_bank_routing_number") @Nullable String intermediaryBankRoutingNumber,
             @JsonProperty("wire_transmitter") @Nullable ListTransfersWireTransmitter wireTransmitter) {
@@ -63,7 +69,7 @@ public class ListTransfersWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public Optional<ListTransfersIntermediaryBankAddress> intermediaryBankAddress() {
+    public Optional<ListTransfersUnstructuredAddress> intermediaryBankAddress() {
         return Optional.ofNullable(this.intermediaryBankAddress);
     }
 
@@ -81,6 +87,13 @@ public class ListTransfersWire {
         return Optional.ofNullable(this.intermediaryBankRoutingNumber);
     }
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     public Optional<ListTransfersWireTransmitter> wireTransmitter() {
         return Optional.ofNullable(this.wireTransmitter);
     }
@@ -94,7 +107,7 @@ public class ListTransfersWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public ListTransfersWire withIntermediaryBankAddress(@Nullable ListTransfersIntermediaryBankAddress intermediaryBankAddress) {
+    public ListTransfersWire withIntermediaryBankAddress(@Nullable ListTransfersUnstructuredAddress intermediaryBankAddress) {
         this.intermediaryBankAddress = intermediaryBankAddress;
         return this;
     }
@@ -118,6 +131,13 @@ public class ListTransfersWire {
     }
 
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The address format on requests depends on your program's wire address configuration. Responses
+     * always return all address fields; fields not applicable to the stored format are `null`.
+     */
     public ListTransfersWire withWireTransmitter(@Nullable ListTransfersWireTransmitter wireTransmitter) {
         this.wireTransmitter = wireTransmitter;
         return this;
@@ -159,7 +179,7 @@ public class ListTransfersWire {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private ListTransfersIntermediaryBankAddress intermediaryBankAddress;
+        private ListTransfersUnstructuredAddress intermediaryBankAddress;
 
         private String intermediaryBankName;
 
@@ -175,7 +195,7 @@ public class ListTransfersWire {
          * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
          * wire transfer.
          */
-        public Builder intermediaryBankAddress(@Nullable ListTransfersIntermediaryBankAddress intermediaryBankAddress) {
+        public Builder intermediaryBankAddress(@Nullable ListTransfersUnstructuredAddress intermediaryBankAddress) {
             this.intermediaryBankAddress = intermediaryBankAddress;
             return this;
         }
@@ -196,6 +216,13 @@ public class ListTransfersWire {
             return this;
         }
 
+        /**
+         * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+         * Includes the transmitter's name, identifier, and address.
+         * 
+         * <p>The address format on requests depends on your program's wire address configuration. Responses
+         * always return all address fields; fields not applicable to the stored format are `null`.
+         */
         public Builder wireTransmitter(@Nullable ListTransfersWireTransmitter wireTransmitter) {
             this.wireTransmitter = wireTransmitter;
             return this;

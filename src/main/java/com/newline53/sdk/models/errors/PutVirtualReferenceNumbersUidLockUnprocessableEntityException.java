@@ -50,12 +50,17 @@ public class PutVirtualReferenceNumbersUidLockUnprocessableEntityException exten
     * the resulting PutVirtualReferenceNumbersUidLockUnprocessableEntityException instance will have a null data() value and a non-null deserializationException().
     */
     public static PutVirtualReferenceNumbersUidLockUnprocessableEntityException from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new PutVirtualReferenceNumbersUidLockUnprocessableEntityException(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new PutVirtualReferenceNumbersUidLockUnprocessableEntityException(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new PutVirtualReferenceNumbersUidLockUnprocessableEntityException(response.statusCode(), null, response, null, e);
+            return new PutVirtualReferenceNumbersUidLockUnprocessableEntityException(response.statusCode(), bytes, response, null, e);
         }
     }
 

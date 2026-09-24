@@ -722,15 +722,72 @@ func (o *GetTransactionsAuthorization) GetDeniedReason() *string {
 	return o.DeniedReason
 }
 
+// GetTransactionsPurposeOfPayment - An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+type GetTransactionsPurposeOfPayment string
+
+const (
+	GetTransactionsPurposeOfPaymentNows GetTransactionsPurposeOfPayment = "NOWS"
+	GetTransactionsPurposeOfPaymentGdds GetTransactionsPurposeOfPayment = "GDDS"
+	GetTransactionsPurposeOfPaymentScve GetTransactionsPurposeOfPayment = "SCVE"
+	GetTransactionsPurposeOfPaymentInsc GetTransactionsPurposeOfPayment = "INSC"
+	GetTransactionsPurposeOfPaymentInsm GetTransactionsPurposeOfPayment = "INSM"
+	GetTransactionsPurposeOfPaymentInvs GetTransactionsPurposeOfPayment = "INVS"
+	GetTransactionsPurposeOfPaymentPayr GetTransactionsPurposeOfPayment = "PAYR"
+	GetTransactionsPurposeOfPaymentUbil GetTransactionsPurposeOfPayment = "UBIL"
+	GetTransactionsPurposeOfPaymentPdep GetTransactionsPurposeOfPayment = "PDEP"
+	GetTransactionsPurposeOfPaymentAcct GetTransactionsPurposeOfPayment = "ACCT"
+	GetTransactionsPurposeOfPaymentCblk GetTransactionsPurposeOfPayment = "CBLK"
+	GetTransactionsPurposeOfPaymentMp2P GetTransactionsPurposeOfPayment = "MP2P"
+)
+
+func (e GetTransactionsPurposeOfPayment) ToPointer() *GetTransactionsPurposeOfPayment {
+	return &e
+}
+func (e *GetTransactionsPurposeOfPayment) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "NOWS":
+		fallthrough
+	case "GDDS":
+		fallthrough
+	case "SCVE":
+		fallthrough
+	case "INSC":
+		fallthrough
+	case "INSM":
+		fallthrough
+	case "INVS":
+		fallthrough
+	case "PAYR":
+		fallthrough
+	case "UBIL":
+		fallthrough
+	case "PDEP":
+		fallthrough
+	case "ACCT":
+		fallthrough
+	case "CBLK":
+		fallthrough
+	case "MP2P":
+		*e = GetTransactionsPurposeOfPayment(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetTransactionsPurposeOfPayment: %v", v)
+	}
+}
+
 // GetTransactionsInstantPaymentTransmitter - Name and address of the Transmitter.
 type GetTransactionsInstantPaymentTransmitter struct {
 	// Name of the Transmitter.
 	//
 	Name string `json:"name"`
 	// Building number for Transmitter address. Alphanumeric only.
-	StreetNumber string `json:"street_number"`
+	StreetNumber *string `json:"street_number"`
 	// Street name for Transmitter address
-	Street1 string `json:"street1"`
+	Street1 *string `json:"street1"`
 	// Maximum 35 characters
 	City *string `json:"city"`
 	// 2 characters. Must be a valid US state abbreviation.
@@ -747,16 +804,16 @@ func (o *GetTransactionsInstantPaymentTransmitter) GetName() string {
 	return o.Name
 }
 
-func (o *GetTransactionsInstantPaymentTransmitter) GetStreetNumber() string {
+func (o *GetTransactionsInstantPaymentTransmitter) GetStreetNumber() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.StreetNumber
 }
 
-func (o *GetTransactionsInstantPaymentTransmitter) GetStreet1() string {
+func (o *GetTransactionsInstantPaymentTransmitter) GetStreet1() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Street1
 }
@@ -789,12 +846,12 @@ func (o *GetTransactionsInstantPaymentTransmitter) GetCountry() *string {
 	return o.Country
 }
 
-// GetTransactionsInstantPaymentCounterpartyBankAddress - Address of the financial institution where the external account is held.
-type GetTransactionsInstantPaymentCounterpartyBankAddress struct {
+// GetTransactionsCounterpartyBankAddress - Address of the financial institution where the external account is held.
+type GetTransactionsCounterpartyBankAddress struct {
 	// Building number for counterparty address. Alphanumeric only.
-	StreetNumber string `json:"street_number"`
+	StreetNumber *string `json:"street_number"`
 	// Street name for counterparty address
-	Street1 string `json:"street1"`
+	Street1 *string `json:"street1"`
 	// Optional second line of street
 	Street2 *string `json:"street2,omitempty"`
 	// Maximum 35 characters
@@ -806,49 +863,49 @@ type GetTransactionsInstantPaymentCounterpartyBankAddress struct {
 	Country    *string `json:"country"`
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetStreetNumber() string {
+func (o *GetTransactionsCounterpartyBankAddress) GetStreetNumber() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.StreetNumber
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetStreet1() string {
+func (o *GetTransactionsCounterpartyBankAddress) GetStreet1() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Street1
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetStreet2() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetStreet2() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Street2
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetCity() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetCity() *string {
 	if o == nil {
 		return nil
 	}
 	return o.City
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetState() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetState() *string {
 	if o == nil {
 		return nil
 	}
 	return o.State
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetPostalCode() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetPostalCode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PostalCode
 }
 
-func (o *GetTransactionsInstantPaymentCounterpartyBankAddress) GetCountry() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetCountry() *string {
 	if o == nil {
 		return nil
 	}
@@ -884,6 +941,9 @@ type GetTransactionsInstantPayment struct {
 	// An originator-defined value. For RTP transactions, this will be the End-to-End ID.
 	//
 	PaymentID *string `json:"payment_id,omitempty"`
+	// An optional code supplied when an instant payment Transfer is initiated, indicating the kind of transaction being sent. If supplied, it must be one of the approved codes listed below, otherwise the Transfer is rejected. Omit the field or send an empty string to leave it unset; when unset it is returned as an empty string. Only applies to Newline initiated instant payments; it is not populated for received instant payments.
+	//
+	PurposeOfPayment optionalnullable.OptionalNullable[GetTransactionsPurposeOfPayment] `json:"purpose_of_payment,omitempty"`
 	// This field is currently always null.
 	//
 	OriginalEndToEndID optionalnullable.OptionalNullable[string] `json:"original_end_to_end_id,omitempty"`
@@ -898,7 +958,7 @@ type GetTransactionsInstantPayment struct {
 	InstantPaymentTransmitter *GetTransactionsInstantPaymentTransmitter `json:"instant_payment_transmitter,omitempty"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsInstantPaymentCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
 }
 
 func (o *GetTransactionsInstantPayment) GetNetworkTransactionID() *string {
@@ -964,6 +1024,13 @@ func (o *GetTransactionsInstantPayment) GetPaymentID() *string {
 	return o.PaymentID
 }
 
+func (o *GetTransactionsInstantPayment) GetPurposeOfPayment() optionalnullable.OptionalNullable[GetTransactionsPurposeOfPayment] {
+	if o == nil {
+		return nil
+	}
+	return o.PurposeOfPayment
+}
+
 func (o *GetTransactionsInstantPayment) GetOriginalEndToEndID() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
@@ -992,15 +1059,15 @@ func (o *GetTransactionsInstantPayment) GetInstantPaymentTransmitter() *GetTrans
 	return o.InstantPaymentTransmitter
 }
 
-func (o *GetTransactionsInstantPayment) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[GetTransactionsInstantPaymentCounterpartyBankAddress] {
+func (o *GetTransactionsInstantPayment) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[GetTransactionsCounterpartyBankAddress] {
 	if o == nil {
 		return nil
 	}
 	return o.CounterpartyBankAddress
 }
 
-// GetTransactionsWireCounterpartyBankAddress - Address of the financial institution where the external account is held.
-type GetTransactionsWireCounterpartyBankAddress struct {
+// GetTransactionsCounterpartyBankAddressUnstructuredAddress - Address of the financial institution where the external account is held.
+type GetTransactionsCounterpartyBankAddressUnstructuredAddress struct {
 	// Part of an unparsed address. Data may vary or be null.
 	Line1 *string `json:"line1,omitempty"`
 	// Part of an unparsed address. Data may vary or be null.
@@ -1009,29 +1076,29 @@ type GetTransactionsWireCounterpartyBankAddress struct {
 	Line3 *string `json:"line3,omitempty"`
 }
 
-func (o *GetTransactionsWireCounterpartyBankAddress) GetLine1() *string {
+func (o *GetTransactionsCounterpartyBankAddressUnstructuredAddress) GetLine1() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *GetTransactionsWireCounterpartyBankAddress) GetLine2() *string {
+func (o *GetTransactionsCounterpartyBankAddressUnstructuredAddress) GetLine2() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *GetTransactionsWireCounterpartyBankAddress) GetLine3() *string {
+func (o *GetTransactionsCounterpartyBankAddressUnstructuredAddress) GetLine3() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-// GetTransactionsIntermediaryBankAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
-type GetTransactionsIntermediaryBankAddress struct {
+// GetTransactionsIntermediaryBankAddressUnstructuredAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+type GetTransactionsIntermediaryBankAddressUnstructuredAddress struct {
 	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
 	//
 	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
@@ -1044,28 +1111,28 @@ type GetTransactionsIntermediaryBankAddress struct {
 	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
 }
 
-func (o *GetTransactionsIntermediaryBankAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+func (o *GetTransactionsIntermediaryBankAddressUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line1
 }
 
-func (o *GetTransactionsIntermediaryBankAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+func (o *GetTransactionsIntermediaryBankAddressUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line2
 }
 
-func (o *GetTransactionsIntermediaryBankAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+func (o *GetTransactionsIntermediaryBankAddressUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Line3
 }
 
-func (o *GetTransactionsIntermediaryBankAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+func (o *GetTransactionsIntermediaryBankAddressUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -1076,10 +1143,10 @@ func (o *GetTransactionsIntermediaryBankAddress) GetCountry() optionalnullable.O
 type GetTransactionsWire struct {
 	// Name of the business or individual who owns the counterparty Account.
 	//
-	CounterpartyName string `json:"counterparty_name"`
+	CounterpartyName *string `json:"counterparty_name"`
 	// Address of the financial institution where the external account is held.
 	//
-	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsWireCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
+	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsCounterpartyBankAddressUnstructuredAddress] `json:"counterparty_bank_address,omitempty"`
 	// Name of the financial institution where the counterparty account is held.
 	//
 	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
@@ -1088,7 +1155,7 @@ type GetTransactionsWire struct {
 	CounterpartyBankRoutingNumber *string `json:"counterparty_bank_routing_number,omitempty"`
 	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
 	//
-	IntermediaryBankAddress *GetTransactionsIntermediaryBankAddress `json:"intermediary_bank_address,omitempty"`
+	IntermediaryBankAddress *GetTransactionsIntermediaryBankAddressUnstructuredAddress `json:"intermediary_bank_address,omitempty"`
 	// Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
 	//
 	IntermediaryBankName *string `json:"intermediary_bank_name,omitempty"`
@@ -1112,14 +1179,14 @@ type GetTransactionsWire struct {
 	OriginatorAccountNumberLastFour optionalnullable.OptionalNullable[string] `json:"originator_account_number_last_four,omitempty"`
 }
 
-func (o *GetTransactionsWire) GetCounterpartyName() string {
+func (o *GetTransactionsWire) GetCounterpartyName() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.CounterpartyName
 }
 
-func (o *GetTransactionsWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[GetTransactionsWireCounterpartyBankAddress] {
+func (o *GetTransactionsWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[GetTransactionsCounterpartyBankAddressUnstructuredAddress] {
 	if o == nil {
 		return nil
 	}
@@ -1140,7 +1207,7 @@ func (o *GetTransactionsWire) GetCounterpartyBankRoutingNumber() *string {
 	return o.CounterpartyBankRoutingNumber
 }
 
-func (o *GetTransactionsWire) GetIntermediaryBankAddress() *GetTransactionsIntermediaryBankAddress {
+func (o *GetTransactionsWire) GetIntermediaryBankAddress() *GetTransactionsIntermediaryBankAddressUnstructuredAddress {
 	if o == nil {
 		return nil
 	}

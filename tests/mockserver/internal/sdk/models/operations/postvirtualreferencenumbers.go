@@ -6,7 +6,35 @@ import (
 	"encoding/json"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/utils"
 )
+
+// TypeRequest - The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your program.
+type TypeRequest string
+
+const (
+	TypeRequestBusiness TypeRequest = "business"
+	TypeRequestConsumer TypeRequest = "consumer"
+)
+
+func (e TypeRequest) ToPointer() *TypeRequest {
+	return &e
+}
+func (e *TypeRequest) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = TypeRequest(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeRequest: %v", v)
+	}
+}
 
 type PostVirtualReferenceNumbersRequest struct {
 	// A unique identifier the Client supplies. It must be unique within the resource type. If the same value is given, no new resource will be created.
@@ -18,6 +46,20 @@ type PostVirtualReferenceNumbersRequest struct {
 	SyntheticAccountUID string `json:"synthetic_account_uid"`
 	// The ABA routing number associated with this VRN.
 	RoutingNumber string `json:"routing_number"`
+	// The type of VRN. Defaults to `business` if omitted. `consumer` is only available if enabled for your program.
+	//
+	Type *TypeRequest `default:"business" json:"type"`
+}
+
+func (p PostVirtualReferenceNumbersRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostVirtualReferenceNumbersRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"synthetic_account_uid", "routing_number"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PostVirtualReferenceNumbersRequest) GetExternalUID() *string {
@@ -48,7 +90,14 @@ func (o *PostVirtualReferenceNumbersRequest) GetRoutingNumber() string {
 	return o.RoutingNumber
 }
 
-type PostVirtualReferenceNumbersError struct {
+func (o *PostVirtualReferenceNumbersRequest) GetType() *TypeRequest {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+type PostVirtualReferenceNumbersUnprocessableEntityError struct {
 	// Code provided by Newline for reference
 	Code *int64 `json:"code,omitempty"`
 	// Title of Error Code
@@ -61,35 +110,83 @@ type PostVirtualReferenceNumbersError struct {
 	Extra *string `json:"extra,omitempty"`
 }
 
-func (o *PostVirtualReferenceNumbersError) GetCode() *int64 {
+func (o *PostVirtualReferenceNumbersUnprocessableEntityError) GetCode() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.Code
 }
 
-func (o *PostVirtualReferenceNumbersError) GetTitle() *string {
+func (o *PostVirtualReferenceNumbersUnprocessableEntityError) GetTitle() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Title
 }
 
-func (o *PostVirtualReferenceNumbersError) GetDetail() *string {
+func (o *PostVirtualReferenceNumbersUnprocessableEntityError) GetDetail() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Detail
 }
 
-func (o *PostVirtualReferenceNumbersError) GetOccurredAt() *string {
+func (o *PostVirtualReferenceNumbersUnprocessableEntityError) GetOccurredAt() *string {
 	if o == nil {
 		return nil
 	}
 	return o.OccurredAt
 }
 
-func (o *PostVirtualReferenceNumbersError) GetExtra() *string {
+func (o *PostVirtualReferenceNumbersUnprocessableEntityError) GetExtra() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Extra
+}
+
+type PostVirtualReferenceNumbersBadRequestError struct {
+	// Code provided by Newline for reference
+	Code *int64 `json:"code,omitempty"`
+	// Title of Error Code
+	Title *string `json:"title,omitempty"`
+	// Description of Error Code
+	Detail *string `json:"detail,omitempty"`
+	// Error Timestamp
+	OccurredAt *string `json:"occurred_at,omitempty"`
+	// Included based on Error Code; Additional context to help users self-solve the error
+	Extra *string `json:"extra,omitempty"`
+}
+
+func (o *PostVirtualReferenceNumbersBadRequestError) GetCode() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.Code
+}
+
+func (o *PostVirtualReferenceNumbersBadRequestError) GetTitle() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Title
+}
+
+func (o *PostVirtualReferenceNumbersBadRequestError) GetDetail() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Detail
+}
+
+func (o *PostVirtualReferenceNumbersBadRequestError) GetOccurredAt() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OccurredAt
+}
+
+func (o *PostVirtualReferenceNumbersBadRequestError) GetExtra() *string {
 	if o == nil {
 		return nil
 	}
@@ -183,6 +280,33 @@ func (e *PostVirtualReferenceNumbersStatus) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PostVirtualReferenceNumbersTypeResponseBody - The type of VRN.
+type PostVirtualReferenceNumbersTypeResponseBody string
+
+const (
+	PostVirtualReferenceNumbersTypeResponseBodyBusiness PostVirtualReferenceNumbersTypeResponseBody = "business"
+	PostVirtualReferenceNumbersTypeResponseBodyConsumer PostVirtualReferenceNumbersTypeResponseBody = "consumer"
+)
+
+func (e PostVirtualReferenceNumbersTypeResponseBody) ToPointer() *PostVirtualReferenceNumbersTypeResponseBody {
+	return &e
+}
+func (e *PostVirtualReferenceNumbersTypeResponseBody) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "business":
+		fallthrough
+	case "consumer":
+		*e = PostVirtualReferenceNumbersTypeResponseBody(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostVirtualReferenceNumbersTypeResponseBody: %v", v)
+	}
+}
+
 // PostVirtualReferenceNumbersResponseBody - A single registered Virtual Reference Number is returned
 type PostVirtualReferenceNumbersResponseBody struct {
 	// The DateTime at which this VRN was archived. This value will be present if the status is archived. If in another state, the value will be null.
@@ -212,6 +336,8 @@ type PostVirtualReferenceNumbersResponseBody struct {
 	UID *string `json:"uid,omitempty"`
 	// Last 4 digits of the VRN
 	VirtualReferenceNumberLastFour *string `json:"virtual_reference_number_last_four,omitempty"`
+	// The type of VRN.
+	Type *PostVirtualReferenceNumbersTypeResponseBody `json:"type,omitempty"`
 	// The VRN
 	VirtualReferenceNumber *string `json:"virtual_reference_number,omitempty"`
 }
@@ -305,6 +431,13 @@ func (o *PostVirtualReferenceNumbersResponseBody) GetVirtualReferenceNumberLastF
 		return nil
 	}
 	return o.VirtualReferenceNumberLastFour
+}
+
+func (o *PostVirtualReferenceNumbersResponseBody) GetType() *PostVirtualReferenceNumbersTypeResponseBody {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }
 
 func (o *PostVirtualReferenceNumbersResponseBody) GetVirtualReferenceNumber() *string {

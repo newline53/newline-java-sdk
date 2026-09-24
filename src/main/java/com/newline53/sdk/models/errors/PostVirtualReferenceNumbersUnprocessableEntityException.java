@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersError;
+import com.newline53.sdk.models.operations.PostVirtualReferenceNumbersUnprocessableEntityError;
 import com.newline53.sdk.utils.Blob;
 import com.newline53.sdk.utils.Utils;
 import jakarta.annotation.Nullable;
@@ -50,12 +50,17 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
     * the resulting PostVirtualReferenceNumbersUnprocessableEntityException instance will have a null data() value and a non-null deserializationException().
     */
     public static PostVirtualReferenceNumbersUnprocessableEntityException from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new PostVirtualReferenceNumbersUnprocessableEntityException(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new PostVirtualReferenceNumbersUnprocessableEntityException(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new PostVirtualReferenceNumbersUnprocessableEntityException(response.statusCode(), null, response, null, e);
+            return new PostVirtualReferenceNumbersUnprocessableEntityException(response.statusCode(), bytes, response, null, e);
         }
     }
 
@@ -99,7 +104,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
     }
 
     @Deprecated
-    public Optional<List<PostVirtualReferenceNumbersError>> errors() {
+    public Optional<List<PostVirtualReferenceNumbersUnprocessableEntityError>> errors() {
         return data().flatMap(Data::errors);
     }
 
@@ -130,7 +135,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
 
         @JsonInclude(Include.NON_ABSENT)
         @JsonProperty("errors")
-        private List<PostVirtualReferenceNumbersError> errors;
+        private List<PostVirtualReferenceNumbersUnprocessableEntityError> errors;
 
         /**
          * HTTP Status Code
@@ -141,7 +146,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
 
         @JsonCreator
         public Data(
-                @JsonProperty("errors") @Nullable List<PostVirtualReferenceNumbersError> errors,
+                @JsonProperty("errors") @Nullable List<PostVirtualReferenceNumbersUnprocessableEntityError> errors,
                 @JsonProperty("status") @Nullable Long status) {
             this.errors = errors;
             this.status = status;
@@ -151,7 +156,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
             this(null, null);
         }
 
-        public Optional<List<PostVirtualReferenceNumbersError>> errors() {
+        public Optional<List<PostVirtualReferenceNumbersUnprocessableEntityError>> errors() {
             return Optional.ofNullable(this.errors);
         }
 
@@ -167,7 +172,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
         }
 
 
-        public Data withErrors(@Nullable List<PostVirtualReferenceNumbersError> errors) {
+        public Data withErrors(@Nullable List<PostVirtualReferenceNumbersUnprocessableEntityError> errors) {
             this.errors = errors;
             return this;
         }
@@ -212,7 +217,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
         @SuppressWarnings("UnusedReturnValue")
         public final static class Builder {
 
-            private List<PostVirtualReferenceNumbersError> errors;
+            private List<PostVirtualReferenceNumbersUnprocessableEntityError> errors;
 
             private Long status;
 
@@ -220,7 +225,7 @@ public class PostVirtualReferenceNumbersUnprocessableEntityException extends New
               // force use of static builder() method
             }
 
-            public Builder errors(@Nullable List<PostVirtualReferenceNumbersError> errors) {
+            public Builder errors(@Nullable List<PostVirtualReferenceNumbersUnprocessableEntityError> errors) {
                 this.errors = errors;
                 return this;
             }

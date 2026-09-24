@@ -10,7 +10,7 @@ import (
 
 // PostVirtualReferenceNumbersUnprocessableEntityError - Creation Error
 type PostVirtualReferenceNumbersUnprocessableEntityError struct {
-	Errors []operations.PostVirtualReferenceNumbersError `json:"errors,omitempty"`
+	Errors []operations.PostVirtualReferenceNumbersUnprocessableEntityError `json:"errors,omitempty"`
 	// HTTP Status Code
 	Status   *int64                  `json:"status,omitempty"`
 	HTTPMeta components.HTTPMetadata `json:"-"`
@@ -19,6 +19,21 @@ type PostVirtualReferenceNumbersUnprocessableEntityError struct {
 var _ error = &PostVirtualReferenceNumbersUnprocessableEntityError{}
 
 func (e *PostVirtualReferenceNumbersUnprocessableEntityError) Error() string {
+	data, _ := json.Marshal(e)
+	return string(data)
+}
+
+// PostVirtualReferenceNumbersBadRequestError - Bad request
+type PostVirtualReferenceNumbersBadRequestError struct {
+	Errors []operations.PostVirtualReferenceNumbersBadRequestError `json:"errors,omitempty"`
+	// HTTP Status Code
+	Status   *int64                  `json:"status,omitempty"`
+	HTTPMeta components.HTTPMetadata `json:"-"`
+}
+
+var _ error = &PostVirtualReferenceNumbersBadRequestError{}
+
+func (e *PostVirtualReferenceNumbersBadRequestError) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
 }

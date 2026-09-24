@@ -62,6 +62,7 @@ func testPostVirtualReferenceNumbersPostVirtualReferenceNumbersCreatePayload0(w 
 		SyntheticAccountUID:                  types.String("Dg1EPao8XukUpHG8"),
 		UID:                                  types.String("dYTG8WAWAh5UyvY7"),
 		VirtualReferenceNumberLastFour:       types.String("3456"),
+		Type:                                 operations.PostVirtualReferenceNumbersTypeResponseBodyBusiness.ToPointer(),
 		VirtualReferenceNumber:               types.String("1234567890123456"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
@@ -109,6 +110,7 @@ func testPostVirtualReferenceNumbersPostVirtualReferenceNumbersPending0(w http.R
 		SyntheticAccountUID:                  types.String("Dg1EPao8XukUpHG8"),
 		UID:                                  types.String("dYTG8WAWAh5UyvY7"),
 		VirtualReferenceNumberLastFour:       types.String("3456"),
+		Type:                                 operations.PostVirtualReferenceNumbersTypeResponseBodyBusiness.ToPointer(),
 		VirtualReferenceNumber:               types.String("1234567890123456"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)

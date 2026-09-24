@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newline53.sdk.utils.Utils;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
@@ -24,15 +23,16 @@ public class GetTransactionsWire {
     /**
      * Name of the business or individual who owns the counterparty Account.
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("counterparty_name")
-    private String counterpartyName;
+    private JsonNullable<String> counterpartyName;
 
     /**
      * Address of the financial institution where the external account is held.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_bank_address")
-    private JsonNullable<GetTransactionsWireCounterpartyBankAddress> counterpartyBankAddress;
+    private JsonNullable<GetTransactionsCounterpartyBankAddressUnstructuredAddress> counterpartyBankAddress;
 
     /**
      * Name of the financial institution where the counterparty account is held.
@@ -54,7 +54,7 @@ public class GetTransactionsWire {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("intermediary_bank_address")
-    private GetTransactionsIntermediaryBankAddress intermediaryBankAddress;
+    private GetTransactionsIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress;
 
     /**
      * Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
@@ -111,11 +111,11 @@ public class GetTransactionsWire {
 
     @JsonCreator
     public GetTransactionsWire(
-            @JsonProperty("counterparty_name") @Nonnull String counterpartyName,
-            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsWireCounterpartyBankAddress> counterpartyBankAddress,
+            @JsonProperty("counterparty_name") @Nullable String counterpartyName,
+            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsCounterpartyBankAddressUnstructuredAddress> counterpartyBankAddress,
             @JsonProperty("counterparty_bank_name") @Nullable JsonNullable<String> counterpartyBankName,
             @JsonProperty("counterparty_bank_routing_number") @Nullable String counterpartyBankRoutingNumber,
-            @JsonProperty("intermediary_bank_address") @Nullable GetTransactionsIntermediaryBankAddress intermediaryBankAddress,
+            @JsonProperty("intermediary_bank_address") @Nullable GetTransactionsIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress,
             @JsonProperty("intermediary_bank_name") @Nullable String intermediaryBankName,
             @JsonProperty("intermediary_bank_routing_number") @Nullable String intermediaryBankRoutingNumber,
             @JsonProperty("chips") @Nullable JsonNullable<String> chips,
@@ -123,8 +123,7 @@ public class GetTransactionsWire {
             @JsonProperty("uetr") @Nullable JsonNullable<String> uetr,
             @JsonProperty("bank_to_bank_info") @Nullable JsonNullable<String> bankToBankInfo,
             @JsonProperty("originator_account_number_last_four") @Nullable JsonNullable<String> originatorAccountNumberLastFour) {
-        this.counterpartyName = Optional.ofNullable(counterpartyName)
-            .orElseThrow(() -> new IllegalArgumentException("counterpartyName cannot be null"));
+        this.counterpartyName = JsonNullable.of(counterpartyName);
         this.counterpartyBankAddress = Optional.ofNullable(counterpartyBankAddress)
             .orElse(JsonNullable.undefined());
         this.counterpartyBankName = Optional.ofNullable(counterpartyBankName)
@@ -145,9 +144,8 @@ public class GetTransactionsWire {
             .orElse(JsonNullable.undefined());
     }
     
-    public GetTransactionsWire(
-            @Nonnull String counterpartyName) {
-        this(counterpartyName, null, null,
+    public GetTransactionsWire() {
+        this(null, null, null,
             null, null, null,
             null, null, null,
             null, null, null);
@@ -156,14 +154,14 @@ public class GetTransactionsWire {
     /**
      * Name of the business or individual who owns the counterparty Account.
      */
-    public String counterpartyName() {
+    public JsonNullable<String> counterpartyName() {
         return this.counterpartyName;
     }
 
     /**
      * Address of the financial institution where the external account is held.
      */
-    public JsonNullable<GetTransactionsWireCounterpartyBankAddress> counterpartyBankAddress() {
+    public JsonNullable<GetTransactionsCounterpartyBankAddressUnstructuredAddress> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
     }
 
@@ -185,7 +183,7 @@ public class GetTransactionsWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public Optional<GetTransactionsIntermediaryBankAddress> intermediaryBankAddress() {
+    public Optional<GetTransactionsIntermediaryBankAddressUnstructuredAddress> intermediaryBankAddress() {
         return Optional.ofNullable(this.intermediaryBankAddress);
     }
 
@@ -250,8 +248,8 @@ public class GetTransactionsWire {
     /**
      * Name of the business or individual who owns the counterparty Account.
      */
-    public GetTransactionsWire withCounterpartyName(@Nonnull String counterpartyName) {
-        this.counterpartyName = Utils.checkNotNull(counterpartyName, "counterpartyName");
+    public GetTransactionsWire withCounterpartyName(@Nullable String counterpartyName) {
+        this.counterpartyName = JsonNullable.of(counterpartyName);
         return this;
     }
 
@@ -259,7 +257,7 @@ public class GetTransactionsWire {
     /**
      * Address of the financial institution where the external account is held.
      */
-    public GetTransactionsWire withCounterpartyBankAddress(@Nullable GetTransactionsWireCounterpartyBankAddress counterpartyBankAddress) {
+    public GetTransactionsWire withCounterpartyBankAddress(@Nullable GetTransactionsCounterpartyBankAddressUnstructuredAddress counterpartyBankAddress) {
         this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
         return this;
     }
@@ -287,7 +285,7 @@ public class GetTransactionsWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public GetTransactionsWire withIntermediaryBankAddress(@Nullable GetTransactionsIntermediaryBankAddress intermediaryBankAddress) {
+    public GetTransactionsWire withIntermediaryBankAddress(@Nullable GetTransactionsIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress) {
         this.intermediaryBankAddress = intermediaryBankAddress;
         return this;
     }
@@ -415,13 +413,13 @@ public class GetTransactionsWire {
 
         private String counterpartyName;
 
-        private JsonNullable<GetTransactionsWireCounterpartyBankAddress> counterpartyBankAddress;
+        private JsonNullable<GetTransactionsCounterpartyBankAddressUnstructuredAddress> counterpartyBankAddress;
 
         private JsonNullable<String> counterpartyBankName;
 
         private String counterpartyBankRoutingNumber;
 
-        private GetTransactionsIntermediaryBankAddress intermediaryBankAddress;
+        private GetTransactionsIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress;
 
         private String intermediaryBankName;
 
@@ -444,15 +442,15 @@ public class GetTransactionsWire {
         /**
          * Name of the business or individual who owns the counterparty Account.
          */
-        public Builder counterpartyName(@Nonnull String counterpartyName) {
-            this.counterpartyName = Utils.checkNotNull(counterpartyName, "counterpartyName");
+        public Builder counterpartyName(@Nullable String counterpartyName) {
+            this.counterpartyName = counterpartyName;
             return this;
         }
 
         /**
          * Address of the financial institution where the external account is held.
          */
-        public Builder counterpartyBankAddress(@Nullable GetTransactionsWireCounterpartyBankAddress counterpartyBankAddress) {
+        public Builder counterpartyBankAddress(@Nullable GetTransactionsCounterpartyBankAddressUnstructuredAddress counterpartyBankAddress) {
             this.counterpartyBankAddress = JsonNullable.of(counterpartyBankAddress);
             return this;
         }
@@ -477,7 +475,7 @@ public class GetTransactionsWire {
          * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
          * wire transfer.
          */
-        public Builder intermediaryBankAddress(@Nullable GetTransactionsIntermediaryBankAddress intermediaryBankAddress) {
+        public Builder intermediaryBankAddress(@Nullable GetTransactionsIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress) {
             this.intermediaryBankAddress = intermediaryBankAddress;
             return this;
         }

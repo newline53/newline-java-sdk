@@ -25,7 +25,7 @@ public class TransferWire {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("intermediary_bank_address")
-    private PostCombinedTransfersIntermediaryBankAddress intermediaryBankAddress;
+    private TransferIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -49,14 +49,21 @@ public class TransferWire {
     @JsonProperty("wire_instructions")
     private String wireInstructions;
 
-
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire_transmitter")
     private PostCombinedTransfersWireTransmitter wireTransmitter;
 
     @JsonCreator
     public TransferWire(
-            @JsonProperty("intermediary_bank_address") @Nullable PostCombinedTransfersIntermediaryBankAddress intermediaryBankAddress,
+            @JsonProperty("intermediary_bank_address") @Nullable TransferIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress,
             @JsonProperty("intermediary_bank_name") @Nullable String intermediaryBankName,
             @JsonProperty("intermediary_bank_routing_number") @Nullable String intermediaryBankRoutingNumber,
             @JsonProperty("wire_instructions") @Nullable String wireInstructions,
@@ -77,7 +84,7 @@ public class TransferWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public Optional<PostCombinedTransfersIntermediaryBankAddress> intermediaryBankAddress() {
+    public Optional<TransferIntermediaryBankAddressUnstructuredAddress> intermediaryBankAddress() {
         return Optional.ofNullable(this.intermediaryBankAddress);
     }
 
@@ -102,6 +109,14 @@ public class TransferWire {
         return Optional.ofNullable(this.wireInstructions);
     }
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     public Optional<PostCombinedTransfersWireTransmitter> wireTransmitter() {
         return Optional.ofNullable(this.wireTransmitter);
     }
@@ -115,7 +130,7 @@ public class TransferWire {
      * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
      * wire transfer.
      */
-    public TransferWire withIntermediaryBankAddress(@Nullable PostCombinedTransfersIntermediaryBankAddress intermediaryBankAddress) {
+    public TransferWire withIntermediaryBankAddress(@Nullable TransferIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress) {
         this.intermediaryBankAddress = intermediaryBankAddress;
         return this;
     }
@@ -148,6 +163,14 @@ public class TransferWire {
     }
 
 
+    /**
+     * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+     * Includes the transmitter's name, identifier, and address.
+     * 
+     * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+     * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+     * required.
+     */
     public TransferWire withWireTransmitter(@Nullable PostCombinedTransfersWireTransmitter wireTransmitter) {
         this.wireTransmitter = wireTransmitter;
         return this;
@@ -191,7 +214,7 @@ public class TransferWire {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private PostCombinedTransfersIntermediaryBankAddress intermediaryBankAddress;
+        private TransferIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress;
 
         private String intermediaryBankName;
 
@@ -209,7 +232,7 @@ public class TransferWire {
          * Address of the intermediary bank. To be populated if an intermediary bank is required to execute the
          * wire transfer.
          */
-        public Builder intermediaryBankAddress(@Nullable PostCombinedTransfersIntermediaryBankAddress intermediaryBankAddress) {
+        public Builder intermediaryBankAddress(@Nullable TransferIntermediaryBankAddressUnstructuredAddress intermediaryBankAddress) {
             this.intermediaryBankAddress = intermediaryBankAddress;
             return this;
         }
@@ -238,6 +261,14 @@ public class TransferWire {
             return this;
         }
 
+        /**
+         * Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+         * Includes the transmitter's name, identifier, and address.
+         * 
+         * <p>The accepted address format depends on your program's wire address configuration. For `unstructured`
+         * format: `line1` and `country` are required. For `structured` format: `city` and `country` are
+         * required.
+         */
         public Builder wireTransmitter(@Nullable PostCombinedTransfersWireTransmitter wireTransmitter) {
             this.wireTransmitter = wireTransmitter;
             return this;
