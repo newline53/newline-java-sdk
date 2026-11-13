@@ -43,6 +43,7 @@ public class PutTransfersUidCancelPurposeOfPayment {
     public static final PutTransfersUidCancelPurposeOfPayment ACCT = new PutTransfersUidCancelPurposeOfPayment("ACCT");
     public static final PutTransfersUidCancelPurposeOfPayment CBLK = new PutTransfersUidCancelPurposeOfPayment("CBLK");
     public static final PutTransfersUidCancelPurposeOfPayment MP2_P = new PutTransfersUidCancelPurposeOfPayment("MP2P");
+    public static final PutTransfersUidCancelPurposeOfPayment TRAD = new PutTransfersUidCancelPurposeOfPayment("TRAD");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -128,6 +129,7 @@ public class PutTransfersUidCancelPurposeOfPayment {
         map.put("ACCT", ACCT);
         map.put("CBLK", CBLK);
         map.put("MP2P", MP2_P);
+        map.put("TRAD", TRAD);
         return map;
     }
 
@@ -145,6 +147,7 @@ public class PutTransfersUidCancelPurposeOfPayment {
         map.put("ACCT", PutTransfersUidCancelPurposeOfPaymentEnum.ACCT);
         map.put("CBLK", PutTransfersUidCancelPurposeOfPaymentEnum.CBLK);
         map.put("MP2P", PutTransfersUidCancelPurposeOfPaymentEnum.MP2_P);
+        map.put("TRAD", PutTransfersUidCancelPurposeOfPaymentEnum.TRAD);
         return map;
     }
     
@@ -162,7 +165,8 @@ public class PutTransfersUidCancelPurposeOfPayment {
         PDEP("PDEP"),
         ACCT("ACCT"),
         CBLK("CBLK"),
-        MP2_P("MP2P"),;
+        MP2_P("MP2P"),
+        TRAD("TRAD"),;
 
         private final String value;
 

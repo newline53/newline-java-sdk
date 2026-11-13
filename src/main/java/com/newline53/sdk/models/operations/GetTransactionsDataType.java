@@ -44,6 +44,7 @@ public class GetTransactionsDataType {
     public static final GetTransactionsDataType INITIATED_WIRE_RETURN = new GetTransactionsDataType("initiated_wire_return");
     public static final GetTransactionsDataType INSTANT_PAYMENT = new GetTransactionsDataType("instant_payment");
     public static final GetTransactionsDataType INTEREST = new GetTransactionsDataType("interest");
+    public static final GetTransactionsDataType MANUAL_INSTANT_PAYMENT_RETURN = new GetTransactionsDataType("manual_instant_payment_return");
     public static final GetTransactionsDataType OTHER = new GetTransactionsDataType("other");
     public static final GetTransactionsDataType PEER_TO_PEER_TRANSFER = new GetTransactionsDataType("peer_to_peer_transfer");
     public static final GetTransactionsDataType REVERSAL = new GetTransactionsDataType("reversal");
@@ -141,6 +142,7 @@ public class GetTransactionsDataType {
         map.put("initiated_wire_return", INITIATED_WIRE_RETURN);
         map.put("instant_payment", INSTANT_PAYMENT);
         map.put("interest", INTEREST);
+        map.put("manual_instant_payment_return", MANUAL_INSTANT_PAYMENT_RETURN);
         map.put("other", OTHER);
         map.put("peer_to_peer_transfer", PEER_TO_PEER_TRANSFER);
         map.put("reversal", REVERSAL);
@@ -170,6 +172,7 @@ public class GetTransactionsDataType {
         map.put("initiated_wire_return", GetTransactionsDataTypeEnum.INITIATED_WIRE_RETURN);
         map.put("instant_payment", GetTransactionsDataTypeEnum.INSTANT_PAYMENT);
         map.put("interest", GetTransactionsDataTypeEnum.INTEREST);
+        map.put("manual_instant_payment_return", GetTransactionsDataTypeEnum.MANUAL_INSTANT_PAYMENT_RETURN);
         map.put("other", GetTransactionsDataTypeEnum.OTHER);
         map.put("peer_to_peer_transfer", GetTransactionsDataTypeEnum.PEER_TO_PEER_TRANSFER);
         map.put("reversal", GetTransactionsDataTypeEnum.REVERSAL);
@@ -200,6 +203,7 @@ public class GetTransactionsDataType {
         INITIATED_WIRE_RETURN("initiated_wire_return"),
         INSTANT_PAYMENT("instant_payment"),
         INTEREST("interest"),
+        MANUAL_INSTANT_PAYMENT_RETURN("manual_instant_payment_return"),
         OTHER("other"),
         PEER_TO_PEER_TRANSFER("peer_to_peer_transfer"),
         REVERSAL("reversal"),

@@ -43,6 +43,7 @@ public class CreateTransferPurposeOfPaymentResponse {
     public static final CreateTransferPurposeOfPaymentResponse ACCT = new CreateTransferPurposeOfPaymentResponse("ACCT");
     public static final CreateTransferPurposeOfPaymentResponse CBLK = new CreateTransferPurposeOfPaymentResponse("CBLK");
     public static final CreateTransferPurposeOfPaymentResponse MP2_P = new CreateTransferPurposeOfPaymentResponse("MP2P");
+    public static final CreateTransferPurposeOfPaymentResponse TRAD = new CreateTransferPurposeOfPaymentResponse("TRAD");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -128,6 +129,7 @@ public class CreateTransferPurposeOfPaymentResponse {
         map.put("ACCT", ACCT);
         map.put("CBLK", CBLK);
         map.put("MP2P", MP2_P);
+        map.put("TRAD", TRAD);
         return map;
     }
 
@@ -145,6 +147,7 @@ public class CreateTransferPurposeOfPaymentResponse {
         map.put("ACCT", CreateTransferPurposeOfPaymentResponseEnum.ACCT);
         map.put("CBLK", CreateTransferPurposeOfPaymentResponseEnum.CBLK);
         map.put("MP2P", CreateTransferPurposeOfPaymentResponseEnum.MP2_P);
+        map.put("TRAD", CreateTransferPurposeOfPaymentResponseEnum.TRAD);
         return map;
     }
     
@@ -162,7 +165,8 @@ public class CreateTransferPurposeOfPaymentResponse {
         PDEP("PDEP"),
         ACCT("ACCT"),
         CBLK("CBLK"),
-        MP2_P("MP2P"),;
+        MP2_P("MP2P"),
+        TRAD("TRAD"),;
 
         private final String value;
 

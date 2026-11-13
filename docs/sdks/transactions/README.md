@@ -27,6 +27,8 @@ Transactions are created based on how you instruct Newline to move assets (a Tra
 
 Transactions fall into many categories, including debit card purchases, direct deposits, interest, and fees. This endpoint can retrieve a list of Transactions or track the status of an ongoing Transaction.
 
+Transactions with type `manual_instant_payment_return` identify the client debit associated with a manually requested return of a received instant payment. The external return is handled separately by operations.
+
 Transaction Events are created as a result of a Transaction. They capture the steps required to complete the Transaction. These can be used to view the progress of an in-flight Transaction or see the history of a completed Transaction.
 
 Line Items are created for each Transaction Event. They catalog the individual credits and debits associated with the accounts involved in the Transaction.

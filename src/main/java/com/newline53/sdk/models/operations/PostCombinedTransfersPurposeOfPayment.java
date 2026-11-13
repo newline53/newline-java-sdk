@@ -31,7 +31,8 @@ public enum PostCombinedTransfersPurposeOfPayment {
     PDEP("PDEP"),
     ACCT("ACCT"),
     CBLK("CBLK"),
-    MP2_P("MP2P");
+    MP2_P("MP2P"),
+    TRAD("TRAD");
 
     @JsonValue
     private final String value;

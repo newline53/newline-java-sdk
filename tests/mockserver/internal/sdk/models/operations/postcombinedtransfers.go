@@ -61,13 +61,14 @@ func (o *SyntheticAccountAch) GetCounterpartyName() string {
 	return o.CounterpartyName
 }
 
+// PostCombinedTransfersInstantPaymentCounterpartyAddress - Address of the counterparty. If any address field is provided, street1, city, state, postal_code, and country are required. street_number and street2 are optional.
 type PostCombinedTransfersInstantPaymentCounterpartyAddress struct {
-	// Building number for counterparty address. Alphanumeric only.
-	StreetNumber string `json:"street_number"`
+	// Building number for counterparty address. Alphanumeric only. Optional.
+	StreetNumber optionalnullable.OptionalNullable[string] `json:"street_number,omitempty"`
 	// Street name for counterparty address
 	Street1 string `json:"street1"`
 	// Optional second line of street
-	Street2 *string `json:"street2,omitempty"`
+	Street2 optionalnullable.OptionalNullable[string] `json:"street2,omitempty"`
 	// Maximum 35 characters
 	City *string `json:"city"`
 	// 2 characters. Must be a valid US state abbreviation.
@@ -77,9 +78,9 @@ type PostCombinedTransfersInstantPaymentCounterpartyAddress struct {
 	Country    *string `json:"country"`
 }
 
-func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetStreetNumber() string {
+func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetStreetNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.StreetNumber
 }
@@ -91,7 +92,7 @@ func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetStreet1() st
 	return o.Street1
 }
 
-func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetStreet2() *string {
+func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetStreet2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -130,7 +131,7 @@ func (o *PostCombinedTransfersInstantPaymentCounterpartyAddress) GetCountry() *s
 type SyntheticAccountInstantPayment struct {
 	// Address of the business or individual who owns the external account.
 	//
-	CounterpartyAddress PostCombinedTransfersInstantPaymentCounterpartyAddress `json:"counterparty_address"`
+	CounterpartyAddress *PostCombinedTransfersInstantPaymentCounterpartyAddress `json:"counterparty_address,omitempty"`
 	// Name of the business or individual who owns the counterparty Account.
 	//
 	CounterpartyName string `json:"counterparty_name"`
@@ -140,9 +141,9 @@ type SyntheticAccountInstantPayment struct {
 	Phone optionalnullable.OptionalNullable[string] `json:"phone,omitempty"`
 }
 
-func (o *SyntheticAccountInstantPayment) GetCounterpartyAddress() PostCombinedTransfersInstantPaymentCounterpartyAddress {
+func (o *SyntheticAccountInstantPayment) GetCounterpartyAddress() *PostCombinedTransfersInstantPaymentCounterpartyAddress {
 	if o == nil {
-		return PostCombinedTransfersInstantPaymentCounterpartyAddress{}
+		return nil
 	}
 	return o.CounterpartyAddress
 }
@@ -881,6 +882,7 @@ const (
 	PostCombinedTransfersPurposeOfPaymentAcct PostCombinedTransfersPurposeOfPayment = "ACCT"
 	PostCombinedTransfersPurposeOfPaymentCblk PostCombinedTransfersPurposeOfPayment = "CBLK"
 	PostCombinedTransfersPurposeOfPaymentMp2P PostCombinedTransfersPurposeOfPayment = "MP2P"
+	PostCombinedTransfersPurposeOfPaymentTrad PostCombinedTransfersPurposeOfPayment = "TRAD"
 )
 
 func (e PostCombinedTransfersPurposeOfPayment) ToPointer() *PostCombinedTransfersPurposeOfPayment {
@@ -915,6 +917,8 @@ func (e *PostCombinedTransfersPurposeOfPayment) UnmarshalJSON(data []byte) error
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = PostCombinedTransfersPurposeOfPayment(v)
 		return nil
 	default:

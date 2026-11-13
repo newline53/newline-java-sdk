@@ -43,7 +43,7 @@ func testGetReturnsUIDGetReturnsUIDSingleReturn0(w http.ResponseWriter, req *htt
 	}
 	var respBody *operations.GetReturnsUIDResponseBody = &operations.GetReturnsUIDResponseBody{
 		CreatedAt:              types.String("2024-05-01T00:00:00.000Z"),
-		ExternalUID:            types.String("null,"),
+		ExternalUID:            types.String("YrfDrfVRgpPgnhF5"),
 		OriginalTransactionUID: types.String("nwXnpBbX3A5sTki3"),
 		CustomerUID:            types.String("Trzqy9t6j6tFGoG3"),
 		RequestorType:          operations.GetReturnsUIDRequestorTypeCustomer.ToPointer(),

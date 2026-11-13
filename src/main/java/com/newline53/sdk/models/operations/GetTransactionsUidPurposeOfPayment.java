@@ -43,6 +43,7 @@ public class GetTransactionsUidPurposeOfPayment {
     public static final GetTransactionsUidPurposeOfPayment ACCT = new GetTransactionsUidPurposeOfPayment("ACCT");
     public static final GetTransactionsUidPurposeOfPayment CBLK = new GetTransactionsUidPurposeOfPayment("CBLK");
     public static final GetTransactionsUidPurposeOfPayment MP2_P = new GetTransactionsUidPurposeOfPayment("MP2P");
+    public static final GetTransactionsUidPurposeOfPayment TRAD = new GetTransactionsUidPurposeOfPayment("TRAD");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -128,6 +129,7 @@ public class GetTransactionsUidPurposeOfPayment {
         map.put("ACCT", ACCT);
         map.put("CBLK", CBLK);
         map.put("MP2P", MP2_P);
+        map.put("TRAD", TRAD);
         return map;
     }
 
@@ -145,6 +147,7 @@ public class GetTransactionsUidPurposeOfPayment {
         map.put("ACCT", GetTransactionsUidPurposeOfPaymentEnum.ACCT);
         map.put("CBLK", GetTransactionsUidPurposeOfPaymentEnum.CBLK);
         map.put("MP2P", GetTransactionsUidPurposeOfPaymentEnum.MP2_P);
+        map.put("TRAD", GetTransactionsUidPurposeOfPaymentEnum.TRAD);
         return map;
     }
     
@@ -162,7 +165,8 @@ public class GetTransactionsUidPurposeOfPayment {
         PDEP("PDEP"),
         ACCT("ACCT"),
         CBLK("CBLK"),
-        MP2_P("MP2P"),;
+        MP2_P("MP2P"),
+        TRAD("TRAD"),;
 
         private final String value;
 

@@ -25,6 +25,7 @@ public class SyntheticAccountInstantPayment {
     /**
      * Address of the business or individual who owns the external account.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("counterparty_address")
     private PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress;
 
@@ -50,12 +51,11 @@ public class SyntheticAccountInstantPayment {
 
     @JsonCreator
     public SyntheticAccountInstantPayment(
-            @JsonProperty("counterparty_address") @Nonnull PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress,
+            @JsonProperty("counterparty_address") @Nullable PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress,
             @JsonProperty("counterparty_name") @Nonnull String counterpartyName,
             @JsonProperty("email") @Nullable JsonNullable<String> email,
             @JsonProperty("phone") @Nullable JsonNullable<String> phone) {
-        this.counterpartyAddress = Optional.ofNullable(counterpartyAddress)
-            .orElseThrow(() -> new IllegalArgumentException("counterpartyAddress cannot be null"));
+        this.counterpartyAddress = counterpartyAddress;
         this.counterpartyName = Optional.ofNullable(counterpartyName)
             .orElseThrow(() -> new IllegalArgumentException("counterpartyName cannot be null"));
         this.email = Optional.ofNullable(email)
@@ -65,17 +65,16 @@ public class SyntheticAccountInstantPayment {
     }
     
     public SyntheticAccountInstantPayment(
-            @Nonnull PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress,
             @Nonnull String counterpartyName) {
-        this(counterpartyAddress, counterpartyName, null,
+        this(null, counterpartyName, null,
             null);
     }
 
     /**
      * Address of the business or individual who owns the external account.
      */
-    public PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress() {
-        return this.counterpartyAddress;
+    public Optional<PostCombinedTransfersInstantPaymentCounterpartyAddress> counterpartyAddress() {
+        return Optional.ofNullable(this.counterpartyAddress);
     }
 
     /**
@@ -107,8 +106,8 @@ public class SyntheticAccountInstantPayment {
     /**
      * Address of the business or individual who owns the external account.
      */
-    public SyntheticAccountInstantPayment withCounterpartyAddress(@Nonnull PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress) {
-        this.counterpartyAddress = Utils.checkNotNull(counterpartyAddress, "counterpartyAddress");
+    public SyntheticAccountInstantPayment withCounterpartyAddress(@Nullable PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress) {
+        this.counterpartyAddress = counterpartyAddress;
         return this;
     }
 
@@ -190,8 +189,8 @@ public class SyntheticAccountInstantPayment {
         /**
          * Address of the business or individual who owns the external account.
          */
-        public Builder counterpartyAddress(@Nonnull PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress) {
-            this.counterpartyAddress = Utils.checkNotNull(counterpartyAddress, "counterpartyAddress");
+        public Builder counterpartyAddress(@Nullable PostCombinedTransfersInstantPaymentCounterpartyAddress counterpartyAddress) {
+            this.counterpartyAddress = counterpartyAddress;
             return this;
         }
 

@@ -43,6 +43,7 @@ public class GetTransferPurposeOfPayment {
     public static final GetTransferPurposeOfPayment ACCT = new GetTransferPurposeOfPayment("ACCT");
     public static final GetTransferPurposeOfPayment CBLK = new GetTransferPurposeOfPayment("CBLK");
     public static final GetTransferPurposeOfPayment MP2_P = new GetTransferPurposeOfPayment("MP2P");
+    public static final GetTransferPurposeOfPayment TRAD = new GetTransferPurposeOfPayment("TRAD");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -128,6 +129,7 @@ public class GetTransferPurposeOfPayment {
         map.put("ACCT", ACCT);
         map.put("CBLK", CBLK);
         map.put("MP2P", MP2_P);
+        map.put("TRAD", TRAD);
         return map;
     }
 
@@ -145,6 +147,7 @@ public class GetTransferPurposeOfPayment {
         map.put("ACCT", GetTransferPurposeOfPaymentEnum.ACCT);
         map.put("CBLK", GetTransferPurposeOfPaymentEnum.CBLK);
         map.put("MP2P", GetTransferPurposeOfPaymentEnum.MP2_P);
+        map.put("TRAD", GetTransferPurposeOfPaymentEnum.TRAD);
         return map;
     }
     
@@ -162,7 +165,8 @@ public class GetTransferPurposeOfPayment {
         PDEP("PDEP"),
         ACCT("ACCT"),
         CBLK("CBLK"),
-        MP2_P("MP2P"),;
+        MP2_P("MP2P"),
+        TRAD("TRAD"),;
 
         private final String value;
 

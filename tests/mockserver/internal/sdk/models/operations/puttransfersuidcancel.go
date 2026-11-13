@@ -436,6 +436,7 @@ const (
 	PutTransfersUIDCancelPurposeOfPaymentAcct PutTransfersUIDCancelPurposeOfPayment = "ACCT"
 	PutTransfersUIDCancelPurposeOfPaymentCblk PutTransfersUIDCancelPurposeOfPayment = "CBLK"
 	PutTransfersUIDCancelPurposeOfPaymentMp2P PutTransfersUIDCancelPurposeOfPayment = "MP2P"
+	PutTransfersUIDCancelPurposeOfPaymentTrad PutTransfersUIDCancelPurposeOfPayment = "TRAD"
 )
 
 func (e PutTransfersUIDCancelPurposeOfPayment) ToPointer() *PutTransfersUIDCancelPurposeOfPayment {
@@ -470,6 +471,8 @@ func (e *PutTransfersUIDCancelPurposeOfPayment) UnmarshalJSON(data []byte) error
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = PutTransfersUIDCancelPurposeOfPayment(v)
 		return nil
 	default:

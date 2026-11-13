@@ -173,7 +173,7 @@ func testUpdateSyntheticAccountUpdateSyntheticAccountInstantPaymentSyntheticAcco
 		AccountNumber:         nil,
 		InstantPayment: &operations.UpdateSyntheticAccountInstantPaymentResponse{
 			CounterpartyAddress: &operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressResponse{
-				StreetNumber: types.String("242"),
+				StreetNumber: optionalnullable.From(types.String("242")),
 				Street1:      types.String("Marble St"),
 				City:         types.String("Marblehead"),
 				State:        types.String("MA"),

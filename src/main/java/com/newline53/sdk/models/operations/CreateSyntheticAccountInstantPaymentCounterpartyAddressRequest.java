@@ -15,13 +15,19 @@ import java.lang.String;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-
+/**
+ * CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest
+ * 
+ * <p>Address of the counterparty. If any address field is provided, street1, city, state, postal_code,
+ * and country are required. street_number and street2 are optional.
+ */
 public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("street_number")
-    private String streetNumber;
+    private JsonNullable<String> streetNumber;
 
     /**
      * Street name for counterparty address
@@ -34,7 +40,7 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("street2")
-    private String street2;
+    private JsonNullable<String> street2;
 
     /**
      * Maximum 35 characters
@@ -64,18 +70,19 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
 
     @JsonCreator
     public CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest(
-            @JsonProperty("street_number") @Nonnull String streetNumber,
+            @JsonProperty("street_number") @Nullable JsonNullable<String> streetNumber,
             @JsonProperty("street1") @Nonnull String street1,
-            @JsonProperty("street2") @Nullable String street2,
+            @JsonProperty("street2") @Nullable JsonNullable<String> street2,
             @JsonProperty("city") @Nullable String city,
             @JsonProperty("state") @Nullable String state,
             @JsonProperty("postal_code") @Nullable String postalCode,
             @JsonProperty("country") @Nullable String country) {
         this.streetNumber = Optional.ofNullable(streetNumber)
-            .orElseThrow(() -> new IllegalArgumentException("streetNumber cannot be null"));
+            .orElse(JsonNullable.undefined());
         this.street1 = Optional.ofNullable(street1)
             .orElseThrow(() -> new IllegalArgumentException("street1 cannot be null"));
-        this.street2 = street2;
+        this.street2 = Optional.ofNullable(street2)
+            .orElse(JsonNullable.undefined());
         this.city = JsonNullable.of(city);
         this.state = JsonNullable.of(state);
         this.postalCode = JsonNullable.of(postalCode);
@@ -83,17 +90,16 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
     }
     
     public CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest(
-            @Nonnull String streetNumber,
             @Nonnull String street1) {
-        this(streetNumber, street1, null,
+        this(null, street1, null,
             null, null, null,
             null);
     }
 
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
-    public String streetNumber() {
+    public JsonNullable<String> streetNumber() {
         return this.streetNumber;
     }
 
@@ -107,8 +113,8 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
     /**
      * Optional second line of street
      */
-    public Optional<String> street2() {
-        return Optional.ofNullable(this.street2);
+    public JsonNullable<String> street2() {
+        return this.street2;
     }
 
     /**
@@ -142,10 +148,10 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
 
 
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
-    public CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest withStreetNumber(@Nonnull String streetNumber) {
-        this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+    public CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest withStreetNumber(@Nullable String streetNumber) {
+        this.streetNumber = JsonNullable.of(streetNumber);
         return this;
     }
 
@@ -163,7 +169,7 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
      * Optional second line of street
      */
     public CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest withStreet2(@Nullable String street2) {
-        this.street2 = street2;
+        this.street2 = JsonNullable.of(street2);
         return this;
     }
 
@@ -243,11 +249,11 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String streetNumber;
+        private JsonNullable<String> streetNumber;
 
         private String street1;
 
-        private String street2;
+        private JsonNullable<String> street2;
 
         private String city;
 
@@ -262,10 +268,10 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
         }
 
         /**
-         * Building number for counterparty address. Alphanumeric only.
+         * Building number for counterparty address. Alphanumeric only. Optional.
          */
-        public Builder streetNumber(@Nonnull String streetNumber) {
-            this.streetNumber = Utils.checkNotNull(streetNumber, "streetNumber");
+        public Builder streetNumber(@Nullable String streetNumber) {
+            this.streetNumber = JsonNullable.of(streetNumber);
             return this;
         }
 
@@ -281,7 +287,7 @@ public class CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest {
          * Optional second line of street
          */
         public Builder street2(@Nullable String street2) {
-            this.street2 = street2;
+            this.street2 = JsonNullable.of(street2);
             return this;
         }
 

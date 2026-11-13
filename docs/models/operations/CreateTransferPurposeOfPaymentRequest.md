@@ -28,3 +28,4 @@ CreateTransferPurposeOfPaymentRequest value = CreateTransferPurposeOfPaymentRequ
 | `ACCT`  | ACCT    |
 | `CBLK`  | CBLK    |
 | `MP2_P` | MP2P    |
+| `TRAD`  | TRAD    |

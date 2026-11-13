@@ -338,6 +338,7 @@ const (
 	CreateTransferPurposeOfPaymentRequestAcct CreateTransferPurposeOfPaymentRequest = "ACCT"
 	CreateTransferPurposeOfPaymentRequestCblk CreateTransferPurposeOfPaymentRequest = "CBLK"
 	CreateTransferPurposeOfPaymentRequestMp2P CreateTransferPurposeOfPaymentRequest = "MP2P"
+	CreateTransferPurposeOfPaymentRequestTrad CreateTransferPurposeOfPaymentRequest = "TRAD"
 )
 
 func (e CreateTransferPurposeOfPaymentRequest) ToPointer() *CreateTransferPurposeOfPaymentRequest {
@@ -372,6 +373,8 @@ func (e *CreateTransferPurposeOfPaymentRequest) UnmarshalJSON(data []byte) error
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = CreateTransferPurposeOfPaymentRequest(v)
 		return nil
 	default:
@@ -1127,6 +1130,7 @@ const (
 	CreateTransferPurposeOfPaymentResponseAcct CreateTransferPurposeOfPaymentResponse = "ACCT"
 	CreateTransferPurposeOfPaymentResponseCblk CreateTransferPurposeOfPaymentResponse = "CBLK"
 	CreateTransferPurposeOfPaymentResponseMp2P CreateTransferPurposeOfPaymentResponse = "MP2P"
+	CreateTransferPurposeOfPaymentResponseTrad CreateTransferPurposeOfPaymentResponse = "TRAD"
 )
 
 func (e CreateTransferPurposeOfPaymentResponse) ToPointer() *CreateTransferPurposeOfPaymentResponse {
@@ -1161,6 +1165,8 @@ func (e *CreateTransferPurposeOfPaymentResponse) UnmarshalJSON(data []byte) erro
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = CreateTransferPurposeOfPaymentResponse(v)
 		return nil
 	default:

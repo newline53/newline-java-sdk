@@ -309,6 +309,7 @@ const (
 	GetTransferPurposeOfPaymentAcct GetTransferPurposeOfPayment = "ACCT"
 	GetTransferPurposeOfPaymentCblk GetTransferPurposeOfPayment = "CBLK"
 	GetTransferPurposeOfPaymentMp2P GetTransferPurposeOfPayment = "MP2P"
+	GetTransferPurposeOfPaymentTrad GetTransferPurposeOfPayment = "TRAD"
 )
 
 func (e GetTransferPurposeOfPayment) ToPointer() *GetTransferPurposeOfPayment {
@@ -343,6 +344,8 @@ func (e *GetTransferPurposeOfPayment) UnmarshalJSON(data []byte) error {
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = GetTransferPurposeOfPayment(v)
 		return nil
 	default:

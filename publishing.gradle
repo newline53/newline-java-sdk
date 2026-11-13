@@ -24,7 +24,7 @@ afterEvaluate {
                     description = config.description
                     url = 'https://github.com/newline53/newline-java-sdk'
                     scm {
-                        url = 'github.com/newline53/newline-java-sdk'
+                        url = 'https://github.com/newline53/newline-java-sdk'
                         connection = 'scm:git:ssh://git@github.com/newline53/newline-java-sdk.git'
                     }
                     licenses {

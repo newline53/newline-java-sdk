@@ -31,3 +31,4 @@ GetTransferPurposeOfPayment custom = GetTransferPurposeOfPayment.of("custom_valu
 | `ACCT`  | ACCT    |
 | `CBLK`  | CBLK    |
 | `MP2_P` | MP2P    |
+| `TRAD`  | TRAD    |

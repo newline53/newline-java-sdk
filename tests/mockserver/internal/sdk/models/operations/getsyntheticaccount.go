@@ -190,13 +190,14 @@ func (o *GetSyntheticAccountAch) GetCounterpartyName() *string {
 	return o.CounterpartyName
 }
 
+// GetSyntheticAccountInstantPaymentCounterpartyAddress - Address of the counterparty. If any address field is provided, street1, city, state, postal_code, and country are required. street_number and street2 are optional.
 type GetSyntheticAccountInstantPaymentCounterpartyAddress struct {
-	// Building number for counterparty address. Alphanumeric only.
-	StreetNumber *string `json:"street_number"`
+	// Building number for counterparty address. Alphanumeric only. Optional.
+	StreetNumber optionalnullable.OptionalNullable[string] `json:"street_number,omitempty"`
 	// Street name for counterparty address
 	Street1 *string `json:"street1"`
 	// Optional second line of street
-	Street2 *string `json:"street2,omitempty"`
+	Street2 optionalnullable.OptionalNullable[string] `json:"street2,omitempty"`
 	// Maximum 35 characters
 	City *string `json:"city"`
 	// 2 characters. Must be a valid US state abbreviation.
@@ -206,7 +207,7 @@ type GetSyntheticAccountInstantPaymentCounterpartyAddress struct {
 	Country    *string `json:"country"`
 }
 
-func (o *GetSyntheticAccountInstantPaymentCounterpartyAddress) GetStreetNumber() *string {
+func (o *GetSyntheticAccountInstantPaymentCounterpartyAddress) GetStreetNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -220,7 +221,7 @@ func (o *GetSyntheticAccountInstantPaymentCounterpartyAddress) GetStreet1() *str
 	return o.Street1
 }
 
-func (o *GetSyntheticAccountInstantPaymentCounterpartyAddress) GetStreet2() *string {
+func (o *GetSyntheticAccountInstantPaymentCounterpartyAddress) GetStreet2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}

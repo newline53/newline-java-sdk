@@ -134,6 +134,14 @@ public class GetTransactionsUidInstantPayment {
     private JsonNullable<GetTransactionsUidCounterpartyBankAddress> counterpartyBankAddress;
 
     /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("ultimate_debtor_info")
+    private JsonNullable<GetTransactionsUidUltimateDebtorInfo> ultimateDebtorInfo;
+
+    /**
      * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
      * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
      */
@@ -165,6 +173,7 @@ public class GetTransactionsUidInstantPayment {
             @JsonProperty("initiating_party_name") @Nullable String initiatingPartyName,
             @JsonProperty("instant_payment_transmitter") @Nullable GetTransactionsUidInstantPaymentTransmitter instantPaymentTransmitter,
             @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsUidCounterpartyBankAddress> counterpartyBankAddress,
+            @JsonProperty("ultimate_debtor_info") @Nullable JsonNullable<GetTransactionsUidUltimateDebtorInfo> ultimateDebtorInfo,
             @JsonProperty("memo") @Nullable JsonNullable<String> memo,
             @JsonProperty("counterparty_address") @Nullable JsonNullable<GetTransactionsUidInstantPaymentCounterpartyAddress> counterpartyAddress) {
         this.networkTransactionId = networkTransactionId;
@@ -185,6 +194,8 @@ public class GetTransactionsUidInstantPayment {
         this.instantPaymentTransmitter = instantPaymentTransmitter;
         this.counterpartyBankAddress = Optional.ofNullable(counterpartyBankAddress)
             .orElse(JsonNullable.undefined());
+        this.ultimateDebtorInfo = Optional.ofNullable(ultimateDebtorInfo)
+            .orElse(JsonNullable.undefined());
         this.memo = Optional.ofNullable(memo)
             .orElse(JsonNullable.undefined());
         this.counterpartyAddress = Optional.ofNullable(counterpartyAddress)
@@ -197,7 +208,7 @@ public class GetTransactionsUidInstantPayment {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -311,6 +322,14 @@ public class GetTransactionsUidInstantPayment {
      */
     public JsonNullable<GetTransactionsUidCounterpartyBankAddress> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
+    }
+
+    /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    public JsonNullable<GetTransactionsUidUltimateDebtorInfo> ultimateDebtorInfo() {
+        return this.ultimateDebtorInfo;
     }
 
     /**
@@ -477,6 +496,16 @@ public class GetTransactionsUidInstantPayment {
 
 
     /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    public GetTransactionsUidInstantPayment withUltimateDebtorInfo(@Nullable GetTransactionsUidUltimateDebtorInfo ultimateDebtorInfo) {
+        this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);
+        return this;
+    }
+
+
+    /**
      * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
      * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
      */
@@ -520,6 +549,7 @@ public class GetTransactionsUidInstantPayment {
             Utils.enhancedDeepEquals(this.initiatingPartyName, other.initiatingPartyName) &&
             Utils.enhancedDeepEquals(this.instantPaymentTransmitter, other.instantPaymentTransmitter) &&
             Utils.enhancedDeepEquals(this.counterpartyBankAddress, other.counterpartyBankAddress) &&
+            Utils.enhancedDeepEquals(this.ultimateDebtorInfo, other.ultimateDebtorInfo) &&
             Utils.enhancedDeepEquals(this.memo, other.memo) &&
             Utils.enhancedDeepEquals(this.counterpartyAddress, other.counterpartyAddress);
     }
@@ -532,7 +562,7 @@ public class GetTransactionsUidInstantPayment {
             counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
             purposeOfPayment, originalEndToEndId, transmitterName,
             initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress,
-            memo, counterpartyAddress);
+            ultimateDebtorInfo, memo, counterpartyAddress);
     }
     
     @Override
@@ -553,6 +583,7 @@ public class GetTransactionsUidInstantPayment {
                 "initiatingPartyName", initiatingPartyName,
                 "instantPaymentTransmitter", instantPaymentTransmitter,
                 "counterpartyBankAddress", counterpartyBankAddress,
+                "ultimateDebtorInfo", ultimateDebtorInfo,
                 "memo", memo,
                 "counterpartyAddress", counterpartyAddress);
     }
@@ -589,6 +620,8 @@ public class GetTransactionsUidInstantPayment {
         private GetTransactionsUidInstantPaymentTransmitter instantPaymentTransmitter;
 
         private JsonNullable<GetTransactionsUidCounterpartyBankAddress> counterpartyBankAddress;
+
+        private JsonNullable<GetTransactionsUidUltimateDebtorInfo> ultimateDebtorInfo;
 
         private JsonNullable<String> memo;
 
@@ -727,6 +760,15 @@ public class GetTransactionsUidInstantPayment {
         }
 
         /**
+         * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+         * populated if your program has enabled RTP Ultimate Debtor support.
+         */
+        public Builder ultimateDebtorInfo(@Nullable GetTransactionsUidUltimateDebtorInfo ultimateDebtorInfo) {
+            this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);
+            return this;
+        }
+
+        /**
          * A message transmitted to the recipient bank. Supports letters, numbers, and special characters:.
          * !@#$%^&amp;*',/:;&lt;=&gt;?~`|[]{})(+=_- (max 140 characters).
          */
@@ -750,7 +792,7 @@ public class GetTransactionsUidInstantPayment {
                 counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
                 purposeOfPayment, originalEndToEndId, transmitterName,
                 initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress,
-                memo, counterpartyAddress);
+                ultimateDebtorInfo, memo, counterpartyAddress);
         }
 
     }

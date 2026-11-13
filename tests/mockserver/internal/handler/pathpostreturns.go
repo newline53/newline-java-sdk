@@ -150,7 +150,7 @@ func testPostReturnsPostReturnsCreatedReturn0(w http.ResponseWriter, req *http.R
 	}
 	var respBody *operations.PostReturnsResponseBody = &operations.PostReturnsResponseBody{
 		CreatedAt:              types.String("2024-05-01T00:00:00.000Z"),
-		ExternalUID:            types.String("null,"),
+		ExternalUID:            types.String("YrfDrfVRgpPgnhF5"),
 		OriginalTransactionUID: types.String("nwXnpBbX3A5sTki3"),
 		CustomerUID:            types.String("Trzqy9t6j6tFGoG3"),
 		RequestorType:          operations.PostReturnsRequestorTypeResponseCustomer.ToPointer(),

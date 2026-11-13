@@ -523,30 +523,31 @@ func (e *GetTransactionsDataStatus) UnmarshalJSON(data []byte) error {
 type GetTransactionsDataType string
 
 const (
-	GetTransactionsDataTypeAch                  GetTransactionsDataType = "ach"
-	GetTransactionsDataTypeAchReturn            GetTransactionsDataType = "ach_return"
-	GetTransactionsDataTypeAtmWithdrawal        GetTransactionsDataType = "atm_withdrawal"
-	GetTransactionsDataTypeBookTransfer         GetTransactionsDataType = "book_transfer"
-	GetTransactionsDataTypeCardLoad             GetTransactionsDataType = "card_load"
-	GetTransactionsDataTypeCardPurchase         GetTransactionsDataType = "card_purchase"
-	GetTransactionsDataTypeCardRefund           GetTransactionsDataType = "card_refund"
-	GetTransactionsDataTypeCashLoad             GetTransactionsDataType = "cash_load"
-	GetTransactionsDataTypeCorporateAction      GetTransactionsDataType = "corporate_action"
-	GetTransactionsDataTypeCredit               GetTransactionsDataType = "credit"
-	GetTransactionsDataTypeDeniedAuthorization  GetTransactionsDataType = "denied_authorization"
-	GetTransactionsDataTypeDispute              GetTransactionsDataType = "dispute"
-	GetTransactionsDataTypeFee                  GetTransactionsDataType = "fee"
-	GetTransactionsDataTypeInitiatedAchReturn   GetTransactionsDataType = "initiated_ach_return"
-	GetTransactionsDataTypeInitiatedAchReversal GetTransactionsDataType = "initiated_ach_reversal"
-	GetTransactionsDataTypeInitiatedWireReturn  GetTransactionsDataType = "initiated_wire_return"
-	GetTransactionsDataTypeInstantPayment       GetTransactionsDataType = "instant_payment"
-	GetTransactionsDataTypeInterest             GetTransactionsDataType = "interest"
-	GetTransactionsDataTypeOther                GetTransactionsDataType = "other"
-	GetTransactionsDataTypePeerToPeerTransfer   GetTransactionsDataType = "peer_to_peer_transfer"
-	GetTransactionsDataTypeReversal             GetTransactionsDataType = "reversal"
-	GetTransactionsDataTypeReversedTransfer     GetTransactionsDataType = "reversed_transfer"
-	GetTransactionsDataTypeSetAccountBalance    GetTransactionsDataType = "set_account_balance"
-	GetTransactionsDataTypeWire                 GetTransactionsDataType = "wire"
+	GetTransactionsDataTypeAch                        GetTransactionsDataType = "ach"
+	GetTransactionsDataTypeAchReturn                  GetTransactionsDataType = "ach_return"
+	GetTransactionsDataTypeAtmWithdrawal              GetTransactionsDataType = "atm_withdrawal"
+	GetTransactionsDataTypeBookTransfer               GetTransactionsDataType = "book_transfer"
+	GetTransactionsDataTypeCardLoad                   GetTransactionsDataType = "card_load"
+	GetTransactionsDataTypeCardPurchase               GetTransactionsDataType = "card_purchase"
+	GetTransactionsDataTypeCardRefund                 GetTransactionsDataType = "card_refund"
+	GetTransactionsDataTypeCashLoad                   GetTransactionsDataType = "cash_load"
+	GetTransactionsDataTypeCorporateAction            GetTransactionsDataType = "corporate_action"
+	GetTransactionsDataTypeCredit                     GetTransactionsDataType = "credit"
+	GetTransactionsDataTypeDeniedAuthorization        GetTransactionsDataType = "denied_authorization"
+	GetTransactionsDataTypeDispute                    GetTransactionsDataType = "dispute"
+	GetTransactionsDataTypeFee                        GetTransactionsDataType = "fee"
+	GetTransactionsDataTypeInitiatedAchReturn         GetTransactionsDataType = "initiated_ach_return"
+	GetTransactionsDataTypeInitiatedAchReversal       GetTransactionsDataType = "initiated_ach_reversal"
+	GetTransactionsDataTypeInitiatedWireReturn        GetTransactionsDataType = "initiated_wire_return"
+	GetTransactionsDataTypeInstantPayment             GetTransactionsDataType = "instant_payment"
+	GetTransactionsDataTypeInterest                   GetTransactionsDataType = "interest"
+	GetTransactionsDataTypeManualInstantPaymentReturn GetTransactionsDataType = "manual_instant_payment_return"
+	GetTransactionsDataTypeOther                      GetTransactionsDataType = "other"
+	GetTransactionsDataTypePeerToPeerTransfer         GetTransactionsDataType = "peer_to_peer_transfer"
+	GetTransactionsDataTypeReversal                   GetTransactionsDataType = "reversal"
+	GetTransactionsDataTypeReversedTransfer           GetTransactionsDataType = "reversed_transfer"
+	GetTransactionsDataTypeSetAccountBalance          GetTransactionsDataType = "set_account_balance"
+	GetTransactionsDataTypeWire                       GetTransactionsDataType = "wire"
 )
 
 func (e GetTransactionsDataType) ToPointer() *GetTransactionsDataType {
@@ -593,6 +594,8 @@ func (e *GetTransactionsDataType) UnmarshalJSON(data []byte) error {
 	case "instant_payment":
 		fallthrough
 	case "interest":
+		fallthrough
+	case "manual_instant_payment_return":
 		fallthrough
 	case "other":
 		fallthrough
@@ -738,6 +741,7 @@ const (
 	GetTransactionsPurposeOfPaymentAcct GetTransactionsPurposeOfPayment = "ACCT"
 	GetTransactionsPurposeOfPaymentCblk GetTransactionsPurposeOfPayment = "CBLK"
 	GetTransactionsPurposeOfPaymentMp2P GetTransactionsPurposeOfPayment = "MP2P"
+	GetTransactionsPurposeOfPaymentTrad GetTransactionsPurposeOfPayment = "TRAD"
 )
 
 func (e GetTransactionsPurposeOfPayment) ToPointer() *GetTransactionsPurposeOfPayment {
@@ -772,6 +776,8 @@ func (e *GetTransactionsPurposeOfPayment) UnmarshalJSON(data []byte) error {
 	case "CBLK":
 		fallthrough
 	case "MP2P":
+		fallthrough
+	case "TRAD":
 		*e = GetTransactionsPurposeOfPayment(v)
 		return nil
 	default:
@@ -848,12 +854,12 @@ func (o *GetTransactionsInstantPaymentTransmitter) GetCountry() *string {
 
 // GetTransactionsCounterpartyBankAddress - Address of the financial institution where the external account is held.
 type GetTransactionsCounterpartyBankAddress struct {
-	// Building number for counterparty address. Alphanumeric only.
-	StreetNumber *string `json:"street_number"`
+	// Building number for counterparty address. Alphanumeric only. Optional.
+	StreetNumber optionalnullable.OptionalNullable[string] `json:"street_number,omitempty"`
 	// Street name for counterparty address
 	Street1 *string `json:"street1"`
 	// Optional second line of street
-	Street2 *string `json:"street2,omitempty"`
+	Street2 optionalnullable.OptionalNullable[string] `json:"street2,omitempty"`
 	// Maximum 35 characters
 	City *string `json:"city"`
 	// 2 characters. Must be a valid US state abbreviation.
@@ -863,7 +869,7 @@ type GetTransactionsCounterpartyBankAddress struct {
 	Country    *string `json:"country"`
 }
 
-func (o *GetTransactionsCounterpartyBankAddress) GetStreetNumber() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetStreetNumber() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -877,7 +883,7 @@ func (o *GetTransactionsCounterpartyBankAddress) GetStreet1() *string {
 	return o.Street1
 }
 
-func (o *GetTransactionsCounterpartyBankAddress) GetStreet2() *string {
+func (o *GetTransactionsCounterpartyBankAddress) GetStreet2() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -906,6 +912,81 @@ func (o *GetTransactionsCounterpartyBankAddress) GetPostalCode() *string {
 }
 
 func (o *GetTransactionsCounterpartyBankAddress) GetCountry() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+// GetTransactionsUltimateDebtorInfo - Information about the ultimate debtor (the entity on whose behalf the payment is made). Only populated if your program has enabled RTP Ultimate Debtor support.
+type GetTransactionsUltimateDebtorInfo struct {
+	// Name of the ultimate debtor
+	UltimateDebtorName string `json:"ultimate_debtor_name"`
+	// Building number. Alphanumeric only.
+	StreetNumber optionalnullable.OptionalNullable[string] `json:"street_number,omitempty"`
+	// Street name
+	Street1 optionalnullable.OptionalNullable[string] `json:"street1,omitempty"`
+	// Optional second line of street
+	Street2 optionalnullable.OptionalNullable[string] `json:"street2,omitempty"`
+	// Maximum 35 characters
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// 2 characters. Must be a valid US state abbreviation.
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// 5-digit string. ZIP+4 is allowed.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetUltimateDebtorName() string {
+	if o == nil {
+		return ""
+	}
+	return o.UltimateDebtorName
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetStreetNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetNumber
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetStreet1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Street1
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetStreet2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Street2
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetTransactionsUltimateDebtorInfo) GetCountry() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -959,6 +1040,8 @@ type GetTransactionsInstantPayment struct {
 	// Address of the financial institution where the external account is held.
 	//
 	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
+	// Information about the ultimate debtor (the entity on whose behalf the payment is made). Only populated if your program has enabled RTP Ultimate Debtor support.
+	UltimateDebtorInfo optionalnullable.OptionalNullable[GetTransactionsUltimateDebtorInfo] `json:"ultimate_debtor_info,omitempty"`
 }
 
 func (o *GetTransactionsInstantPayment) GetNetworkTransactionID() *string {
@@ -1064,6 +1147,13 @@ func (o *GetTransactionsInstantPayment) GetCounterpartyBankAddress() optionalnul
 		return nil
 	}
 	return o.CounterpartyBankAddress
+}
+
+func (o *GetTransactionsInstantPayment) GetUltimateDebtorInfo() optionalnullable.OptionalNullable[GetTransactionsUltimateDebtorInfo] {
+	if o == nil {
+		return nil
+	}
+	return o.UltimateDebtorInfo
 }
 
 // GetTransactionsCounterpartyBankAddressUnstructuredAddress - Address of the financial institution where the external account is held.
@@ -1762,6 +1852,8 @@ type GetTransactionsAch struct {
 	NocReason *string `json:"noc_reason,omitempty"`
 	// Trace ID to identify the transaction across Newline and Fifth Third Bank applications.
 	TransferTraceID *string `json:"transfer_trace_id,omitempty"`
+	// Original trace number from the ACH trace ID at the time of transaction creation.
+	OriginalTraceNumber *string `json:"original_trace_number,omitempty"`
 	// Routing Number of individual or business originating the ACH transfer.
 	//
 	OriginatorRoutingNumber *string `json:"originator_routing_number,omitempty"`
@@ -1874,6 +1966,13 @@ func (o *GetTransactionsAch) GetTransferTraceID() *string {
 		return nil
 	}
 	return o.TransferTraceID
+}
+
+func (o *GetTransactionsAch) GetOriginalTraceNumber() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OriginalTraceNumber
 }
 
 func (o *GetTransactionsAch) GetOriginatorRoutingNumber() *string {

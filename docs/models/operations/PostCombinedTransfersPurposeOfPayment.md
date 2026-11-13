@@ -28,3 +28,4 @@ PostCombinedTransfersPurposeOfPayment value = PostCombinedTransfersPurposeOfPaym
 | `ACCT`  | ACCT    |
 | `CBLK`  | CBLK    |
 | `MP2_P` | MP2P    |
+| `TRAD`  | TRAD    |

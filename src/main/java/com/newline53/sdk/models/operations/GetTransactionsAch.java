@@ -157,6 +157,13 @@ public class GetTransactionsAch {
     private String transferTraceId;
 
     /**
+     * Original trace number from the ACH trace ID at the time of transaction creation.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("original_trace_number")
+    private String originalTraceNumber;
+
+    /**
      * Routing Number of individual or business originating the ACH transfer.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -194,6 +201,7 @@ public class GetTransactionsAch {
             @JsonProperty("noc_code") @Nullable String nocCode,
             @JsonProperty("noc_reason") @Nullable String nocReason,
             @JsonProperty("transfer_trace_id") @Nullable String transferTraceId,
+            @JsonProperty("original_trace_number") @Nullable String originalTraceNumber,
             @JsonProperty("originator_routing_number") @Nullable String originatorRoutingNumber,
             @JsonProperty("counterparty_name") @Nullable String counterpartyName,
             @JsonProperty("iat") @Nullable GetTransactionsIat iat) {
@@ -212,6 +220,7 @@ public class GetTransactionsAch {
         this.nocCode = nocCode;
         this.nocReason = nocReason;
         this.transferTraceId = transferTraceId;
+        this.originalTraceNumber = originalTraceNumber;
         this.originatorRoutingNumber = originatorRoutingNumber;
         this.counterpartyName = counterpartyName;
         this.iat = iat;
@@ -223,7 +232,8 @@ public class GetTransactionsAch {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -356,6 +366,13 @@ public class GetTransactionsAch {
      */
     public Optional<String> transferTraceId() {
         return Optional.ofNullable(this.transferTraceId);
+    }
+
+    /**
+     * Original trace number from the ACH trace ID at the time of transaction creation.
+     */
+    public Optional<String> originalTraceNumber() {
+        return Optional.ofNullable(this.originalTraceNumber);
     }
 
     /**
@@ -547,6 +564,15 @@ public class GetTransactionsAch {
 
 
     /**
+     * Original trace number from the ACH trace ID at the time of transaction creation.
+     */
+    public GetTransactionsAch withOriginalTraceNumber(@Nullable String originalTraceNumber) {
+        this.originalTraceNumber = originalTraceNumber;
+        return this;
+    }
+
+
+    /**
      * Routing Number of individual or business originating the ACH transfer.
      */
     public GetTransactionsAch withOriginatorRoutingNumber(@Nullable String originatorRoutingNumber) {
@@ -598,6 +624,7 @@ public class GetTransactionsAch {
             Utils.enhancedDeepEquals(this.nocCode, other.nocCode) &&
             Utils.enhancedDeepEquals(this.nocReason, other.nocReason) &&
             Utils.enhancedDeepEquals(this.transferTraceId, other.transferTraceId) &&
+            Utils.enhancedDeepEquals(this.originalTraceNumber, other.originalTraceNumber) &&
             Utils.enhancedDeepEquals(this.originatorRoutingNumber, other.originatorRoutingNumber) &&
             Utils.enhancedDeepEquals(this.counterpartyName, other.counterpartyName) &&
             Utils.enhancedDeepEquals(this.iat, other.iat);
@@ -611,7 +638,8 @@ public class GetTransactionsAch {
             entryDescription, serviceProcessing, effectiveEntryDate,
             idNumber, achReturnCode, achReturnReason,
             nocCode, nocReason, transferTraceId,
-            originatorRoutingNumber, counterpartyName, iat);
+            originalTraceNumber, originatorRoutingNumber, counterpartyName,
+            iat);
     }
     
     @Override
@@ -632,6 +660,7 @@ public class GetTransactionsAch {
                 "nocCode", nocCode,
                 "nocReason", nocReason,
                 "transferTraceId", transferTraceId,
+                "originalTraceNumber", originalTraceNumber,
                 "originatorRoutingNumber", originatorRoutingNumber,
                 "counterpartyName", counterpartyName,
                 "iat", iat);
@@ -669,6 +698,8 @@ public class GetTransactionsAch {
         private String nocReason;
 
         private String transferTraceId;
+
+        private String originalTraceNumber;
 
         private String originatorRoutingNumber;
 
@@ -828,6 +859,14 @@ public class GetTransactionsAch {
         }
 
         /**
+         * Original trace number from the ACH trace ID at the time of transaction creation.
+         */
+        public Builder originalTraceNumber(@Nullable String originalTraceNumber) {
+            this.originalTraceNumber = originalTraceNumber;
+            return this;
+        }
+
+        /**
          * Routing Number of individual or business originating the ACH transfer.
          */
         public Builder originatorRoutingNumber(@Nullable String originatorRoutingNumber) {
@@ -858,7 +897,8 @@ public class GetTransactionsAch {
                 entryDescription, serviceProcessing, effectiveEntryDate,
                 idNumber, achReturnCode, achReturnReason,
                 nocCode, nocReason, transferTraceId,
-                originatorRoutingNumber, counterpartyName, iat);
+                originalTraceNumber, originatorRoutingNumber, counterpartyName,
+                iat);
         }
 
     }

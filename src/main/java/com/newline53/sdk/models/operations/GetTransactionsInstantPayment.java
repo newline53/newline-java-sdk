@@ -133,6 +133,14 @@ public class GetTransactionsInstantPayment {
     @JsonProperty("counterparty_bank_address")
     private JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress;
 
+    /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("ultimate_debtor_info")
+    private JsonNullable<GetTransactionsUltimateDebtorInfo> ultimateDebtorInfo;
+
     @JsonCreator
     public GetTransactionsInstantPayment(
             @JsonProperty("network_transaction_id") @Nullable String networkTransactionId,
@@ -149,7 +157,8 @@ public class GetTransactionsInstantPayment {
             @JsonProperty("transmitter_name") @Nullable String transmitterName,
             @JsonProperty("initiating_party_name") @Nullable String initiatingPartyName,
             @JsonProperty("instant_payment_transmitter") @Nullable GetTransactionsInstantPaymentTransmitter instantPaymentTransmitter,
-            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress) {
+            @JsonProperty("counterparty_bank_address") @Nullable JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress,
+            @JsonProperty("ultimate_debtor_info") @Nullable JsonNullable<GetTransactionsUltimateDebtorInfo> ultimateDebtorInfo) {
         this.networkTransactionId = networkTransactionId;
         this.network = network;
         this.failureCode = failureCode;
@@ -168,6 +177,8 @@ public class GetTransactionsInstantPayment {
         this.instantPaymentTransmitter = instantPaymentTransmitter;
         this.counterpartyBankAddress = Optional.ofNullable(counterpartyBankAddress)
             .orElse(JsonNullable.undefined());
+        this.ultimateDebtorInfo = Optional.ofNullable(ultimateDebtorInfo)
+            .orElse(JsonNullable.undefined());
     }
     
     public GetTransactionsInstantPayment() {
@@ -175,7 +186,8 @@ public class GetTransactionsInstantPayment {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -289,6 +301,14 @@ public class GetTransactionsInstantPayment {
      */
     public JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress() {
         return this.counterpartyBankAddress;
+    }
+
+    /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    public JsonNullable<GetTransactionsUltimateDebtorInfo> ultimateDebtorInfo() {
+        return this.ultimateDebtorInfo;
     }
 
     public static Builder builder() {
@@ -439,6 +459,16 @@ public class GetTransactionsInstantPayment {
     }
 
 
+    /**
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+     * populated if your program has enabled RTP Ultimate Debtor support.
+     */
+    public GetTransactionsInstantPayment withUltimateDebtorInfo(@Nullable GetTransactionsUltimateDebtorInfo ultimateDebtorInfo) {
+        this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -463,7 +493,8 @@ public class GetTransactionsInstantPayment {
             Utils.enhancedDeepEquals(this.transmitterName, other.transmitterName) &&
             Utils.enhancedDeepEquals(this.initiatingPartyName, other.initiatingPartyName) &&
             Utils.enhancedDeepEquals(this.instantPaymentTransmitter, other.instantPaymentTransmitter) &&
-            Utils.enhancedDeepEquals(this.counterpartyBankAddress, other.counterpartyBankAddress);
+            Utils.enhancedDeepEquals(this.counterpartyBankAddress, other.counterpartyBankAddress) &&
+            Utils.enhancedDeepEquals(this.ultimateDebtorInfo, other.ultimateDebtorInfo);
     }
     
     @Override
@@ -473,7 +504,8 @@ public class GetTransactionsInstantPayment {
             failureReason, counterpartyName, counterpartyBankName,
             counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
             purposeOfPayment, originalEndToEndId, transmitterName,
-            initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress);
+            initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress,
+            ultimateDebtorInfo);
     }
     
     @Override
@@ -493,7 +525,8 @@ public class GetTransactionsInstantPayment {
                 "transmitterName", transmitterName,
                 "initiatingPartyName", initiatingPartyName,
                 "instantPaymentTransmitter", instantPaymentTransmitter,
-                "counterpartyBankAddress", counterpartyBankAddress);
+                "counterpartyBankAddress", counterpartyBankAddress,
+                "ultimateDebtorInfo", ultimateDebtorInfo);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -528,6 +561,8 @@ public class GetTransactionsInstantPayment {
         private GetTransactionsInstantPaymentTransmitter instantPaymentTransmitter;
 
         private JsonNullable<GetTransactionsCounterpartyBankAddress> counterpartyBankAddress;
+
+        private JsonNullable<GetTransactionsUltimateDebtorInfo> ultimateDebtorInfo;
 
         private Builder() {
           // force use of static builder() method
@@ -661,13 +696,23 @@ public class GetTransactionsInstantPayment {
             return this;
         }
 
+        /**
+         * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
+         * populated if your program has enabled RTP Ultimate Debtor support.
+         */
+        public Builder ultimateDebtorInfo(@Nullable GetTransactionsUltimateDebtorInfo ultimateDebtorInfo) {
+            this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);
+            return this;
+        }
+
         public GetTransactionsInstantPayment build() {
             return new GetTransactionsInstantPayment(
                 networkTransactionId, network, failureCode,
                 failureReason, counterpartyName, counterpartyBankName,
                 counterpartyBankRoutingNumber, counterpartyAccountNumberLastFour, paymentId,
                 purposeOfPayment, originalEndToEndId, transmitterName,
-                initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress);
+                initiatingPartyName, instantPaymentTransmitter, counterpartyBankAddress,
+                ultimateDebtorInfo);
         }
 
     }

@@ -21,9 +21,9 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class GetTransactionsCounterpartyBankAddress {
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("street_number")
     private JsonNullable<String> streetNumber;
 
@@ -39,7 +39,7 @@ public class GetTransactionsCounterpartyBankAddress {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("street2")
-    private String street2;
+    private JsonNullable<String> street2;
 
     /**
      * Maximum 35 characters
@@ -69,16 +69,18 @@ public class GetTransactionsCounterpartyBankAddress {
 
     @JsonCreator
     public GetTransactionsCounterpartyBankAddress(
-            @JsonProperty("street_number") @Nullable String streetNumber,
+            @JsonProperty("street_number") @Nullable JsonNullable<String> streetNumber,
             @JsonProperty("street1") @Nullable String street1,
-            @JsonProperty("street2") @Nullable String street2,
+            @JsonProperty("street2") @Nullable JsonNullable<String> street2,
             @JsonProperty("city") @Nullable String city,
             @JsonProperty("state") @Nullable String state,
             @JsonProperty("postal_code") @Nullable String postalCode,
             @JsonProperty("country") @Nullable String country) {
-        this.streetNumber = JsonNullable.of(streetNumber);
+        this.streetNumber = Optional.ofNullable(streetNumber)
+            .orElse(JsonNullable.undefined());
         this.street1 = JsonNullable.of(street1);
-        this.street2 = street2;
+        this.street2 = Optional.ofNullable(street2)
+            .orElse(JsonNullable.undefined());
         this.city = JsonNullable.of(city);
         this.state = JsonNullable.of(state);
         this.postalCode = JsonNullable.of(postalCode);
@@ -92,7 +94,7 @@ public class GetTransactionsCounterpartyBankAddress {
     }
 
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
     public JsonNullable<String> streetNumber() {
         return this.streetNumber;
@@ -108,8 +110,8 @@ public class GetTransactionsCounterpartyBankAddress {
     /**
      * Optional second line of street
      */
-    public Optional<String> street2() {
-        return Optional.ofNullable(this.street2);
+    public JsonNullable<String> street2() {
+        return this.street2;
     }
 
     /**
@@ -143,7 +145,7 @@ public class GetTransactionsCounterpartyBankAddress {
 
 
     /**
-     * Building number for counterparty address. Alphanumeric only.
+     * Building number for counterparty address. Alphanumeric only. Optional.
      */
     public GetTransactionsCounterpartyBankAddress withStreetNumber(@Nullable String streetNumber) {
         this.streetNumber = JsonNullable.of(streetNumber);
@@ -164,7 +166,7 @@ public class GetTransactionsCounterpartyBankAddress {
      * Optional second line of street
      */
     public GetTransactionsCounterpartyBankAddress withStreet2(@Nullable String street2) {
-        this.street2 = street2;
+        this.street2 = JsonNullable.of(street2);
         return this;
     }
 
@@ -244,11 +246,11 @@ public class GetTransactionsCounterpartyBankAddress {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String streetNumber;
+        private JsonNullable<String> streetNumber;
 
         private String street1;
 
-        private String street2;
+        private JsonNullable<String> street2;
 
         private String city;
 
@@ -263,10 +265,10 @@ public class GetTransactionsCounterpartyBankAddress {
         }
 
         /**
-         * Building number for counterparty address. Alphanumeric only.
+         * Building number for counterparty address. Alphanumeric only. Optional.
          */
         public Builder streetNumber(@Nullable String streetNumber) {
-            this.streetNumber = streetNumber;
+            this.streetNumber = JsonNullable.of(streetNumber);
             return this;
         }
 
@@ -282,7 +284,7 @@ public class GetTransactionsCounterpartyBankAddress {
          * Optional second line of street
          */
         public Builder street2(@Nullable String street2) {
-            this.street2 = street2;
+            this.street2 = JsonNullable.of(street2);
             return this;
         }
 

@@ -94,6 +94,7 @@ func testGetTransactionsGetTransactionsTransactions0(w http.ResponseWriter, req 
 					NocCode:                  types.String("C04"),
 					NocReason:                types.String("Bank account name change"),
 					TransferTraceID:          types.String("A1Z2b3y4c5x6DW78"),
+					OriginalTraceNumber:      types.String("A1Z2b3y4c5x6DW78"),
 					OriginatorRoutingNumber:  types.String("123456789"),
 					CounterpartyName:         types.String("Receiver Account Name"),
 					Iat: &operations.GetTransactionsIat{
@@ -178,6 +179,7 @@ func testGetTransactionsGetTransactionsTransactions0(w http.ResponseWriter, req 
 					NocCode:                  types.String("<value>"),
 					NocReason:                types.String("<value>"),
 					TransferTraceID:          types.String("A1Z2b3y4c5x6DW78"),
+					OriginalTraceNumber:      types.String("A1Z2b3y4c5x6DW78"),
 					OriginatorRoutingNumber:  types.String("123456789"),
 					CounterpartyName:         types.String("Marge's Roofing Inc"),
 				},
@@ -271,9 +273,9 @@ func testGetTransactionsGetTransactionsTransactions0(w http.ResponseWriter, req 
 					TransmitterName:                   types.String("Rupert's Roofers of Raleigh"),
 					InitiatingPartyName:               types.String("Rupert's Roofers of Raleigh"),
 					CounterpartyBankAddress: optionalnullable.From(&operations.GetTransactionsCounterpartyBankAddress{
-						StreetNumber: types.String("789"),
+						StreetNumber: optionalnullable.From(types.String("789")),
 						Street1:      types.String("Bank Blvd."),
-						Street2:      types.String("<value>"),
+						Street2:      nil,
 						City:         types.String("Raleigh"),
 						State:        types.String("NC"),
 						PostalCode:   types.String("27602"),

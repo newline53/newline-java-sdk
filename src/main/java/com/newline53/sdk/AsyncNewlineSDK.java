@@ -542,6 +542,10 @@ public class AsyncNewlineSDK {
      * and fees. This endpoint can retrieve a list of Transactions or track the status of an ongoing
      * Transaction.
      * 
+     * <p>Transactions with type `manual_instant_payment_return` identify the client debit associated with a
+     * manually requested return of a received instant payment. The external return is handled separately
+     * by operations.
+     * 
      * <p>Transaction Events are created as a result of a Transaction. They capture the steps required to
      * complete the Transaction. These can be used to view the progress of an in-flight Transaction or see
      * the history of a completed Transaction.
@@ -900,6 +904,10 @@ public class AsyncNewlineSDK {
      * <p>Transactions fall into many categories, including debit card purchases, direct deposits, interest,
      * and fees. This endpoint can retrieve a list of Transactions or track the status of an ongoing
      * Transaction.
+     * 
+     * <p>Transactions with type `manual_instant_payment_return` identify the client debit associated with a
+     * manually requested return of a received instant payment. The external return is handled separately
+     * by operations.
      * 
      * <p>Transaction Events are created as a result of a Transaction. They capture the steps required to
      * complete the Transaction. These can be used to view the progress of an in-flight Transaction or see

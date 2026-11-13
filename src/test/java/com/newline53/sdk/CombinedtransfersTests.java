@@ -6,7 +6,6 @@ package com.newline53.sdk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.newline53.sdk.models.components.Security;
-import com.newline53.sdk.models.operations.CounterpartyAddressSyntheticAccountUnstructuredAddress;
 import com.newline53.sdk.models.operations.GetCombinedTransfersQueryParamStatus;
 import com.newline53.sdk.models.operations.GetCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.GetCombinedTransfersResponse;
@@ -27,6 +26,7 @@ import com.newline53.sdk.models.operations.SyntheticAccountAch;
 import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.SyntheticAccountWire;
 import com.newline53.sdk.models.operations.TransferAch;
 import com.newline53.sdk.models.operations.TransferInstantPayment;
@@ -34,7 +34,6 @@ import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstru
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
 import com.newline53.sdk.models.operations.TransferWire;
-import com.newline53.sdk.models.operations.WireTransmitterTransferUnstructuredAddress;
 import com.newline53.sdk.utils.Utils;
 import java.lang.Exception;
 import java.time.OffsetDateTime;
@@ -186,15 +185,15 @@ public class CombinedtransfersTests {
                     .routingNumber("04200031")
                     .accountNumber("1234567890")
                     .instantPayment(SyntheticAccountInstantPayment.builder()
+                        .counterpartyName("awesome counterparty")
                         .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
-                            .streetNumber("123")
                             .street1("Main street")
                             .city("Brooklyn")
                             .state("IA")
                             .postalCode("12345-6789")
                             .country("US")
+                            .streetNumber("123")
                             .build())
-                        .counterpartyName("awesome counterparty")
                         .email("address@domain.com")
                         .phone("2121112233")
                         .build())
@@ -414,26 +413,30 @@ public class CombinedtransfersTests {
                         .counterpartyName("Thelma's Flooring LLC")
                         .build())
                     .instantPayment(SyntheticAccountInstantPayment.builder()
+                        .counterpartyName("Marge's Roofing Inc")
                         .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
-                        .counterpartyName("Marge's Roofing Inc")
                         .email("payments@veryexcellentbusiness.com")
                         .phone("5555551212")
                         .build())
                     .wire(SyntheticAccountWire.builder()
                         .counterpartyName("Marge's Roofing Inc")
-                        .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(CounterpartyAddressSyntheticAccountUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(SyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddress.builder()
                             .line1("123 Abc St.")
@@ -475,7 +478,7 @@ public class CombinedtransfersTests {
                             .postalCode("60301")
                             .country(null)
                             .build())
-                        .memo("For the 6-5-23 shipment of pineapple popsicles")
+                        .memo("Payment for invoice #123 @client")
                         .purposeOfPayment(PostCombinedTransfersPurposeOfPayment.PAYR)
                         .build())
                     .wire(TransferWire.builder()
@@ -488,13 +491,17 @@ public class CombinedtransfersTests {
                         .intermediaryBankName("Fidelity Fiduciary Bank")
                         .intermediaryBankRoutingNumber("923456789")
                         .wireInstructions("Send ASAP")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(WireTransmitterTransferUnstructuredAddress.builder()
-                            .name("Marge's Roofing Inc")
-                            .transmitterIdentifier("123456789012ABC")
-                            .line1("123 Abc St.")
-                            .line2("Boring, Oregon 97009")
-                            .line3(null)
+                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .name("Marge's Roofing Inc")
+                            .transmitterIdentifier("123456789012345")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .build())
                     .build())

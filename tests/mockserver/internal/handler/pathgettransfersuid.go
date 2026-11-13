@@ -232,7 +232,7 @@ func testGetTransferGetTransferCanceledTransfer0(w http.ResponseWriter, req *htt
 			IntermediaryBankRoutingNumber: types.String("923456789"),
 			WireTransmitter: &operations.GetTransferWireTransmitter{
 				Name:                  "Marge's Roofing Inc",
-				TransmitterIdentifier: "123456789012ABC",
+				TransmitterIdentifier: "123456789012345",
 				Line1:                 optionalnullable.From(types.String("123 Abc St.")),
 				Line2:                 optionalnullable.From(types.String("Boring, Oregon 97009")),
 				Line3:                 nil,
@@ -241,7 +241,7 @@ func testGetTransferGetTransferCanceledTransfer0(w http.ResponseWriter, req *htt
 				City:                  optionalnullable.From(types.String("Cincinnati")),
 				State:                 optionalnullable.From(types.String("OH")),
 				PostalCode:            optionalnullable.From(types.String("45202")),
-				Country:               optionalnullable.From(types.String("US")),
+				Country:               nil,
 			},
 			WireInstructions: types.String("Please send ASAP"),
 		},

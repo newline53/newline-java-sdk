@@ -240,26 +240,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -326,26 +326,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -412,26 +412,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -539,26 +539,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -625,26 +625,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -711,26 +711,26 @@ public class Application {
                     .counterpartyName("Thelma's Flooring LLC")
                     .build())
                 .instantPayment(CreateSyntheticAccountInstantPaymentRequest.builder()
+                    .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                        .streetNumber("123abc")
                         .street1("Abc St.")
                         .city("Chicago")
                         .state("IL")
                         .postalCode("60301")
                         .country(null)
+                        .streetNumber("123abc")
                         .street2("Suite 4A")
                         .build())
-                    .counterpartyName("Marge's Roofing Inc")
                     .email("payments@veryexcellentbusiness.com")
                     .phone("5555551212")
                     .build())
                 .wire(CreateSyntheticAccountWireRequest.builder()
                     .counterpartyName("Marge's Roofing Inc")
                     .counterpartyAddress(CreateSyntheticAccountCounterpartyAddressUnion.of(CreateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                        .line1("234 Xyz Rd")
-                        .line2("APT 5")
-                        .line3("Boston, MA 02110")
-                        .country("US")
+                        .line1("123 Abc St.")
+                        .line2("Boring, Oregon 97009")
+                        .line3(null)
+                        .country(null)
                         .build()))
                     .counterpartyBankAddress(CreateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                         .line1("123 Abc St.")
@@ -969,12 +969,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1004,12 +1004,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1017,11 +1017,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
@@ -1053,12 +1057,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1088,12 +1092,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1101,11 +1105,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
@@ -1137,12 +1145,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1172,12 +1180,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1185,11 +1193,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
@@ -1221,12 +1233,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1256,12 +1268,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1269,11 +1281,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
@@ -1305,12 +1321,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1340,12 +1356,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1353,11 +1369,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
@@ -1389,12 +1409,12 @@ import com.newline53.sdk.models.errors.UpdateSyntheticAccountBadRequestException
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAccountTypeRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountRequestBody;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountResponse;
+import com.newline53.sdk.models.operations.UpdateSyntheticAccountStructuredAddress;
 import com.newline53.sdk.models.operations.UpdateSyntheticAccountWireRequest;
 import java.lang.Exception;
 
@@ -1424,12 +1444,12 @@ public class Application {
                         .build())
                     .instantPayment(UpdateSyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyAddress(UpdateSyntheticAccountInstantPaymentCounterpartyAddressRequest.builder()
-                            .streetNumber("123abc")
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
                             .postalCode("60301")
                             .country(null)
+                            .streetNumber("123abc")
                             .street2("Suite 4A")
                             .build())
                         .counterpartyName("Marge's Roofing Inc")
@@ -1437,11 +1457,15 @@ public class Application {
                         .phone("5555551212")
                         .build())
                     .wire(UpdateSyntheticAccountWireRequest.builder()
-                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountCounterpartyAddressUnstructuredAddress.builder()
-                            .line1("234 Xyz Rd")
-                            .line2("APT 5")
-                            .line3("Boston, MA 02110")
+                        .counterpartyAddress(UpdateSyntheticAccountCounterpartyAddressUnion.of(UpdateSyntheticAccountStructuredAddress.builder()
+                            .city("Cincinnati")
                             .country("US")
+                            .line1("123 Main St")
+                            .line2("Suite 400")
+                            .buildingNumber("123")
+                            .streetName("Main St")
+                            .state("OH")
+                            .postalCode("45202")
                             .build()))
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyBankAddress(UpdateSyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
