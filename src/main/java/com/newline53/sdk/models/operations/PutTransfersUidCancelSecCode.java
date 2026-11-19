@@ -21,8 +21,8 @@ import java.util.Optional;
 /**
  * PutTransfersUidCancelSecCode
  * 
- * <p>Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
- * For more details, refer to our ACH guide's
+ * <p>Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+ * IAT. For more details, refer to our ACH guide's
  * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
  */
 public class PutTransfersUidCancelSecCode {
@@ -32,6 +32,7 @@ public class PutTransfersUidCancelSecCode {
     public static final PutTransfersUidCancelSecCode PPD = new PutTransfersUidCancelSecCode("PPD");
     public static final PutTransfersUidCancelSecCode TEL = new PutTransfersUidCancelSecCode("TEL");
     public static final PutTransfersUidCancelSecCode WEB = new PutTransfersUidCancelSecCode("WEB");
+    public static final PutTransfersUidCancelSecCode IAT = new PutTransfersUidCancelSecCode("IAT");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -110,6 +111,7 @@ public class PutTransfersUidCancelSecCode {
         map.put("PPD", PPD);
         map.put("TEL", TEL);
         map.put("WEB", WEB);
+        map.put("IAT", IAT);
         return map;
     }
 
@@ -120,6 +122,7 @@ public class PutTransfersUidCancelSecCode {
         map.put("PPD", PutTransfersUidCancelSecCodeEnum.PPD);
         map.put("TEL", PutTransfersUidCancelSecCodeEnum.TEL);
         map.put("WEB", PutTransfersUidCancelSecCodeEnum.WEB);
+        map.put("IAT", PutTransfersUidCancelSecCodeEnum.IAT);
         return map;
     }
     
@@ -130,7 +133,8 @@ public class PutTransfersUidCancelSecCode {
         CIE("CIE"),
         PPD("PPD"),
         TEL("TEL"),
-        WEB("WEB"),;
+        WEB("WEB"),
+        IAT("IAT"),;
 
         private final String value;
 

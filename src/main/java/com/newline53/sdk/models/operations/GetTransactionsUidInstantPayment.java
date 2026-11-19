@@ -134,8 +134,7 @@ public class GetTransactionsUidInstantPayment {
     private JsonNullable<GetTransactionsUidCounterpartyBankAddress> counterpartyBankAddress;
 
     /**
-     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
-     * populated if your program has enabled RTP Ultimate Debtor support.
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ultimate_debtor_info")
@@ -325,8 +324,7 @@ public class GetTransactionsUidInstantPayment {
     }
 
     /**
-     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
-     * populated if your program has enabled RTP Ultimate Debtor support.
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made).
      */
     public JsonNullable<GetTransactionsUidUltimateDebtorInfo> ultimateDebtorInfo() {
         return this.ultimateDebtorInfo;
@@ -496,8 +494,7 @@ public class GetTransactionsUidInstantPayment {
 
 
     /**
-     * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
-     * populated if your program has enabled RTP Ultimate Debtor support.
+     * Information about the ultimate debtor (the entity on whose behalf the payment is made).
      */
     public GetTransactionsUidInstantPayment withUltimateDebtorInfo(@Nullable GetTransactionsUidUltimateDebtorInfo ultimateDebtorInfo) {
         this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);
@@ -760,8 +757,7 @@ public class GetTransactionsUidInstantPayment {
         }
 
         /**
-         * Information about the ultimate debtor (the entity on whose behalf the payment is made). Only
-         * populated if your program has enabled RTP Ultimate Debtor support.
+         * Information about the ultimate debtor (the entity on whose behalf the payment is made).
          */
         public Builder ultimateDebtorInfo(@Nullable GetTransactionsUidUltimateDebtorInfo ultimateDebtorInfo) {
             this.ultimateDebtorInfo = JsonNullable.of(ultimateDebtorInfo);

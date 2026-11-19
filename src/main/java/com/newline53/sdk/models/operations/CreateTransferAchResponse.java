@@ -60,8 +60,8 @@ public class CreateTransferAchResponse {
     private Boolean prenote;
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -199,8 +199,8 @@ public class CreateTransferAchResponse {
     }
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public Optional<CreateTransferSecCodeResponse> secCode() {
@@ -318,8 +318,8 @@ public class CreateTransferAchResponse {
 
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public CreateTransferAchResponse withSecCode(@Nullable CreateTransferSecCodeResponse secCode) {
@@ -519,8 +519,8 @@ public class CreateTransferAchResponse {
         }
 
         /**
-         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-         * For more details, refer to our ACH guide's
+         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+         * IAT. For more details, refer to our ACH guide's
          * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
          */
         public Builder secCode(@Nullable CreateTransferSecCodeResponse secCode) {

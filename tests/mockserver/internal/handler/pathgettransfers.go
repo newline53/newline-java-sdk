@@ -133,6 +133,7 @@ func testListTransfersListTransfersTransactions0(w http.ResponseWriter, req *htt
 					ServiceProcessing:        operations.ListTransfersServiceProcessingStandard.ToPointer(),
 					EffectiveEntryDate:       types.String("2023-12-21"),
 					IDNumber:                 types.String("4270465600"),
+					Addenda:                  types.String("Having said that, this"),
 				},
 			},
 		},

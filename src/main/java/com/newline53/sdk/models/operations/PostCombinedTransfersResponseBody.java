@@ -49,18 +49,12 @@ public class PostCombinedTransfersResponseBody {
     @JsonProperty("status")
     private PostCombinedTransfersStatus status;
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once synthetic account has
-     * been successfully created, unless uid value was supplied at creation time.
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("synthetic_account")
     private PostCombinedTransfersSyntheticAccountResponse syntheticAccount;
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once transfer has been
-     * successfully initiated.
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("transfer")
     private PostCombinedTransfersTransferResponse transfer;
@@ -125,18 +119,10 @@ public class PostCombinedTransfersResponseBody {
         return Optional.ofNullable(this.status);
     }
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once synthetic account has
-     * been successfully created, unless uid value was supplied at creation time.
-     */
     public Optional<PostCombinedTransfersSyntheticAccountResponse> syntheticAccount() {
         return Optional.ofNullable(this.syntheticAccount);
     }
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once transfer has been
-     * successfully initiated.
-     */
     public Optional<PostCombinedTransfersTransferResponse> transfer() {
         return Optional.ofNullable(this.transfer);
     }
@@ -190,20 +176,12 @@ public class PostCombinedTransfersResponseBody {
     }
 
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once synthetic account has
-     * been successfully created, unless uid value was supplied at creation time.
-     */
     public PostCombinedTransfersResponseBody withSyntheticAccount(@Nullable PostCombinedTransfersSyntheticAccountResponse syntheticAccount) {
         this.syntheticAccount = syntheticAccount;
         return this;
     }
 
 
-    /**
-     * Parameters provided at time of creation. UID field will get populated once transfer has been
-     * successfully initiated.
-     */
     public PostCombinedTransfersResponseBody withTransfer(@Nullable PostCombinedTransfersTransferResponse transfer) {
         this.transfer = transfer;
         return this;
@@ -312,19 +290,11 @@ public class PostCombinedTransfersResponseBody {
             return this;
         }
 
-        /**
-         * Parameters provided at time of creation. UID field will get populated once synthetic account has
-         * been successfully created, unless uid value was supplied at creation time.
-         */
         public Builder syntheticAccount(@Nullable PostCombinedTransfersSyntheticAccountResponse syntheticAccount) {
             this.syntheticAccount = syntheticAccount;
             return this;
         }
 
-        /**
-         * Parameters provided at time of creation. UID field will get populated once transfer has been
-         * successfully initiated.
-         */
         public Builder transfer(@Nullable PostCombinedTransfersTransferResponse transfer) {
             this.transfer = transfer;
             return this;

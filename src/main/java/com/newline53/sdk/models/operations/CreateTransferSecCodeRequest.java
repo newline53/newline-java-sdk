@@ -11,8 +11,8 @@ import java.util.Optional;
 /**
  * CreateTransferSecCodeRequest
  * 
- * <p>Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
- * For more details, refer to our ACH guide's
+ * <p>Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+ * IAT. For more details, refer to our ACH guide's
  * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
  */
 public enum CreateTransferSecCodeRequest {
@@ -20,7 +20,8 @@ public enum CreateTransferSecCodeRequest {
     CIE("CIE"),
     PPD("PPD"),
     TEL("TEL"),
-    WEB("WEB");
+    WEB("WEB"),
+    IAT("IAT");
 
     @JsonValue
     private final String value;

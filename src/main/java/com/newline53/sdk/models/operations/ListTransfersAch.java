@@ -60,8 +60,8 @@ public class ListTransfersAch {
     private Boolean prenote;
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -115,6 +115,17 @@ public class ListTransfersAch {
     @JsonProperty("id_number")
     private String idNumber;
 
+    /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("addenda")
+    private String addenda;
+
     @JsonCreator
     public ListTransfersAch(
             @JsonProperty("originator_name") @Nullable String originatorName,
@@ -126,7 +137,8 @@ public class ListTransfersAch {
             @JsonProperty("entry_description") @Nullable String entryDescription,
             @JsonProperty("service_processing") @Nullable ListTransfersServiceProcessing serviceProcessing,
             @JsonProperty("effective_entry_date") @Nullable String effectiveEntryDate,
-            @JsonProperty("id_number") @Nullable String idNumber) {
+            @JsonProperty("id_number") @Nullable String idNumber,
+            @JsonProperty("addenda") @Nullable String addenda) {
         this.originatorName = originatorName;
         this.companyId = companyId;
         this.companyDiscretionaryData = companyDiscretionaryData;
@@ -137,13 +149,14 @@ public class ListTransfersAch {
         this.serviceProcessing = serviceProcessing;
         this.effectiveEntryDate = effectiveEntryDate;
         this.idNumber = idNumber;
+        this.addenda = addenda;
     }
     
     public ListTransfersAch() {
         this(null, null, null,
             null, null, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     /**
@@ -186,8 +199,8 @@ public class ListTransfersAch {
     }
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public Optional<ListTransfersSecCode> secCode() {
@@ -239,6 +252,17 @@ public class ListTransfersAch {
      */
     public Optional<String> idNumber() {
         return Optional.ofNullable(this.idNumber);
+    }
+
+    /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    public Optional<String> addenda() {
+        return Optional.ofNullable(this.addenda);
     }
 
     public static Builder builder() {
@@ -294,8 +318,8 @@ public class ListTransfersAch {
 
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public ListTransfersAch withSecCode(@Nullable ListTransfersSecCode secCode) {
@@ -361,6 +385,19 @@ public class ListTransfersAch {
     }
 
 
+    /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    public ListTransfersAch withAddenda(@Nullable String addenda) {
+        this.addenda = addenda;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -380,7 +417,8 @@ public class ListTransfersAch {
             Utils.enhancedDeepEquals(this.entryDescription, other.entryDescription) &&
             Utils.enhancedDeepEquals(this.serviceProcessing, other.serviceProcessing) &&
             Utils.enhancedDeepEquals(this.effectiveEntryDate, other.effectiveEntryDate) &&
-            Utils.enhancedDeepEquals(this.idNumber, other.idNumber);
+            Utils.enhancedDeepEquals(this.idNumber, other.idNumber) &&
+            Utils.enhancedDeepEquals(this.addenda, other.addenda);
     }
     
     @Override
@@ -389,7 +427,7 @@ public class ListTransfersAch {
             originatorName, companyId, companyDiscretionaryData,
             prenote, secCode, paymentType,
             entryDescription, serviceProcessing, effectiveEntryDate,
-            idNumber);
+            idNumber, addenda);
     }
     
     @Override
@@ -404,7 +442,8 @@ public class ListTransfersAch {
                 "entryDescription", entryDescription,
                 "serviceProcessing", serviceProcessing,
                 "effectiveEntryDate", effectiveEntryDate,
-                "idNumber", idNumber);
+                "idNumber", idNumber,
+                "addenda", addenda);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -429,6 +468,8 @@ public class ListTransfersAch {
         private String effectiveEntryDate;
 
         private String idNumber;
+
+        private String addenda;
 
         private Builder() {
           // force use of static builder() method
@@ -478,8 +519,8 @@ public class ListTransfersAch {
         }
 
         /**
-         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-         * For more details, refer to our ACH guide's
+         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+         * IAT. For more details, refer to our ACH guide's
          * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
          */
         public Builder secCode(@Nullable ListTransfersSecCode secCode) {
@@ -539,12 +580,24 @@ public class ListTransfersAch {
             return this;
         }
 
+        /**
+         * Optional additional payment-related information, such as invoice numbers, originator/receiver
+         * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+         * codes other than TEL.
+         * 
+         * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+         */
+        public Builder addenda(@Nullable String addenda) {
+            this.addenda = addenda;
+            return this;
+        }
+
         public ListTransfersAch build() {
             return new ListTransfersAch(
                 originatorName, companyId, companyDiscretionaryData,
                 prenote, secCode, paymentType,
                 entryDescription, serviceProcessing, effectiveEntryDate,
-                idNumber);
+                idNumber, addenda);
         }
 
     }

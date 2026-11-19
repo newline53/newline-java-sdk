@@ -1,6 +1,6 @@
 # GetTransactionsUltimateDebtorInfo
 
-Information about the ultimate debtor (the entity on whose behalf the payment is made). Only populated if your program has enabled RTP Ultimate Debtor support.
+Information about the ultimate debtor (the entity on whose behalf the payment is made).
 
 
 ## Fields

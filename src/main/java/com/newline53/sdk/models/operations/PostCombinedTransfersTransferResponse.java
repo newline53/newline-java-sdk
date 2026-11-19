@@ -4,9 +4,16 @@
 package com.newline53.sdk.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newline53.sdk.utils.Utils;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * PostCombinedTransfersTransferResponse
@@ -15,12 +22,463 @@ import java.lang.String;
  * successfully initiated.
  */
 public class PostCombinedTransfersTransferResponse {
+    /**
+     * Synthetic Account where the assets should be debited. Must be an active liability or external-type
+     * account. Cannot be equal to `destination_synthetic_account_uid`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("source_synthetic_account_uid")
+    private String sourceSyntheticAccountUid;
+
+    /**
+     * Synthetic Account where the assets should be credited. Must be an active liability or external-type
+     * account. Cannot be equal to `source_synthetic_account_uid`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("destination_synthetic_account_uid")
+    private String destinationSyntheticAccountUid;
+
+    /**
+     * Customer that initiated the Transfer, when `initiator_type` is `customer`. The Customer and
+     * Synthetic Accounts supplied in the Transfer request must relate to the same Pool for the Transfer to
+     * be accepted.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("initiating_customer_uid")
+    private String initiatingCustomerUid;
+
+    /**
+     * Customer who is on the receiving end of the Transfer. The destination Customer must be provided for
+     * peer to peer Transfers and can be optional for all other Transfers. If not provided, the destination
+     * Customer will be the same as the initiating Customer by default.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("destination_customer_uid")
+    private String destinationCustomerUid;
+
+    /**
+     * A value indicating the overall status of the Transfer.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("status")
+    private PostCombinedTransfersTransferStatus status;
+
+    /**
+     * The initiator_type declares the originator for the Transfer. If set to Customer, origination
+     * information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination
+     * information is required, provided in the transmitter object (see below).
+     * 
+     * <p>Defaults to Customer. Providing Transmitter information is the Client's responsibility, please
+     * review more details in our [Transfers
+     * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("initiator_type")
+    private PostCombinedTransfersInitiatorTypeResponse initiatorType;
+
+    /**
+     * Timestamp of when the transfer request was received
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
+
+    /**
+     * Timestamp indicating when the transfer is scheduled to be processed. Only applicable when the
+     * program is configured to queue on the relevant payment rail. When queuing is configured, the value
+     * is equal to the configured queuing minutes added to the transfer creation time.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("queued_until")
+    private OffsetDateTime queuedUntil;
+
+    /**
+     * Newline-generated unique id resource specific to the current endpoint
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("uid")
+    private String uid;
+
+    /**
+     * A unique identifier, optionally supplied by the Client when the Transfer was requested
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("external_uid")
+    private String externalUid;
+
+    /**
+     * An array of Transaction UIDs that are associated with this Transfer.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("transaction_uids")
+    private List<String> transactionUids;
+
+    /**
+     * The USD amount to transfer
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("usd_transfer_amount")
+    private String usdTransferAmount;
+
+    /**
+     * ACH information. Only present if the Transfer is an ACH.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("ach")
+    private PostCombinedTransfersTransferAchResponse ach;
+
+    /**
+     * Instant payment information. Only present if the Transfer is an instant payment.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("instant_payment")
+    private PostCombinedTransfersTransferInstantPaymentResponse instantPayment;
+
+    /**
+     * Wire-specific information. Only present if the Transfer is a wire.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("wire")
+    private PostCombinedTransfersTransferWireResponse wire;
+
+    /**
+     * Cancellation information. Only present if there has been an attempt at canceling the transfer.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("cancellation")
+    private PostCombinedTransfersCancellation cancellation;
+
     @JsonCreator
+    public PostCombinedTransfersTransferResponse(
+            @JsonProperty("source_synthetic_account_uid") @Nullable String sourceSyntheticAccountUid,
+            @JsonProperty("destination_synthetic_account_uid") @Nullable String destinationSyntheticAccountUid,
+            @JsonProperty("initiating_customer_uid") @Nullable String initiatingCustomerUid,
+            @JsonProperty("destination_customer_uid") @Nullable String destinationCustomerUid,
+            @JsonProperty("status") @Nullable PostCombinedTransfersTransferStatus status,
+            @JsonProperty("initiator_type") @Nullable PostCombinedTransfersInitiatorTypeResponse initiatorType,
+            @JsonProperty("created_at") @Nullable OffsetDateTime createdAt,
+            @JsonProperty("queued_until") @Nullable OffsetDateTime queuedUntil,
+            @JsonProperty("uid") @Nullable String uid,
+            @JsonProperty("external_uid") @Nullable String externalUid,
+            @JsonProperty("transaction_uids") @Nullable List<String> transactionUids,
+            @JsonProperty("usd_transfer_amount") @Nullable String usdTransferAmount,
+            @JsonProperty("ach") @Nullable PostCombinedTransfersTransferAchResponse ach,
+            @JsonProperty("instant_payment") @Nullable PostCombinedTransfersTransferInstantPaymentResponse instantPayment,
+            @JsonProperty("wire") @Nullable PostCombinedTransfersTransferWireResponse wire,
+            @JsonProperty("cancellation") @Nullable PostCombinedTransfersCancellation cancellation) {
+        this.sourceSyntheticAccountUid = sourceSyntheticAccountUid;
+        this.destinationSyntheticAccountUid = destinationSyntheticAccountUid;
+        this.initiatingCustomerUid = initiatingCustomerUid;
+        this.destinationCustomerUid = destinationCustomerUid;
+        this.status = status;
+        this.initiatorType = initiatorType;
+        this.createdAt = createdAt;
+        this.queuedUntil = queuedUntil;
+        this.uid = uid;
+        this.externalUid = externalUid;
+        this.transactionUids = transactionUids;
+        this.usdTransferAmount = usdTransferAmount;
+        this.ach = ach;
+        this.instantPayment = instantPayment;
+        this.wire = wire;
+        this.cancellation = cancellation;
+    }
+    
     public PostCombinedTransfersTransferResponse() {
+        this(null, null, null,
+            null, null, null,
+            null, null, null,
+            null, null, null,
+            null, null, null,
+            null);
+    }
+
+    /**
+     * Synthetic Account where the assets should be debited. Must be an active liability or external-type
+     * account. Cannot be equal to `destination_synthetic_account_uid`.
+     */
+    public Optional<String> sourceSyntheticAccountUid() {
+        return Optional.ofNullable(this.sourceSyntheticAccountUid);
+    }
+
+    /**
+     * Synthetic Account where the assets should be credited. Must be an active liability or external-type
+     * account. Cannot be equal to `source_synthetic_account_uid`.
+     */
+    public Optional<String> destinationSyntheticAccountUid() {
+        return Optional.ofNullable(this.destinationSyntheticAccountUid);
+    }
+
+    /**
+     * Customer that initiated the Transfer, when `initiator_type` is `customer`. The Customer and
+     * Synthetic Accounts supplied in the Transfer request must relate to the same Pool for the Transfer to
+     * be accepted.
+     */
+    public Optional<String> initiatingCustomerUid() {
+        return Optional.ofNullable(this.initiatingCustomerUid);
+    }
+
+    /**
+     * Customer who is on the receiving end of the Transfer. The destination Customer must be provided for
+     * peer to peer Transfers and can be optional for all other Transfers. If not provided, the destination
+     * Customer will be the same as the initiating Customer by default.
+     */
+    public Optional<String> destinationCustomerUid() {
+        return Optional.ofNullable(this.destinationCustomerUid);
+    }
+
+    /**
+     * A value indicating the overall status of the Transfer.
+     */
+    public Optional<PostCombinedTransfersTransferStatus> status() {
+        return Optional.ofNullable(this.status);
+    }
+
+    /**
+     * The initiator_type declares the originator for the Transfer. If set to Customer, origination
+     * information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination
+     * information is required, provided in the transmitter object (see below).
+     * 
+     * <p>Defaults to Customer. Providing Transmitter information is the Client's responsibility, please
+     * review more details in our [Transfers
+     * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+     */
+    public Optional<PostCombinedTransfersInitiatorTypeResponse> initiatorType() {
+        return Optional.ofNullable(this.initiatorType);
+    }
+
+    /**
+     * Timestamp of when the transfer request was received
+     */
+    public Optional<OffsetDateTime> createdAt() {
+        return Optional.ofNullable(this.createdAt);
+    }
+
+    /**
+     * Timestamp indicating when the transfer is scheduled to be processed. Only applicable when the
+     * program is configured to queue on the relevant payment rail. When queuing is configured, the value
+     * is equal to the configured queuing minutes added to the transfer creation time.
+     */
+    public Optional<OffsetDateTime> queuedUntil() {
+        return Optional.ofNullable(this.queuedUntil);
+    }
+
+    /**
+     * Newline-generated unique id resource specific to the current endpoint
+     */
+    public Optional<String> uid() {
+        return Optional.ofNullable(this.uid);
+    }
+
+    /**
+     * A unique identifier, optionally supplied by the Client when the Transfer was requested
+     */
+    public Optional<String> externalUid() {
+        return Optional.ofNullable(this.externalUid);
+    }
+
+    /**
+     * An array of Transaction UIDs that are associated with this Transfer.
+     */
+    public Optional<List<String>> transactionUids() {
+        return Optional.ofNullable(this.transactionUids);
+    }
+
+    /**
+     * The USD amount to transfer
+     */
+    public Optional<String> usdTransferAmount() {
+        return Optional.ofNullable(this.usdTransferAmount);
+    }
+
+    /**
+     * ACH information. Only present if the Transfer is an ACH.
+     */
+    public Optional<PostCombinedTransfersTransferAchResponse> ach() {
+        return Optional.ofNullable(this.ach);
+    }
+
+    /**
+     * Instant payment information. Only present if the Transfer is an instant payment.
+     */
+    public Optional<PostCombinedTransfersTransferInstantPaymentResponse> instantPayment() {
+        return Optional.ofNullable(this.instantPayment);
+    }
+
+    /**
+     * Wire-specific information. Only present if the Transfer is a wire.
+     */
+    public Optional<PostCombinedTransfersTransferWireResponse> wire() {
+        return Optional.ofNullable(this.wire);
+    }
+
+    /**
+     * Cancellation information. Only present if there has been an attempt at canceling the transfer.
+     */
+    public Optional<PostCombinedTransfersCancellation> cancellation() {
+        return Optional.ofNullable(this.cancellation);
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+
+    /**
+     * Synthetic Account where the assets should be debited. Must be an active liability or external-type
+     * account. Cannot be equal to `destination_synthetic_account_uid`.
+     */
+    public PostCombinedTransfersTransferResponse withSourceSyntheticAccountUid(@Nullable String sourceSyntheticAccountUid) {
+        this.sourceSyntheticAccountUid = sourceSyntheticAccountUid;
+        return this;
+    }
+
+
+    /**
+     * Synthetic Account where the assets should be credited. Must be an active liability or external-type
+     * account. Cannot be equal to `source_synthetic_account_uid`.
+     */
+    public PostCombinedTransfersTransferResponse withDestinationSyntheticAccountUid(@Nullable String destinationSyntheticAccountUid) {
+        this.destinationSyntheticAccountUid = destinationSyntheticAccountUid;
+        return this;
+    }
+
+
+    /**
+     * Customer that initiated the Transfer, when `initiator_type` is `customer`. The Customer and
+     * Synthetic Accounts supplied in the Transfer request must relate to the same Pool for the Transfer to
+     * be accepted.
+     */
+    public PostCombinedTransfersTransferResponse withInitiatingCustomerUid(@Nullable String initiatingCustomerUid) {
+        this.initiatingCustomerUid = initiatingCustomerUid;
+        return this;
+    }
+
+
+    /**
+     * Customer who is on the receiving end of the Transfer. The destination Customer must be provided for
+     * peer to peer Transfers and can be optional for all other Transfers. If not provided, the destination
+     * Customer will be the same as the initiating Customer by default.
+     */
+    public PostCombinedTransfersTransferResponse withDestinationCustomerUid(@Nullable String destinationCustomerUid) {
+        this.destinationCustomerUid = destinationCustomerUid;
+        return this;
+    }
+
+
+    /**
+     * A value indicating the overall status of the Transfer.
+     */
+    public PostCombinedTransfersTransferResponse withStatus(@Nullable PostCombinedTransfersTransferStatus status) {
+        this.status = status;
+        return this;
+    }
+
+
+    /**
+     * The initiator_type declares the originator for the Transfer. If set to Customer, origination
+     * information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination
+     * information is required, provided in the transmitter object (see below).
+     * 
+     * <p>Defaults to Customer. Providing Transmitter information is the Client's responsibility, please
+     * review more details in our [Transfers
+     * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+     */
+    public PostCombinedTransfersTransferResponse withInitiatorType(@Nullable PostCombinedTransfersInitiatorTypeResponse initiatorType) {
+        this.initiatorType = initiatorType;
+        return this;
+    }
+
+
+    /**
+     * Timestamp of when the transfer request was received
+     */
+    public PostCombinedTransfersTransferResponse withCreatedAt(@Nullable OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+
+    /**
+     * Timestamp indicating when the transfer is scheduled to be processed. Only applicable when the
+     * program is configured to queue on the relevant payment rail. When queuing is configured, the value
+     * is equal to the configured queuing minutes added to the transfer creation time.
+     */
+    public PostCombinedTransfersTransferResponse withQueuedUntil(@Nullable OffsetDateTime queuedUntil) {
+        this.queuedUntil = queuedUntil;
+        return this;
+    }
+
+
+    /**
+     * Newline-generated unique id resource specific to the current endpoint
+     */
+    public PostCombinedTransfersTransferResponse withUid(@Nullable String uid) {
+        this.uid = uid;
+        return this;
+    }
+
+
+    /**
+     * A unique identifier, optionally supplied by the Client when the Transfer was requested
+     */
+    public PostCombinedTransfersTransferResponse withExternalUid(@Nullable String externalUid) {
+        this.externalUid = externalUid;
+        return this;
+    }
+
+
+    /**
+     * An array of Transaction UIDs that are associated with this Transfer.
+     */
+    public PostCombinedTransfersTransferResponse withTransactionUids(@Nullable List<String> transactionUids) {
+        this.transactionUids = transactionUids;
+        return this;
+    }
+
+
+    /**
+     * The USD amount to transfer
+     */
+    public PostCombinedTransfersTransferResponse withUsdTransferAmount(@Nullable String usdTransferAmount) {
+        this.usdTransferAmount = usdTransferAmount;
+        return this;
+    }
+
+
+    /**
+     * ACH information. Only present if the Transfer is an ACH.
+     */
+    public PostCombinedTransfersTransferResponse withAch(@Nullable PostCombinedTransfersTransferAchResponse ach) {
+        this.ach = ach;
+        return this;
+    }
+
+
+    /**
+     * Instant payment information. Only present if the Transfer is an instant payment.
+     */
+    public PostCombinedTransfersTransferResponse withInstantPayment(@Nullable PostCombinedTransfersTransferInstantPaymentResponse instantPayment) {
+        this.instantPayment = instantPayment;
+        return this;
+    }
+
+
+    /**
+     * Wire-specific information. Only present if the Transfer is a wire.
+     */
+    public PostCombinedTransfersTransferResponse withWire(@Nullable PostCombinedTransfersTransferWireResponse wire) {
+        this.wire = wire;
+        return this;
+    }
+
+
+    /**
+     * Cancellation information. Only present if there has been an attempt at canceling the transfer.
+     */
+    public PostCombinedTransfersTransferResponse withCancellation(@Nullable PostCombinedTransfersCancellation cancellation) {
+        this.cancellation = cancellation;
+        return this;
     }
 
 
@@ -32,30 +490,247 @@ public class PostCombinedTransfersTransferResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return true;
+        PostCombinedTransfersTransferResponse other = (PostCombinedTransfersTransferResponse) o;
+        return 
+            Utils.enhancedDeepEquals(this.sourceSyntheticAccountUid, other.sourceSyntheticAccountUid) &&
+            Utils.enhancedDeepEquals(this.destinationSyntheticAccountUid, other.destinationSyntheticAccountUid) &&
+            Utils.enhancedDeepEquals(this.initiatingCustomerUid, other.initiatingCustomerUid) &&
+            Utils.enhancedDeepEquals(this.destinationCustomerUid, other.destinationCustomerUid) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.initiatorType, other.initiatorType) &&
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.queuedUntil, other.queuedUntil) &&
+            Utils.enhancedDeepEquals(this.uid, other.uid) &&
+            Utils.enhancedDeepEquals(this.externalUid, other.externalUid) &&
+            Utils.enhancedDeepEquals(this.transactionUids, other.transactionUids) &&
+            Utils.enhancedDeepEquals(this.usdTransferAmount, other.usdTransferAmount) &&
+            Utils.enhancedDeepEquals(this.ach, other.ach) &&
+            Utils.enhancedDeepEquals(this.instantPayment, other.instantPayment) &&
+            Utils.enhancedDeepEquals(this.wire, other.wire) &&
+            Utils.enhancedDeepEquals(this.cancellation, other.cancellation);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            );
+            sourceSyntheticAccountUid, destinationSyntheticAccountUid, initiatingCustomerUid,
+            destinationCustomerUid, status, initiatorType,
+            createdAt, queuedUntil, uid,
+            externalUid, transactionUids, usdTransferAmount,
+            ach, instantPayment, wire,
+            cancellation);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(PostCombinedTransfersTransferResponse.class);
+        return Utils.toString(PostCombinedTransfersTransferResponse.class,
+                "sourceSyntheticAccountUid", sourceSyntheticAccountUid,
+                "destinationSyntheticAccountUid", destinationSyntheticAccountUid,
+                "initiatingCustomerUid", initiatingCustomerUid,
+                "destinationCustomerUid", destinationCustomerUid,
+                "status", status,
+                "initiatorType", initiatorType,
+                "createdAt", createdAt,
+                "queuedUntil", queuedUntil,
+                "uid", uid,
+                "externalUid", externalUid,
+                "transactionUids", transactionUids,
+                "usdTransferAmount", usdTransferAmount,
+                "ach", ach,
+                "instantPayment", instantPayment,
+                "wire", wire,
+                "cancellation", cancellation);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private String sourceSyntheticAccountUid;
+
+        private String destinationSyntheticAccountUid;
+
+        private String initiatingCustomerUid;
+
+        private String destinationCustomerUid;
+
+        private PostCombinedTransfersTransferStatus status;
+
+        private PostCombinedTransfersInitiatorTypeResponse initiatorType;
+
+        private OffsetDateTime createdAt;
+
+        private OffsetDateTime queuedUntil;
+
+        private String uid;
+
+        private String externalUid;
+
+        private List<String> transactionUids;
+
+        private String usdTransferAmount;
+
+        private PostCombinedTransfersTransferAchResponse ach;
+
+        private PostCombinedTransfersTransferInstantPaymentResponse instantPayment;
+
+        private PostCombinedTransfersTransferWireResponse wire;
+
+        private PostCombinedTransfersCancellation cancellation;
+
         private Builder() {
           // force use of static builder() method
         }
 
+        /**
+         * Synthetic Account where the assets should be debited. Must be an active liability or external-type
+         * account. Cannot be equal to `destination_synthetic_account_uid`.
+         */
+        public Builder sourceSyntheticAccountUid(@Nullable String sourceSyntheticAccountUid) {
+            this.sourceSyntheticAccountUid = sourceSyntheticAccountUid;
+            return this;
+        }
+
+        /**
+         * Synthetic Account where the assets should be credited. Must be an active liability or external-type
+         * account. Cannot be equal to `source_synthetic_account_uid`.
+         */
+        public Builder destinationSyntheticAccountUid(@Nullable String destinationSyntheticAccountUid) {
+            this.destinationSyntheticAccountUid = destinationSyntheticAccountUid;
+            return this;
+        }
+
+        /**
+         * Customer that initiated the Transfer, when `initiator_type` is `customer`. The Customer and
+         * Synthetic Accounts supplied in the Transfer request must relate to the same Pool for the Transfer to
+         * be accepted.
+         */
+        public Builder initiatingCustomerUid(@Nullable String initiatingCustomerUid) {
+            this.initiatingCustomerUid = initiatingCustomerUid;
+            return this;
+        }
+
+        /**
+         * Customer who is on the receiving end of the Transfer. The destination Customer must be provided for
+         * peer to peer Transfers and can be optional for all other Transfers. If not provided, the destination
+         * Customer will be the same as the initiating Customer by default.
+         */
+        public Builder destinationCustomerUid(@Nullable String destinationCustomerUid) {
+            this.destinationCustomerUid = destinationCustomerUid;
+            return this;
+        }
+
+        /**
+         * A value indicating the overall status of the Transfer.
+         */
+        public Builder status(@Nullable PostCombinedTransfersTransferStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        /**
+         * The initiator_type declares the originator for the Transfer. If set to Customer, origination
+         * information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination
+         * information is required, provided in the transmitter object (see below).
+         * 
+         * <p>Defaults to Customer. Providing Transmitter information is the Client's responsibility, please
+         * review more details in our [Transfers
+         * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+         */
+        public Builder initiatorType(@Nullable PostCombinedTransfersInitiatorTypeResponse initiatorType) {
+            this.initiatorType = initiatorType;
+            return this;
+        }
+
+        /**
+         * Timestamp of when the transfer request was received
+         */
+        public Builder createdAt(@Nullable OffsetDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Timestamp indicating when the transfer is scheduled to be processed. Only applicable when the
+         * program is configured to queue on the relevant payment rail. When queuing is configured, the value
+         * is equal to the configured queuing minutes added to the transfer creation time.
+         */
+        public Builder queuedUntil(@Nullable OffsetDateTime queuedUntil) {
+            this.queuedUntil = queuedUntil;
+            return this;
+        }
+
+        /**
+         * Newline-generated unique id resource specific to the current endpoint
+         */
+        public Builder uid(@Nullable String uid) {
+            this.uid = uid;
+            return this;
+        }
+
+        /**
+         * A unique identifier, optionally supplied by the Client when the Transfer was requested
+         */
+        public Builder externalUid(@Nullable String externalUid) {
+            this.externalUid = externalUid;
+            return this;
+        }
+
+        /**
+         * An array of Transaction UIDs that are associated with this Transfer.
+         */
+        public Builder transactionUids(@Nullable List<String> transactionUids) {
+            this.transactionUids = transactionUids;
+            return this;
+        }
+
+        /**
+         * The USD amount to transfer
+         */
+        public Builder usdTransferAmount(@Nullable String usdTransferAmount) {
+            this.usdTransferAmount = usdTransferAmount;
+            return this;
+        }
+
+        /**
+         * ACH information. Only present if the Transfer is an ACH.
+         */
+        public Builder ach(@Nullable PostCombinedTransfersTransferAchResponse ach) {
+            this.ach = ach;
+            return this;
+        }
+
+        /**
+         * Instant payment information. Only present if the Transfer is an instant payment.
+         */
+        public Builder instantPayment(@Nullable PostCombinedTransfersTransferInstantPaymentResponse instantPayment) {
+            this.instantPayment = instantPayment;
+            return this;
+        }
+
+        /**
+         * Wire-specific information. Only present if the Transfer is a wire.
+         */
+        public Builder wire(@Nullable PostCombinedTransfersTransferWireResponse wire) {
+            this.wire = wire;
+            return this;
+        }
+
+        /**
+         * Cancellation information. Only present if there has been an attempt at canceling the transfer.
+         */
+        public Builder cancellation(@Nullable PostCombinedTransfersCancellation cancellation) {
+            this.cancellation = cancellation;
+            return this;
+        }
+
         public PostCombinedTransfersTransferResponse build() {
             return new PostCombinedTransfersTransferResponse(
-                );
+                sourceSyntheticAccountUid, destinationSyntheticAccountUid, initiatingCustomerUid,
+                destinationCustomerUid, status, initiatorType,
+                createdAt, queuedUntil, uid,
+                externalUid, transactionUids, usdTransferAmount,
+                ach, instantPayment, wire,
+                cancellation);
         }
 
     }

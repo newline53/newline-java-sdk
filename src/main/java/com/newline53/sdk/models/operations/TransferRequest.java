@@ -73,7 +73,7 @@ public class TransferRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("initiator_type")
-    private PostCombinedTransfersInitiatorType initiatorType;
+    private PostCombinedTransfersInitiatorTypeRequest initiatorType;
 
     /**
      * The USD amount to transfer
@@ -86,21 +86,21 @@ public class TransferRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ach")
-    private TransferAch ach;
+    private TransferAchRequest ach;
 
     /**
      * Instant payment information. Only present if the Transfer is an instant payment.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instant_payment")
-    private TransferInstantPayment instantPayment;
+    private TransferInstantPaymentRequest instantPayment;
 
     /**
      * Wire-specific information. Only present if the Transfer is a wire.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire")
-    private TransferWire wire;
+    private TransferWireRequest wire;
 
     @JsonCreator
     public TransferRequest(
@@ -109,11 +109,11 @@ public class TransferRequest {
             @JsonProperty("destination_synthetic_account_uid") @Nonnull String destinationSyntheticAccountUid,
             @JsonProperty("initiating_customer_uid") @Nonnull String initiatingCustomerUid,
             @JsonProperty("destination_customer_uid") @Nullable String destinationCustomerUid,
-            @JsonProperty("initiator_type") @Nullable PostCombinedTransfersInitiatorType initiatorType,
+            @JsonProperty("initiator_type") @Nullable PostCombinedTransfersInitiatorTypeRequest initiatorType,
             @JsonProperty("usd_transfer_amount") @Nonnull String usdTransferAmount,
-            @JsonProperty("ach") @Nullable TransferAch ach,
-            @JsonProperty("instant_payment") @Nullable TransferInstantPayment instantPayment,
-            @JsonProperty("wire") @Nullable TransferWire wire) {
+            @JsonProperty("ach") @Nullable TransferAchRequest ach,
+            @JsonProperty("instant_payment") @Nullable TransferInstantPaymentRequest instantPayment,
+            @JsonProperty("wire") @Nullable TransferWireRequest wire) {
         this.externalUid = externalUid;
         this.sourceSyntheticAccountUid = Optional.ofNullable(sourceSyntheticAccountUid)
             .orElseThrow(() -> new IllegalArgumentException("sourceSyntheticAccountUid cannot be null"));
@@ -192,7 +192,7 @@ public class TransferRequest {
      * review more details in our [Transfers
      * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
      */
-    public Optional<PostCombinedTransfersInitiatorType> initiatorType() {
+    public Optional<PostCombinedTransfersInitiatorTypeRequest> initiatorType() {
         return Optional.ofNullable(this.initiatorType);
     }
 
@@ -206,21 +206,21 @@ public class TransferRequest {
     /**
      * ACH information. Only present if the Transfer is an ACH.
      */
-    public Optional<TransferAch> ach() {
+    public Optional<TransferAchRequest> ach() {
         return Optional.ofNullable(this.ach);
     }
 
     /**
      * Instant payment information. Only present if the Transfer is an instant payment.
      */
-    public Optional<TransferInstantPayment> instantPayment() {
+    public Optional<TransferInstantPaymentRequest> instantPayment() {
         return Optional.ofNullable(this.instantPayment);
     }
 
     /**
      * Wire-specific information. Only present if the Transfer is a wire.
      */
-    public Optional<TransferWire> wire() {
+    public Optional<TransferWireRequest> wire() {
         return Optional.ofNullable(this.wire);
     }
 
@@ -290,7 +290,7 @@ public class TransferRequest {
      * review more details in our [Transfers
      * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
      */
-    public TransferRequest withInitiatorType(@Nullable PostCombinedTransfersInitiatorType initiatorType) {
+    public TransferRequest withInitiatorType(@Nullable PostCombinedTransfersInitiatorTypeRequest initiatorType) {
         this.initiatorType = initiatorType;
         return this;
     }
@@ -308,7 +308,7 @@ public class TransferRequest {
     /**
      * ACH information. Only present if the Transfer is an ACH.
      */
-    public TransferRequest withAch(@Nullable TransferAch ach) {
+    public TransferRequest withAch(@Nullable TransferAchRequest ach) {
         this.ach = ach;
         return this;
     }
@@ -317,7 +317,7 @@ public class TransferRequest {
     /**
      * Instant payment information. Only present if the Transfer is an instant payment.
      */
-    public TransferRequest withInstantPayment(@Nullable TransferInstantPayment instantPayment) {
+    public TransferRequest withInstantPayment(@Nullable TransferInstantPaymentRequest instantPayment) {
         this.instantPayment = instantPayment;
         return this;
     }
@@ -326,7 +326,7 @@ public class TransferRequest {
     /**
      * Wire-specific information. Only present if the Transfer is a wire.
      */
-    public TransferRequest withWire(@Nullable TransferWire wire) {
+    public TransferRequest withWire(@Nullable TransferWireRequest wire) {
         this.wire = wire;
         return this;
     }
@@ -391,15 +391,15 @@ public class TransferRequest {
 
         private String destinationCustomerUid;
 
-        private PostCombinedTransfersInitiatorType initiatorType;
+        private PostCombinedTransfersInitiatorTypeRequest initiatorType;
 
         private String usdTransferAmount;
 
-        private TransferAch ach;
+        private TransferAchRequest ach;
 
-        private TransferInstantPayment instantPayment;
+        private TransferInstantPaymentRequest instantPayment;
 
-        private TransferWire wire;
+        private TransferWireRequest wire;
 
         private Builder() {
           // force use of static builder() method
@@ -461,7 +461,7 @@ public class TransferRequest {
          * review more details in our [Transfers
          * guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
          */
-        public Builder initiatorType(@Nullable PostCombinedTransfersInitiatorType initiatorType) {
+        public Builder initiatorType(@Nullable PostCombinedTransfersInitiatorTypeRequest initiatorType) {
             this.initiatorType = initiatorType;
             return this;
         }
@@ -477,7 +477,7 @@ public class TransferRequest {
         /**
          * ACH information. Only present if the Transfer is an ACH.
          */
-        public Builder ach(@Nullable TransferAch ach) {
+        public Builder ach(@Nullable TransferAchRequest ach) {
             this.ach = ach;
             return this;
         }
@@ -485,7 +485,7 @@ public class TransferRequest {
         /**
          * Instant payment information. Only present if the Transfer is an instant payment.
          */
-        public Builder instantPayment(@Nullable TransferInstantPayment instantPayment) {
+        public Builder instantPayment(@Nullable TransferInstantPaymentRequest instantPayment) {
             this.instantPayment = instantPayment;
             return this;
         }
@@ -493,7 +493,7 @@ public class TransferRequest {
         /**
          * Wire-specific information. Only present if the Transfer is a wire.
          */
-        public Builder wire(@Nullable TransferWire wire) {
+        public Builder wire(@Nullable TransferWireRequest wire) {
             this.wire = wire;
             return this;
         }

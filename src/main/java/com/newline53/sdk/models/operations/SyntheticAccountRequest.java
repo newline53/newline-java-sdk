@@ -85,7 +85,7 @@ public class SyntheticAccountRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ach")
-    private SyntheticAccountAch ach;
+    private SyntheticAccountAchRequest ach;
 
     /**
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
@@ -93,7 +93,7 @@ public class SyntheticAccountRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("instant_payment")
-    private SyntheticAccountInstantPayment instantPayment;
+    private SyntheticAccountInstantPaymentRequest instantPayment;
 
     /**
      * Contains wire-specific information. Only populated if the Synthetic Account is in the
@@ -101,7 +101,7 @@ public class SyntheticAccountRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wire")
-    private SyntheticAccountWire wire;
+    private SyntheticAccountWireRequest wire;
 
     @JsonCreator
     public SyntheticAccountRequest(
@@ -112,9 +112,9 @@ public class SyntheticAccountRequest {
             @JsonProperty("routing_number") @Nullable JsonNullable<String> routingNumber,
             @JsonProperty("account_number") @Nullable JsonNullable<String> accountNumber,
             @JsonProperty("external_processor_token") @Nullable JsonNullable<String> externalProcessorToken,
-            @JsonProperty("ach") @Nullable SyntheticAccountAch ach,
-            @JsonProperty("instant_payment") @Nullable SyntheticAccountInstantPayment instantPayment,
-            @JsonProperty("wire") @Nullable SyntheticAccountWire wire) {
+            @JsonProperty("ach") @Nullable SyntheticAccountAchRequest ach,
+            @JsonProperty("instant_payment") @Nullable SyntheticAccountInstantPaymentRequest instantPayment,
+            @JsonProperty("wire") @Nullable SyntheticAccountWireRequest wire) {
         this.externalUid = Optional.ofNullable(externalUid)
             .orElseThrow(() -> new IllegalArgumentException("externalUid cannot be null"));
         this.name = Optional.ofNullable(name)
@@ -209,7 +209,7 @@ public class SyntheticAccountRequest {
      * Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external`
      * category.
      */
-    public Optional<SyntheticAccountAch> ach() {
+    public Optional<SyntheticAccountAchRequest> ach() {
         return Optional.ofNullable(this.ach);
     }
 
@@ -217,7 +217,7 @@ public class SyntheticAccountRequest {
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
      * `instant_payment_external` category.
      */
-    public Optional<SyntheticAccountInstantPayment> instantPayment() {
+    public Optional<SyntheticAccountInstantPaymentRequest> instantPayment() {
         return Optional.ofNullable(this.instantPayment);
     }
 
@@ -225,7 +225,7 @@ public class SyntheticAccountRequest {
      * Contains wire-specific information. Only populated if the Synthetic Account is in the
      * `wire_external` category.
      */
-    public Optional<SyntheticAccountWire> wire() {
+    public Optional<SyntheticAccountWireRequest> wire() {
         return Optional.ofNullable(this.wire);
     }
 
@@ -312,7 +312,7 @@ public class SyntheticAccountRequest {
      * Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external`
      * category.
      */
-    public SyntheticAccountRequest withAch(@Nullable SyntheticAccountAch ach) {
+    public SyntheticAccountRequest withAch(@Nullable SyntheticAccountAchRequest ach) {
         this.ach = ach;
         return this;
     }
@@ -322,7 +322,7 @@ public class SyntheticAccountRequest {
      * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
      * `instant_payment_external` category.
      */
-    public SyntheticAccountRequest withInstantPayment(@Nullable SyntheticAccountInstantPayment instantPayment) {
+    public SyntheticAccountRequest withInstantPayment(@Nullable SyntheticAccountInstantPaymentRequest instantPayment) {
         this.instantPayment = instantPayment;
         return this;
     }
@@ -332,7 +332,7 @@ public class SyntheticAccountRequest {
      * Contains wire-specific information. Only populated if the Synthetic Account is in the
      * `wire_external` category.
      */
-    public SyntheticAccountRequest withWire(@Nullable SyntheticAccountWire wire) {
+    public SyntheticAccountRequest withWire(@Nullable SyntheticAccountWireRequest wire) {
         this.wire = wire;
         return this;
     }
@@ -401,11 +401,11 @@ public class SyntheticAccountRequest {
 
         private JsonNullable<String> externalProcessorToken;
 
-        private SyntheticAccountAch ach;
+        private SyntheticAccountAchRequest ach;
 
-        private SyntheticAccountInstantPayment instantPayment;
+        private SyntheticAccountInstantPaymentRequest instantPayment;
 
-        private SyntheticAccountWire wire;
+        private SyntheticAccountWireRequest wire;
 
         private Builder() {
           // force use of static builder() method
@@ -482,7 +482,7 @@ public class SyntheticAccountRequest {
          * Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external`
          * category.
          */
-        public Builder ach(@Nullable SyntheticAccountAch ach) {
+        public Builder ach(@Nullable SyntheticAccountAchRequest ach) {
             this.ach = ach;
             return this;
         }
@@ -491,7 +491,7 @@ public class SyntheticAccountRequest {
          * Contains Instant Payment-specific information. Only populated if the Synthetic Account is in the
          * `instant_payment_external` category.
          */
-        public Builder instantPayment(@Nullable SyntheticAccountInstantPayment instantPayment) {
+        public Builder instantPayment(@Nullable SyntheticAccountInstantPaymentRequest instantPayment) {
             this.instantPayment = instantPayment;
             return this;
         }
@@ -500,7 +500,7 @@ public class SyntheticAccountRequest {
          * Contains wire-specific information. Only populated if the Synthetic Account is in the
          * `wire_external` category.
          */
-        public Builder wire(@Nullable SyntheticAccountWire wire) {
+        public Builder wire(@Nullable SyntheticAccountWireRequest wire) {
             this.wire = wire;
             return this;
         }

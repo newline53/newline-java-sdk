@@ -180,7 +180,7 @@ func (e *ListTransfersInitiatorType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ListTransfersSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// ListTransfersSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type ListTransfersSecCode string
 
 const (
@@ -189,6 +189,7 @@ const (
 	ListTransfersSecCodePpd ListTransfersSecCode = "PPD"
 	ListTransfersSecCodeTel ListTransfersSecCode = "TEL"
 	ListTransfersSecCodeWeb ListTransfersSecCode = "WEB"
+	ListTransfersSecCodeIat ListTransfersSecCode = "IAT"
 )
 
 func (e ListTransfersSecCode) ToPointer() *ListTransfersSecCode {
@@ -209,6 +210,8 @@ func (e *ListTransfersSecCode) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = ListTransfersSecCode(v)
 		return nil
 	default:
@@ -287,7 +290,7 @@ type ListTransfersAch struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode *ListTransfersSecCode `json:"sec_code,omitempty"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.
@@ -305,6 +308,9 @@ type ListTransfersAch struct {
 	// Unique identifier supplied by the originator of a transaction (e.g. invoice number). 1 to 22 characters depending on SEC code, alphanumeric. If the SEC value is anything other than CIE, then this is an optional field and can be up to 15 characters. If SEC value CIE is provided, then the ID number is mandatory, and the character length can be up to 22 characters.
 	//
 	IDNumber *string `json:"id_number,omitempty"`
+	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+	//
+	Addenda *string `json:"addenda,omitempty"`
 }
 
 func (o *ListTransfersAch) GetOriginatorName() *string {
@@ -375,6 +381,13 @@ func (o *ListTransfersAch) GetIDNumber() *string {
 		return nil
 	}
 	return o.IDNumber
+}
+
+func (o *ListTransfersAch) GetAddenda() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Addenda
 }
 
 // ListTransfersInstantPaymentTransmitter - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.

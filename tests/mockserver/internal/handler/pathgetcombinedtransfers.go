@@ -8,6 +8,7 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/operations"
+	"mockserver/internal/sdk/optionalnullable"
 	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
@@ -48,20 +49,72 @@ func testGetCombinedTransfersGetCombinedTransfersCombinedTransfersList0(w http.R
 		Offset:     types.Int64(0),
 		Data: []operations.GetCombinedTransfersData{
 			operations.GetCombinedTransfersData{
-				CreatedAt:        types.String("2025-03-25T10:17:55.444Z"),
-				ExternalUID:      types.String("12345abcd"),
-				Status:           operations.GetCombinedTransfersDataStatusCompleted.ToPointer(),
-				SyntheticAccount: &operations.GetCombinedTransfersSyntheticAccount{},
-				Transfer:         &operations.GetCombinedTransfersTransfer{},
-				UID:              types.String("1BGeBkH7tU7REZVx"),
+				CreatedAt:   types.String("2025-03-25T10:17:55.444Z"),
+				ExternalUID: types.String("12345abcd"),
+				Status:      operations.GetCombinedTransfersDataStatusCompleted.ToPointer(),
+				SyntheticAccount: &operations.GetCombinedTransfersSyntheticAccount{
+					UID:                     types.String("dzc4FwjydgYAHpy9"),
+					ExternalUID:             types.String("abcd12345"),
+					Name:                    types.String("Spinach Fund"),
+					PoolUID:                 types.String("axz9sbUgRVu5wqbw"),
+					SyntheticAccountTypeUID: types.String("UyjH72G9KAhmbpNS"),
+					RoutingNumber:           optionalnullable.From(types.String("04200031")),
+					Ach: &operations.GetCombinedTransfersSyntheticAccountAch{
+						AccountType:      operations.GetCombinedTransfersAccountTypeChecking.ToPointer(),
+						CounterpartyName: types.String("awesome counterparty"),
+					},
+				},
+				Transfer: &operations.GetCombinedTransfersTransfer{
+					DestinationSyntheticAccountUID: types.String("azXvxqqcSsX9x9Yd"),
+					InitiatingCustomerUID:          types.String("PszWYuoA3CSUvAaq"),
+					InitiatorType:                  operations.GetCombinedTransfersInitiatorTypeCustomer.ToPointer(),
+					UID:                            types.String("87CwVJLxYnRsEHLS"),
+					UsdTransferAmount:              types.String("1.23"),
+					Ach: &operations.GetCombinedTransfersTransferAch{
+						OriginatorName:     types.String("Big Bank Inc"),
+						CompanyID:          types.String("COMPID1234"),
+						SecCode:            operations.GetCombinedTransfersSecCodeCcd.ToPointer(),
+						EntryDescription:   types.String("Dividend Payment"),
+						ServiceProcessing:  operations.GetCombinedTransfersServiceProcessingSameday.ToPointer(),
+						EffectiveEntryDate: types.String("2025-03-27"),
+						Addenda:            types.String("valuable extra info"),
+					},
+				},
+				UID: types.String("1BGeBkH7tU7REZVx"),
 			},
 			operations.GetCombinedTransfersData{
-				CreatedAt:        types.String("2025-03-27T09:23:07.890Z"),
-				ExternalUID:      types.String("YrfDrfVRgpPgnhF5"),
-				Status:           operations.GetCombinedTransfersDataStatusQueued.ToPointer(),
-				SyntheticAccount: &operations.GetCombinedTransfersSyntheticAccount{},
-				Transfer:         &operations.GetCombinedTransfersTransfer{},
-				UID:              types.String("iLCATodsXhKPpPRv"),
+				CreatedAt:   types.String("2025-03-27T09:23:07.890Z"),
+				ExternalUID: types.String("YrfDrfVRgpPgnhF5"),
+				Status:      operations.GetCombinedTransfersDataStatusQueued.ToPointer(),
+				SyntheticAccount: &operations.GetCombinedTransfersSyntheticAccount{
+					UID: types.String("axz9sbUgRVu5wqbw"),
+				},
+				Transfer: &operations.GetCombinedTransfersTransfer{
+					SourceSyntheticAccountUID: types.String("gfUHdwkR9kkEVxA4"),
+					InitiatingCustomerUID:     types.String("PszWYuoA3CSUvAaq"),
+					InitiatorType:             operations.GetCombinedTransfersInitiatorTypeCustomer.ToPointer(),
+					UID:                       types.String("EhrQZJNjCd79LLYq"),
+					UsdTransferAmount:         types.String("1.23"),
+					Wire: &operations.GetCombinedTransfersTransferWire{
+						IntermediaryBankAddress: &operations.GetCombinedTransfersTransferUnstructuredAddress{
+							Line1:   optionalnullable.From(types.String("123 Main St")),
+							Line2:   optionalnullable.From(types.String("Brooklyn NY")),
+							Country: optionalnullable.From(types.String("US")),
+						},
+						IntermediaryBankName:          types.String("Big Bank Inc"),
+						IntermediaryBankRoutingNumber: types.String("123456789"),
+						WireTransmitter: &operations.GetCombinedTransfersWireTransmitter{
+							Name:                  "Bunker LLC",
+							TransmitterIdentifier: "1234567890",
+							BuildingNumber:        optionalnullable.From(types.String("456")),
+							StreetName:            optionalnullable.From(types.String("Second St")),
+							City:                  optionalnullable.From(types.String("Queens")),
+							State:                 optionalnullable.From(types.String("NY")),
+							Country:               optionalnullable.From(types.String("US")),
+						},
+					},
+				},
+				UID: types.String("iLCATodsXhKPpPRv"),
 			},
 		},
 	}

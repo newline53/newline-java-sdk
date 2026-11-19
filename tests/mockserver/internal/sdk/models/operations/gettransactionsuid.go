@@ -496,7 +496,7 @@ func (o *GetTransactionsUIDCounterpartyBankAddress) GetCountry() *string {
 	return o.Country
 }
 
-// GetTransactionsUIDUltimateDebtorInfo - Information about the ultimate debtor (the entity on whose behalf the payment is made). Only populated if your program has enabled RTP Ultimate Debtor support.
+// GetTransactionsUIDUltimateDebtorInfo - Information about the ultimate debtor (the entity on whose behalf the payment is made).
 type GetTransactionsUIDUltimateDebtorInfo struct {
 	// Name of the ultimate debtor
 	UltimateDebtorName string `json:"ultimate_debtor_name"`
@@ -684,7 +684,7 @@ type GetTransactionsUIDInstantPayment struct {
 	// Address of the financial institution where the external account is held.
 	//
 	CounterpartyBankAddress optionalnullable.OptionalNullable[GetTransactionsUIDCounterpartyBankAddress] `json:"counterparty_bank_address,omitempty"`
-	// Information about the ultimate debtor (the entity on whose behalf the payment is made). Only populated if your program has enabled RTP Ultimate Debtor support.
+	// Information about the ultimate debtor (the entity on whose behalf the payment is made).
 	UltimateDebtorInfo optionalnullable.OptionalNullable[GetTransactionsUIDUltimateDebtorInfo] `json:"ultimate_debtor_info,omitempty"`
 	// A message transmitted to the recipient bank. Supports letters, numbers, and special characters: . !@#$%^&*',/:;<=>?~`|[]{})(+=_- (max 140 characters).
 	//
@@ -1124,7 +1124,7 @@ func (o *GetTransactionsUIDWire) GetWireInstructions() *string {
 	return o.WireInstructions
 }
 
-// GetTransactionsUIDSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// GetTransactionsUIDSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type GetTransactionsUIDSecCode string
 
 const (
@@ -1133,6 +1133,7 @@ const (
 	GetTransactionsUIDSecCodePpd GetTransactionsUIDSecCode = "PPD"
 	GetTransactionsUIDSecCodeTel GetTransactionsUIDSecCode = "TEL"
 	GetTransactionsUIDSecCodeWeb GetTransactionsUIDSecCode = "WEB"
+	GetTransactionsUIDSecCodeIat GetTransactionsUIDSecCode = "IAT"
 )
 
 func (e GetTransactionsUIDSecCode) ToPointer() *GetTransactionsUIDSecCode {
@@ -1153,6 +1154,8 @@ func (e *GetTransactionsUIDSecCode) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = GetTransactionsUIDSecCode(v)
 		return nil
 	default:
@@ -1593,7 +1596,7 @@ type GetTransactionsUIDAch struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode *GetTransactionsUIDSecCode `json:"sec_code,omitempty"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.
@@ -1611,13 +1614,13 @@ type GetTransactionsUIDAch struct {
 	// Unique identifier supplied by the originator of a transaction (e.g. invoice number). 1 to 22 characters depending on SEC code, alphanumeric. If the SEC value is anything other than CIE, then this is an optional field and can be up to 15 characters. If SEC value CIE is provided, then the ID number is mandatory, and the character length can be up to 22 characters.
 	//
 	IDNumber *string `json:"id_number,omitempty"`
+	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+	//
+	Addenda *string `json:"addenda,omitempty"`
 	// ACH return code, pulled from the Return File
 	AchReturnCode *string `json:"ach_return_code,omitempty"`
 	// ACH return reason, pulled from the Return File
 	AchReturnReason *string `json:"ach_return_reason,omitempty"`
-	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
-	//
-	Addenda *string `json:"addenda,omitempty"`
 	// Notification of Change (NOC) code, returned from the RDFI (Receiving Depository Financial Institution).
 	//
 	NocCode *string `json:"noc_code,omitempty"`
@@ -1710,6 +1713,13 @@ func (o *GetTransactionsUIDAch) GetIDNumber() *string {
 	return o.IDNumber
 }
 
+func (o *GetTransactionsUIDAch) GetAddenda() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Addenda
+}
+
 func (o *GetTransactionsUIDAch) GetAchReturnCode() *string {
 	if o == nil {
 		return nil
@@ -1722,13 +1732,6 @@ func (o *GetTransactionsUIDAch) GetAchReturnReason() *string {
 		return nil
 	}
 	return o.AchReturnReason
-}
-
-func (o *GetTransactionsUIDAch) GetAddenda() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Addenda
 }
 
 func (o *GetTransactionsUIDAch) GetNocCode() *string {

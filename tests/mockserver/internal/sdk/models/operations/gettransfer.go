@@ -86,7 +86,7 @@ func (e *GetTransferInitiatorType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// GetTransferSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// GetTransferSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type GetTransferSecCode string
 
 const (
@@ -95,6 +95,7 @@ const (
 	GetTransferSecCodePpd GetTransferSecCode = "PPD"
 	GetTransferSecCodeTel GetTransferSecCode = "TEL"
 	GetTransferSecCodeWeb GetTransferSecCode = "WEB"
+	GetTransferSecCodeIat GetTransferSecCode = "IAT"
 )
 
 func (e GetTransferSecCode) ToPointer() *GetTransferSecCode {
@@ -115,6 +116,8 @@ func (e *GetTransferSecCode) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = GetTransferSecCode(v)
 		return nil
 	default:
@@ -193,7 +196,7 @@ type GetTransferAch struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode *GetTransferSecCode `json:"sec_code,omitempty"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.

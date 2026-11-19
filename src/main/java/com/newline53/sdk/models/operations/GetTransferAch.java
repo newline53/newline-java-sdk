@@ -60,8 +60,8 @@ public class GetTransferAch {
     private Boolean prenote;
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -199,8 +199,8 @@ public class GetTransferAch {
     }
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public Optional<GetTransferSecCode> secCode() {
@@ -318,8 +318,8 @@ public class GetTransferAch {
 
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public GetTransferAch withSecCode(@Nullable GetTransferSecCode secCode) {
@@ -519,8 +519,8 @@ public class GetTransferAch {
         }
 
         /**
-         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-         * For more details, refer to our ACH guide's
+         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+         * IAT. For more details, refer to our ACH guide's
          * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
          */
         public Builder secCode(@Nullable GetTransferSecCode secCode) {

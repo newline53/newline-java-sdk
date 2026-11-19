@@ -1,6 +1,6 @@
 # CreateTransferSecCodeResponse
 
-Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 
 
 ## Example Usage
@@ -24,3 +24,4 @@ CreateTransferSecCodeResponse custom = CreateTransferSecCodeResponse.of("custom_
 | `PPD` | PPD   |
 | `TEL` | TEL   |
 | `WEB` | WEB   |
+| `IAT` | IAT   |

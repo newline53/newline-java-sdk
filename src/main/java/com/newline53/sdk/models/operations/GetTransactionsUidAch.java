@@ -64,8 +64,8 @@ public class GetTransactionsUidAch {
     private Boolean prenote;
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -120,6 +120,17 @@ public class GetTransactionsUidAch {
     private String idNumber;
 
     /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("addenda")
+    private String addenda;
+
+    /**
      * ACH return code, pulled from the Return File
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -132,17 +143,6 @@ public class GetTransactionsUidAch {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ach_return_reason")
     private String achReturnReason;
-
-    /**
-     * Optional additional payment-related information, such as invoice numbers, originator/receiver
-     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
-     * codes other than TEL.
-     * 
-     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("addenda")
-    private String addenda;
 
     /**
      * Notification of Change (NOC) code, returned from the RDFI (Receiving Depository Financial
@@ -215,9 +215,9 @@ public class GetTransactionsUidAch {
             @JsonProperty("service_processing") @Nullable GetTransactionsUidServiceProcessing serviceProcessing,
             @JsonProperty("effective_entry_date") @Nullable String effectiveEntryDate,
             @JsonProperty("id_number") @Nullable String idNumber,
+            @JsonProperty("addenda") @Nullable String addenda,
             @JsonProperty("ach_return_code") @Nullable String achReturnCode,
             @JsonProperty("ach_return_reason") @Nullable String achReturnReason,
-            @JsonProperty("addenda") @Nullable String addenda,
             @JsonProperty("noc_code") @Nullable String nocCode,
             @JsonProperty("noc_corrected_data") @Nullable String nocCorrectedData,
             @JsonProperty("noc_reason") @Nullable String nocReason,
@@ -236,9 +236,9 @@ public class GetTransactionsUidAch {
         this.serviceProcessing = serviceProcessing;
         this.effectiveEntryDate = effectiveEntryDate;
         this.idNumber = idNumber;
+        this.addenda = addenda;
         this.achReturnCode = achReturnCode;
         this.achReturnReason = achReturnReason;
-        this.addenda = addenda;
         this.nocCode = nocCode;
         this.nocCorrectedData = nocCorrectedData;
         this.nocReason = nocReason;
@@ -299,8 +299,8 @@ public class GetTransactionsUidAch {
     }
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public Optional<GetTransactionsUidSecCode> secCode() {
@@ -355,6 +355,17 @@ public class GetTransactionsUidAch {
     }
 
     /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    public Optional<String> addenda() {
+        return Optional.ofNullable(this.addenda);
+    }
+
+    /**
      * ACH return code, pulled from the Return File
      */
     public Optional<String> achReturnCode() {
@@ -366,17 +377,6 @@ public class GetTransactionsUidAch {
      */
     public Optional<String> achReturnReason() {
         return Optional.ofNullable(this.achReturnReason);
-    }
-
-    /**
-     * Optional additional payment-related information, such as invoice numbers, originator/receiver
-     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
-     * codes other than TEL.
-     * 
-     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
-     */
-    public Optional<String> addenda() {
-        return Optional.ofNullable(this.addenda);
     }
 
     /**
@@ -491,8 +491,8 @@ public class GetTransactionsUidAch {
 
 
     /**
-     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-     * For more details, refer to our ACH guide's
+     * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+     * IAT. For more details, refer to our ACH guide's
      * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
      */
     public GetTransactionsUidAch withSecCode(@Nullable GetTransactionsUidSecCode secCode) {
@@ -559,6 +559,19 @@ public class GetTransactionsUidAch {
 
 
     /**
+     * Optional additional payment-related information, such as invoice numbers, originator/receiver
+     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+     * codes other than TEL.
+     * 
+     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+     */
+    public GetTransactionsUidAch withAddenda(@Nullable String addenda) {
+        this.addenda = addenda;
+        return this;
+    }
+
+
+    /**
      * ACH return code, pulled from the Return File
      */
     public GetTransactionsUidAch withAchReturnCode(@Nullable String achReturnCode) {
@@ -572,19 +585,6 @@ public class GetTransactionsUidAch {
      */
     public GetTransactionsUidAch withAchReturnReason(@Nullable String achReturnReason) {
         this.achReturnReason = achReturnReason;
-        return this;
-    }
-
-
-    /**
-     * Optional additional payment-related information, such as invoice numbers, originator/receiver
-     * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
-     * codes other than TEL.
-     * 
-     * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
-     */
-    public GetTransactionsUidAch withAddenda(@Nullable String addenda) {
-        this.addenda = addenda;
         return this;
     }
 
@@ -684,9 +684,9 @@ public class GetTransactionsUidAch {
             Utils.enhancedDeepEquals(this.serviceProcessing, other.serviceProcessing) &&
             Utils.enhancedDeepEquals(this.effectiveEntryDate, other.effectiveEntryDate) &&
             Utils.enhancedDeepEquals(this.idNumber, other.idNumber) &&
+            Utils.enhancedDeepEquals(this.addenda, other.addenda) &&
             Utils.enhancedDeepEquals(this.achReturnCode, other.achReturnCode) &&
             Utils.enhancedDeepEquals(this.achReturnReason, other.achReturnReason) &&
-            Utils.enhancedDeepEquals(this.addenda, other.addenda) &&
             Utils.enhancedDeepEquals(this.nocCode, other.nocCode) &&
             Utils.enhancedDeepEquals(this.nocCorrectedData, other.nocCorrectedData) &&
             Utils.enhancedDeepEquals(this.nocReason, other.nocReason) &&
@@ -703,8 +703,8 @@ public class GetTransactionsUidAch {
             originatorName, companyId, companyDiscretionaryData,
             prenote, secCode, paymentType,
             entryDescription, serviceProcessing, effectiveEntryDate,
-            idNumber, achReturnCode, achReturnReason,
-            addenda, nocCode, nocCorrectedData,
+            idNumber, addenda, achReturnCode,
+            achReturnReason, nocCode, nocCorrectedData,
             nocReason, transferTraceId, originalTraceNumber,
             originatorRoutingNumber, counterpartyName, iat);
     }
@@ -722,9 +722,9 @@ public class GetTransactionsUidAch {
                 "serviceProcessing", serviceProcessing,
                 "effectiveEntryDate", effectiveEntryDate,
                 "idNumber", idNumber,
+                "addenda", addenda,
                 "achReturnCode", achReturnCode,
                 "achReturnReason", achReturnReason,
-                "addenda", addenda,
                 "nocCode", nocCode,
                 "nocCorrectedData", nocCorrectedData,
                 "nocReason", nocReason,
@@ -758,11 +758,11 @@ public class GetTransactionsUidAch {
 
         private String idNumber;
 
+        private String addenda;
+
         private String achReturnCode;
 
         private String achReturnReason;
-
-        private String addenda;
 
         private String nocCode;
 
@@ -828,8 +828,8 @@ public class GetTransactionsUidAch {
         }
 
         /**
-         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB.
-         * For more details, refer to our ACH guide's
+         * Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB,
+         * IAT. For more details, refer to our ACH guide's
          * [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
          */
         public Builder secCode(@Nullable GetTransactionsUidSecCode secCode) {
@@ -890,6 +890,18 @@ public class GetTransactionsUidAch {
         }
 
         /**
+         * Optional additional payment-related information, such as invoice numbers, originator/receiver
+         * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
+         * codes other than TEL.
+         * 
+         * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+         */
+        public Builder addenda(@Nullable String addenda) {
+            this.addenda = addenda;
+            return this;
+        }
+
+        /**
          * ACH return code, pulled from the Return File
          */
         public Builder achReturnCode(@Nullable String achReturnCode) {
@@ -902,18 +914,6 @@ public class GetTransactionsUidAch {
          */
         public Builder achReturnReason(@Nullable String achReturnReason) {
             this.achReturnReason = achReturnReason;
-            return this;
-        }
-
-        /**
-         * Optional additional payment-related information, such as invoice numbers, originator/receiver
-         * information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC
-         * codes other than TEL.
-         * 
-         * <p>Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
-         */
-        public Builder addenda(@Nullable String addenda) {
-            this.addenda = addenda;
             return this;
         }
 
@@ -989,8 +989,8 @@ public class GetTransactionsUidAch {
                 originatorName, companyId, companyDiscretionaryData,
                 prenote, secCode, paymentType,
                 entryDescription, serviceProcessing, effectiveEntryDate,
-                idNumber, achReturnCode, achReturnReason,
-                addenda, nocCode, nocCorrectedData,
+                idNumber, addenda, achReturnCode,
+                achReturnReason, nocCode, nocCorrectedData,
                 nocReason, transferTraceId, originalTraceNumber,
                 originatorRoutingNumber, counterpartyName, iat);
         }

@@ -8,6 +8,7 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/operations"
+	"mockserver/internal/sdk/optionalnullable"
 	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
@@ -48,12 +49,48 @@ func testGetCombinedTransfersUIDGetCombinedTransfersUIDQueued0(w http.ResponseWr
 		return
 	}
 	var respBody *operations.GetCombinedTransfersUIDResponseBody = &operations.GetCombinedTransfersUIDResponseBody{
-		CreatedAt:        types.String("2025-03-27T09:23:07.890Z"),
-		ExternalUID:      types.String("YrfDrfVRgpPgnhF5"),
-		Status:           operations.GetCombinedTransfersUIDStatusQueued.ToPointer(),
-		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{},
-		Transfer:         &operations.GetCombinedTransfersUIDTransfer{},
-		UID:              types.String("iLCATodsXhKPpPRv"),
+		CreatedAt:   types.String("2025-03-27T09:23:07.890Z"),
+		ExternalUID: types.String("YrfDrfVRgpPgnhF5"),
+		Status:      operations.GetCombinedTransfersUIDStatusQueued.ToPointer(),
+		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{
+			UID:                     types.String("EhrQZJNjCd79LLYq"),
+			ExternalUID:             types.String("abcd12345"),
+			Name:                    types.String("Spinach Fund"),
+			PoolUID:                 types.String("axz9sbUgRVu5wqbw"),
+			SyntheticAccountTypeUID: types.String("UyjH72G9KAhmbpNS"),
+			RoutingNumber:           optionalnullable.From(types.String("04200031")),
+			Wire: &operations.GetCombinedTransfersUIDSyntheticAccountWire{
+				CounterpartyName:     types.String("Awesome Counterparty"),
+				CounterpartyBankName: optionalnullable.From(types.String("Biggest Bank Inc")),
+			},
+		},
+		Transfer: &operations.GetCombinedTransfersUIDTransfer{
+			SourceSyntheticAccountUID:      types.String("gfUHdwkR9kkEVxA4"),
+			DestinationSyntheticAccountUID: types.String("azXvxqqcSsX9x9Yd"),
+			InitiatingCustomerUID:          types.String("PszWYuoA3CSUvAaq"),
+			InitiatorType:                  operations.GetCombinedTransfersUIDInitiatorTypeCustomer.ToPointer(),
+			UID:                            types.String("EhrQZJNjCd79LLYq"),
+			UsdTransferAmount:              types.String("1.23"),
+			Wire: &operations.GetCombinedTransfersUIDTransferWire{
+				IntermediaryBankAddress: &operations.GetCombinedTransfersUIDTransferUnstructuredAddress{
+					Line1:   optionalnullable.From(types.String("123 Main St")),
+					Line2:   optionalnullable.From(types.String("Brooklyn NY")),
+					Country: optionalnullable.From(types.String("US")),
+				},
+				IntermediaryBankName:          types.String("Big Bank Inc"),
+				IntermediaryBankRoutingNumber: types.String("123456789"),
+				WireTransmitter: &operations.GetCombinedTransfersUIDWireTransmitter{
+					Name:                  "Bunker LLC",
+					TransmitterIdentifier: "1234567890",
+					BuildingNumber:        optionalnullable.From(types.String("456")),
+					StreetName:            optionalnullable.From(types.String("Second St")),
+					City:                  optionalnullable.From(types.String("Queens")),
+					State:                 optionalnullable.From(types.String("NY")),
+					Country:               optionalnullable.From(types.String("US")),
+				},
+			},
+		},
+		UID: types.String("iLCATodsXhKPpPRv"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -82,12 +119,48 @@ func testGetCombinedTransfersUIDGetCombinedTransfersUIDPending0(w http.ResponseW
 		return
 	}
 	var respBody *operations.GetCombinedTransfersUIDResponseBody = &operations.GetCombinedTransfersUIDResponseBody{
-		CreatedAt:        types.String("2025-03-27T09:23:07.890Z"),
-		ExternalUID:      types.String("YrfDrfVRgpPgnhF5"),
-		Status:           operations.GetCombinedTransfersUIDStatusPending.ToPointer(),
-		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{},
-		Transfer:         &operations.GetCombinedTransfersUIDTransfer{},
-		UID:              types.String("iLCATodsXhKPpPRv"),
+		CreatedAt:   types.String("2025-03-27T09:23:07.890Z"),
+		ExternalUID: types.String("YrfDrfVRgpPgnhF5"),
+		Status:      operations.GetCombinedTransfersUIDStatusPending.ToPointer(),
+		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{
+			UID:                     types.String("EhrQZJNjCd79LLYq"),
+			ExternalUID:             types.String("abcd12345"),
+			Name:                    types.String("Spinach Fund"),
+			PoolUID:                 types.String("axz9sbUgRVu5wqbw"),
+			SyntheticAccountTypeUID: types.String("UyjH72G9KAhmbpNS"),
+			RoutingNumber:           optionalnullable.From(types.String("04200031")),
+			Wire: &operations.GetCombinedTransfersUIDSyntheticAccountWire{
+				CounterpartyName:     types.String("Awesome Counterparty"),
+				CounterpartyBankName: optionalnullable.From(types.String("Biggest Bank Inc")),
+			},
+		},
+		Transfer: &operations.GetCombinedTransfersUIDTransfer{
+			SourceSyntheticAccountUID:      types.String("gfUHdwkR9kkEVxA4"),
+			DestinationSyntheticAccountUID: types.String("azXvxqqcSsX9x9Yd"),
+			InitiatingCustomerUID:          types.String("PszWYuoA3CSUvAaq"),
+			InitiatorType:                  operations.GetCombinedTransfersUIDInitiatorTypeCustomer.ToPointer(),
+			UID:                            types.String("EhrQZJNjCd79LLYq"),
+			UsdTransferAmount:              types.String("1.23"),
+			Wire: &operations.GetCombinedTransfersUIDTransferWire{
+				IntermediaryBankAddress: &operations.GetCombinedTransfersUIDTransferUnstructuredAddress{
+					Line1:   optionalnullable.From(types.String("123 Main St")),
+					Line2:   optionalnullable.From(types.String("Brooklyn NY")),
+					Country: optionalnullable.From(types.String("US")),
+				},
+				IntermediaryBankName:          types.String("Big Bank Inc"),
+				IntermediaryBankRoutingNumber: types.String("123456789"),
+				WireTransmitter: &operations.GetCombinedTransfersUIDWireTransmitter{
+					Name:                  "Bunker LLC",
+					TransmitterIdentifier: "1234567890",
+					BuildingNumber:        optionalnullable.From(types.String("456")),
+					StreetName:            optionalnullable.From(types.String("Second St")),
+					City:                  optionalnullable.From(types.String("Queens")),
+					State:                 optionalnullable.From(types.String("NY")),
+					Country:               optionalnullable.From(types.String("US")),
+				},
+			},
+		},
+		UID: types.String("iLCATodsXhKPpPRv"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -125,11 +198,47 @@ func testGetCombinedTransfersUIDGetCombinedTransfersUIDFailed0(w http.ResponseWr
 				OccurredAt: types.String("2025-03-27T09:23:07.890Z"),
 			},
 		},
-		ExternalUID:      types.String("YrfDrfVRgpPgnhF5"),
-		Status:           operations.GetCombinedTransfersUIDStatusFailed.ToPointer(),
-		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{},
-		Transfer:         &operations.GetCombinedTransfersUIDTransfer{},
-		UID:              types.String("iLCATodsXhKPpPRv"),
+		ExternalUID: types.String("YrfDrfVRgpPgnhF5"),
+		Status:      operations.GetCombinedTransfersUIDStatusFailed.ToPointer(),
+		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{
+			UID:                     types.String("EhrQZJNjCd79LLYq"),
+			ExternalUID:             types.String("abcd12345"),
+			Name:                    types.String("Spinach Fund"),
+			PoolUID:                 types.String("axz9sbUgRVu5wqbw"),
+			SyntheticAccountTypeUID: types.String("UyjH72G9KAhmbpNS"),
+			RoutingNumber:           optionalnullable.From(types.String("04200031")),
+			Wire: &operations.GetCombinedTransfersUIDSyntheticAccountWire{
+				CounterpartyName:     types.String("Awesome Counterparty"),
+				CounterpartyBankName: optionalnullable.From(types.String("Biggest Bank Inc")),
+			},
+		},
+		Transfer: &operations.GetCombinedTransfersUIDTransfer{
+			SourceSyntheticAccountUID:      types.String("gfUHdwkR9kkEVxA4"),
+			DestinationSyntheticAccountUID: types.String("azXvxqqcSsX9x9Yd"),
+			InitiatingCustomerUID:          types.String("PszWYuoA3CSUvAaq"),
+			InitiatorType:                  operations.GetCombinedTransfersUIDInitiatorTypeCustomer.ToPointer(),
+			UID:                            types.String("EhrQZJNjCd79LLYq"),
+			UsdTransferAmount:              types.String("1.23"),
+			Wire: &operations.GetCombinedTransfersUIDTransferWire{
+				IntermediaryBankAddress: &operations.GetCombinedTransfersUIDTransferUnstructuredAddress{
+					Line1:   optionalnullable.From(types.String("123 Main St")),
+					Line2:   optionalnullable.From(types.String("Brooklyn NY")),
+					Country: optionalnullable.From(types.String("US")),
+				},
+				IntermediaryBankName:          types.String("Big Bank Inc"),
+				IntermediaryBankRoutingNumber: types.String("123456789"),
+				WireTransmitter: &operations.GetCombinedTransfersUIDWireTransmitter{
+					Name:                  "Bunker LLC",
+					TransmitterIdentifier: "1234567890",
+					BuildingNumber:        optionalnullable.From(types.String("456")),
+					StreetName:            optionalnullable.From(types.String("Second St")),
+					City:                  optionalnullable.From(types.String("Queens")),
+					State:                 optionalnullable.From(types.String("NY")),
+					Country:               optionalnullable.From(types.String("US")),
+				},
+			},
+		},
+		UID: types.String("iLCATodsXhKPpPRv"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -158,12 +267,48 @@ func testGetCombinedTransfersUIDGetCombinedTransfersUIDCompleted0(w http.Respons
 		return
 	}
 	var respBody *operations.GetCombinedTransfersUIDResponseBody = &operations.GetCombinedTransfersUIDResponseBody{
-		CreatedAt:        types.String("2025-03-27T09:23:07.890Z"),
-		ExternalUID:      types.String("YrfDrfVRgpPgnhF5"),
-		Status:           operations.GetCombinedTransfersUIDStatusCompleted.ToPointer(),
-		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{},
-		Transfer:         &operations.GetCombinedTransfersUIDTransfer{},
-		UID:              types.String("iLCATodsXhKPpPRv"),
+		CreatedAt:   types.String("2025-03-27T09:23:07.890Z"),
+		ExternalUID: types.String("YrfDrfVRgpPgnhF5"),
+		Status:      operations.GetCombinedTransfersUIDStatusCompleted.ToPointer(),
+		SyntheticAccount: &operations.GetCombinedTransfersUIDSyntheticAccount{
+			UID:                     types.String("dzc4FwjydgYAHpy9"),
+			ExternalUID:             types.String("abcd12345"),
+			Name:                    types.String("Spinach Fund"),
+			PoolUID:                 types.String("axz9sbUgRVu5wqbw"),
+			SyntheticAccountTypeUID: types.String("UyjH72G9KAhmbpNS"),
+			RoutingNumber:           optionalnullable.From(types.String("04200031")),
+			Wire: &operations.GetCombinedTransfersUIDSyntheticAccountWire{
+				CounterpartyName:     types.String("Awesome Counterparty"),
+				CounterpartyBankName: optionalnullable.From(types.String("Biggest Bank Inc")),
+			},
+		},
+		Transfer: &operations.GetCombinedTransfersUIDTransfer{
+			SourceSyntheticAccountUID:      types.String("gfUHdwkR9kkEVxA4"),
+			DestinationSyntheticAccountUID: types.String("azXvxqqcSsX9x9Yd"),
+			InitiatingCustomerUID:          types.String("PszWYuoA3CSUvAaq"),
+			InitiatorType:                  operations.GetCombinedTransfersUIDInitiatorTypeCustomer.ToPointer(),
+			UID:                            types.String("87CwVJLxYnRsEHLS"),
+			UsdTransferAmount:              types.String("1.23"),
+			Wire: &operations.GetCombinedTransfersUIDTransferWire{
+				IntermediaryBankAddress: &operations.GetCombinedTransfersUIDTransferUnstructuredAddress{
+					Line1:   optionalnullable.From(types.String("123 Main St")),
+					Line2:   optionalnullable.From(types.String("Brooklyn NY")),
+					Country: optionalnullable.From(types.String("US")),
+				},
+				IntermediaryBankName:          types.String("Big Bank Inc"),
+				IntermediaryBankRoutingNumber: types.String("123456789"),
+				WireTransmitter: &operations.GetCombinedTransfersUIDWireTransmitter{
+					Name:                  "Bunker LLC",
+					TransmitterIdentifier: "1234567890",
+					BuildingNumber:        optionalnullable.From(types.String("456")),
+					StreetName:            optionalnullable.From(types.String("Second St")),
+					City:                  optionalnullable.From(types.String("Queens")),
+					State:                 optionalnullable.From(types.String("NY")),
+					Country:               optionalnullable.From(types.String("US")),
+				},
+			},
+		},
+		UID: types.String("iLCATodsXhKPpPRv"),
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 

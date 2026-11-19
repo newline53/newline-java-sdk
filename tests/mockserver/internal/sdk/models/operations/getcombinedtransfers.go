@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/optionalnullable"
 	"mockserver/internal/sdk/utils"
 	"time"
 )
@@ -352,12 +353,1510 @@ func (e *GetCombinedTransfersDataStatus) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// GetCombinedTransfersSyntheticAccount - Parameters provided at time of creation. UID field will get populated once synthetic account has been successfully created, unless uid value was supplied at creation time.
+// GetCombinedTransfersSyntheticAccountCategory - The name of the Synthetic Account Category associated with the Synthetic Account Type for this account. Refer to the Synthetic Account Type for details.
+type GetCombinedTransfersSyntheticAccountCategory string
+
+const (
+	GetCombinedTransfersSyntheticAccountCategoryGeneral                GetCombinedTransfersSyntheticAccountCategory = "general"
+	GetCombinedTransfersSyntheticAccountCategoryAchExternal            GetCombinedTransfersSyntheticAccountCategory = "ach_external"
+	GetCombinedTransfersSyntheticAccountCategoryInstantPaymentExternal GetCombinedTransfersSyntheticAccountCategory = "instant_payment_external"
+	GetCombinedTransfersSyntheticAccountCategoryWireExternal           GetCombinedTransfersSyntheticAccountCategory = "wire_external"
+)
+
+func (e GetCombinedTransfersSyntheticAccountCategory) ToPointer() *GetCombinedTransfersSyntheticAccountCategory {
+	return &e
+}
+func (e *GetCombinedTransfersSyntheticAccountCategory) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "general":
+		fallthrough
+	case "ach_external":
+		fallthrough
+	case "instant_payment_external":
+		fallthrough
+	case "wire_external":
+		*e = GetCombinedTransfersSyntheticAccountCategory(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersSyntheticAccountCategory: %v", v)
+	}
+}
+
+// GetCombinedTransfersSyntheticAccountStatus - A value indicating the overall state of this Synthetic Account.
+type GetCombinedTransfersSyntheticAccountStatus string
+
+const (
+	GetCombinedTransfersSyntheticAccountStatusInitiated GetCombinedTransfersSyntheticAccountStatus = "initiated"
+	GetCombinedTransfersSyntheticAccountStatusActive    GetCombinedTransfersSyntheticAccountStatus = "active"
+	GetCombinedTransfersSyntheticAccountStatusArchived  GetCombinedTransfersSyntheticAccountStatus = "archived"
+	GetCombinedTransfersSyntheticAccountStatusFailed    GetCombinedTransfersSyntheticAccountStatus = "failed"
+)
+
+func (e GetCombinedTransfersSyntheticAccountStatus) ToPointer() *GetCombinedTransfersSyntheticAccountStatus {
+	return &e
+}
+func (e *GetCombinedTransfersSyntheticAccountStatus) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "initiated":
+		fallthrough
+	case "active":
+		fallthrough
+	case "archived":
+		fallthrough
+	case "failed":
+		*e = GetCombinedTransfersSyntheticAccountStatus(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersSyntheticAccountStatus: %v", v)
+	}
+}
+
+type GetCombinedTransfersAssetBalance struct {
+	AssetQuantity        *string `json:"asset_quantity,omitempty"`
+	AssetType            *string `json:"asset_type,omitempty"`
+	CurrentUsdValue      *string `json:"current_usd_value,omitempty"`
+	CustodialAccountUID  *string `json:"custodial_account_uid,omitempty"`
+	CustodialAccountName *string `json:"custodial_account_name,omitempty"`
+	Debit                *bool   `json:"debit,omitempty"`
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetAssetQuantity() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssetQuantity
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetAssetType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssetType
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetCurrentUsdValue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CurrentUsdValue
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetCustodialAccountUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustodialAccountUID
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetCustodialAccountName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustodialAccountName
+}
+
+func (o *GetCombinedTransfersAssetBalance) GetDebit() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Debit
+}
+
+// GetCombinedTransfersAccountType - The type of ACH account
+type GetCombinedTransfersAccountType string
+
+const (
+	GetCombinedTransfersAccountTypeChecking GetCombinedTransfersAccountType = "checking"
+	GetCombinedTransfersAccountTypeSavings  GetCombinedTransfersAccountType = "savings"
+)
+
+func (e GetCombinedTransfersAccountType) ToPointer() *GetCombinedTransfersAccountType {
+	return &e
+}
+func (e *GetCombinedTransfersAccountType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "checking":
+		fallthrough
+	case "savings":
+		*e = GetCombinedTransfersAccountType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersAccountType: %v", v)
+	}
+}
+
+// GetCombinedTransfersSyntheticAccountAch - Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external` category.
+type GetCombinedTransfersSyntheticAccountAch struct {
+	// The type of ACH account
+	AccountType *GetCombinedTransfersAccountType `json:"account_type,omitempty"`
+	// Name of the business or individual who owns the external account. Conditional maximum character length: for all newline supported SEC codes other than CIE, the counterparty_name can be 22 characters. For CIE SEC codes, the counterparty_name can be up to 15 characters.
+	//
+	CounterpartyName *string `json:"counterparty_name,omitempty"`
+}
+
+func (o *GetCombinedTransfersSyntheticAccountAch) GetAccountType() *GetCombinedTransfersAccountType {
+	if o == nil {
+		return nil
+	}
+	return o.AccountType
+}
+
+func (o *GetCombinedTransfersSyntheticAccountAch) GetCounterpartyName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyName
+}
+
+// GetCombinedTransfersInstantPaymentCounterpartyAddress - Address of the counterparty. If any address field is provided, street1, city, state, postal_code, and country are required. street_number and street2 are optional.
+type GetCombinedTransfersInstantPaymentCounterpartyAddress struct {
+	// Building number for counterparty address. Alphanumeric only. Optional.
+	StreetNumber optionalnullable.OptionalNullable[string] `json:"street_number,omitempty"`
+	// Street name for counterparty address
+	Street1 *string `json:"street1"`
+	// Optional second line of street
+	Street2 optionalnullable.OptionalNullable[string] `json:"street2,omitempty"`
+	// Maximum 35 characters
+	City *string `json:"city"`
+	// 2 characters. Must be a valid US state abbreviation.
+	State *string `json:"state"`
+	// 5-digit string. ZIP+4 is allowed.
+	PostalCode *string `json:"postal_code"`
+	Country    *string `json:"country"`
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetStreetNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetNumber
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetStreet1() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Street1
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetStreet2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Street2
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetCity() *string {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetState() *string {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetPostalCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetCombinedTransfersInstantPaymentCounterpartyAddress) GetCountry() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+type GetCombinedTransfersSyntheticAccountInstantPayment struct {
+	// Address of the business or individual who owns the external account.
+	//
+	CounterpartyAddress *GetCombinedTransfersInstantPaymentCounterpartyAddress `json:"counterparty_address,omitempty"`
+	// Name of the business or individual who owns the counterparty Account.
+	//
+	CounterpartyName *string `json:"counterparty_name,omitempty"`
+	// Email address of the counterparty
+	Email optionalnullable.OptionalNullable[string] `json:"email,omitempty"`
+	// Exactly 10 digits long (no hyphens, parentheses, or spaces)
+	Phone optionalnullable.OptionalNullable[string] `json:"phone,omitempty"`
+}
+
+func (o *GetCombinedTransfersSyntheticAccountInstantPayment) GetCounterpartyAddress() *GetCombinedTransfersInstantPaymentCounterpartyAddress {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyAddress
+}
+
+func (o *GetCombinedTransfersSyntheticAccountInstantPayment) GetCounterpartyName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyName
+}
+
+func (o *GetCombinedTransfersSyntheticAccountInstantPayment) GetEmail() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Email
+}
+
+func (o *GetCombinedTransfersSyntheticAccountInstantPayment) GetPhone() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Phone
+}
+
+// GetCombinedTransfersWireCounterpartyAddress - Address of the business or individual who owns the external account. The accepted format on requests depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Responses always return all fields; fields not applicable to the stored format are `null`.
+type GetCombinedTransfersWireCounterpartyAddress struct {
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line3
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetCombinedTransfersWireCounterpartyAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+// GetCombinedTransfersSyntheticAccountUnstructuredAddress - Address of the financial institution where the external account is held.
+type GetCombinedTransfersSyntheticAccountUnstructuredAddress struct {
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+}
+
+func (o *GetCombinedTransfersSyntheticAccountUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *GetCombinedTransfersSyntheticAccountUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *GetCombinedTransfersSyntheticAccountUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line3
+}
+
+func (o *GetCombinedTransfersSyntheticAccountUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+// GetCombinedTransfersSyntheticAccountWire - Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
+type GetCombinedTransfersSyntheticAccountWire struct {
+	// Address of the business or individual who owns the external account. The accepted format on requests depends on your program's wire address configuration (`unstructured`, `structured`, or `both`). Responses always return all fields; fields not applicable to the stored format are `null`.
+	//
+	CounterpartyAddress optionalnullable.OptionalNullable[GetCombinedTransfersWireCounterpartyAddress] `json:"counterparty_address,omitempty"`
+	// Name of the business or individual who owns the counterparty Account. Required for synthetic accounts in the wire_external category. Maximum 35 characters.
+	//
+	CounterpartyName *string `json:"counterparty_name,omitempty"`
+	// Address of the financial institution where the external account is held.
+	//
+	CounterpartyBankAddress optionalnullable.OptionalNullable[GetCombinedTransfersSyntheticAccountUnstructuredAddress] `json:"counterparty_bank_address,omitempty"`
+	// Name of the financial institution where the counterparty account is held.
+	//
+	CounterpartyBankName optionalnullable.OptionalNullable[string] `json:"counterparty_bank_name,omitempty"`
+}
+
+func (o *GetCombinedTransfersSyntheticAccountWire) GetCounterpartyAddress() optionalnullable.OptionalNullable[GetCombinedTransfersWireCounterpartyAddress] {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyAddress
+}
+
+func (o *GetCombinedTransfersSyntheticAccountWire) GetCounterpartyName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyName
+}
+
+func (o *GetCombinedTransfersSyntheticAccountWire) GetCounterpartyBankAddress() optionalnullable.OptionalNullable[GetCombinedTransfersSyntheticAccountUnstructuredAddress] {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyBankAddress
+}
+
+func (o *GetCombinedTransfersSyntheticAccountWire) GetCounterpartyBankName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.CounterpartyBankName
+}
+
+// GetCombinedTransfersSyntheticAccount - Parameters provided at time of creation. UID field will get populated once synthetic account has been successfully created,unless uid value was supplied at creation time.
 type GetCombinedTransfersSyntheticAccount struct {
+	// Newline-generated unique id resource specific to the current endpoint
+	UID *string `json:"uid,omitempty"`
+	// A unique identifier the Client supplies. It must be unique within the resource type. If the same value is given, no new resource will be created.
+	//
+	ExternalUID *string `json:"external_uid,omitempty"`
+	// A unique name, per pool, to identify the resource
+	Name *string `json:"name,omitempty"`
+	// The unique id of the Synthetic Account's pool
+	PoolUID *string `json:"pool_uid,omitempty"`
+	// A unique id referring to the Synthetic Account's type.
+	//
+	SyntheticAccountTypeUID *string `json:"synthetic_account_type_uid,omitempty"`
+	// Array of unique ids of the Custodial Accounts this Synthetic Account is associated with.
+	//
+	CustodialAccountUids []string `json:"custodial_account_uids,omitempty"`
+	// The name of the Synthetic Account Category associated with the Synthetic Account Type for this account. Refer to the Synthetic Account Type for details.
+	SyntheticAccountCategory *GetCombinedTransfersSyntheticAccountCategory `json:"synthetic_account_category,omitempty"`
+	// A value indicating the overall state of this Synthetic Account.
+	//
+	Status *GetCombinedTransfersSyntheticAccountStatus `json:"status,omitempty"`
+	// Liability or asset. Any Synthetic Account created via [POST /synthetic_accounts](/reference/post_synthetic-accounts) is a liability account, except for external accounts. Some asset Synthetic Accounts are automatically created by Newline during Customer onboarding for accounting purposes.
+	Liability *bool `json:"liability,omitempty"`
+	// The current settled balance of this account in US Dollars. This field will be null for synthetic_account_types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
+	NetUsdBalance optionalnullable.OptionalNullable[string] `json:"net_usd_balance,omitempty"`
+	// The sum of all pending transactions for this account in US Dollars. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
+	NetUsdPendingBalance optionalnullable.OptionalNullable[string] `json:"net_usd_pending_balance,omitempty"`
+	// The balance available to spend calculated as the settled balance less any pending withdrawals. Pending deposits are not included. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
+	NetUsdAvailableBalance optionalnullable.OptionalNullable[string] `json:"net_usd_available_balance,omitempty"`
+	// The settled balance for the account in US Dollars as of the date in net_usd_closing_balance_as_of. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
+	NetUsdClosingBalance optionalnullable.OptionalNullable[string] `json:"net_usd_closing_balance,omitempty"`
+	// The date that net_usd_closing_balance was last calculated. This field will be null for Synthetic Account Types in an external category (`ach_external`, `instant_payment_external`, `wire_external`).
+	NetUsdClosingBalanceAsOf *string `json:"net_usd_closing_balance_as_of,omitempty"`
+	// A list of balances for the various asset types held in Custodial Accounts associated with this Synthetic Account.
+	//
+	AssetBalances []*GetCombinedTransfersAssetBalance `json:"asset_balances,omitempty"`
+	// Used to identify the Master Synthetic Accounts that exist for every Program Customer. Master Synthetic Accounts are the default accounts where any unknown custodial transactions will settle and cannot be archived while a Program Customer is still active.
+	//
+	MasterAccount *bool `json:"master_account,omitempty"`
+	// The ABA routing number (if any) associated with this account. Some Synthetic Account Types require this field to be submitted along with the POST request. For example, any Synthetic Account Type from the `ach_external` or the `wire_external` category will require a `routing_number`. Submitting a `routing_number` with a Synthetic Account Type that does not require one will result in the routing number being ignored.
+	RoutingNumber optionalnullable.OptionalNullable[string] `json:"routing_number,omitempty"`
+	// Last 4 digits of the Synthetic Account number
+	AccountNumberLastFour optionalnullable.OptionalNullable[string] `json:"account_number_last_four,omitempty"`
+	// The DateTime at which this account was created
+	OpenedAt *time.Time `json:"opened_at,omitempty"`
+	// The DateTime at which this account was closed. This value will be present if the status is `archived` or `failed`.
+	//
+	ClosedAt optionalnullable.OptionalNullable[time.Time] `json:"closed_at,omitempty"`
+	// The account number (if any) associated with this account. Some Synthetic Account Types require this field to be submitted along with the POST request. For example, any Synthetic Account Type from the `ach_external` or the `wire_external` category will require an `account_number`. Submitting an `account_number` with a Synthetic Account Type that does not require one will result in the account number being ignored.
+	AccountNumber optionalnullable.OptionalNullable[string] `json:"account_number,omitempty"`
+	// Contains ACH-specific information. Only populated if the Synthetic Account is in the `ach_external` category.
+	//
+	Ach            *GetCombinedTransfersSyntheticAccountAch            `json:"ach,omitempty"`
+	InstantPayment *GetCombinedTransfersSyntheticAccountInstantPayment `json:"instant_payment,omitempty"`
+	// Contains wire-specific information. Only populated if the Synthetic Account is in the `wire_external` category.
+	//
+	Wire *GetCombinedTransfersSyntheticAccountWire `json:"wire,omitempty"`
+}
+
+func (g GetCombinedTransfersSyntheticAccount) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetCombinedTransfersSyntheticAccount) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UID
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetExternalUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ExternalUID
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetPoolUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PoolUID
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetSyntheticAccountTypeUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SyntheticAccountTypeUID
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetCustodialAccountUids() []string {
+	if o == nil {
+		return nil
+	}
+	return o.CustodialAccountUids
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetSyntheticAccountCategory() *GetCombinedTransfersSyntheticAccountCategory {
+	if o == nil {
+		return nil
+	}
+	return o.SyntheticAccountCategory
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetStatus() *GetCombinedTransfersSyntheticAccountStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetLiability() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Liability
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetNetUsdBalance() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.NetUsdBalance
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetNetUsdPendingBalance() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.NetUsdPendingBalance
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetNetUsdAvailableBalance() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.NetUsdAvailableBalance
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetNetUsdClosingBalance() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.NetUsdClosingBalance
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetNetUsdClosingBalanceAsOf() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NetUsdClosingBalanceAsOf
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetAssetBalances() []*GetCombinedTransfersAssetBalance {
+	if o == nil {
+		return nil
+	}
+	return o.AssetBalances
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetMasterAccount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.MasterAccount
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetRoutingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.RoutingNumber
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetAccountNumberLastFour() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.AccountNumberLastFour
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetOpenedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.OpenedAt
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetClosedAt() optionalnullable.OptionalNullable[time.Time] {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAt
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetAccountNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.AccountNumber
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetAch() *GetCombinedTransfersSyntheticAccountAch {
+	if o == nil {
+		return nil
+	}
+	return o.Ach
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetInstantPayment() *GetCombinedTransfersSyntheticAccountInstantPayment {
+	if o == nil {
+		return nil
+	}
+	return o.InstantPayment
+}
+
+func (o *GetCombinedTransfersSyntheticAccount) GetWire() *GetCombinedTransfersSyntheticAccountWire {
+	if o == nil {
+		return nil
+	}
+	return o.Wire
+}
+
+// GetCombinedTransfersTransferStatus - A value indicating the overall status of the Transfer.
+type GetCombinedTransfersTransferStatus string
+
+const (
+	GetCombinedTransfersTransferStatusCanceled GetCombinedTransfersTransferStatus = "canceled"
+	GetCombinedTransfersTransferStatusQueued   GetCombinedTransfersTransferStatus = "queued"
+	GetCombinedTransfersTransferStatusPending  GetCombinedTransfersTransferStatus = "pending"
+	GetCombinedTransfersTransferStatusSettled  GetCombinedTransfersTransferStatus = "settled"
+	GetCombinedTransfersTransferStatusFailed   GetCombinedTransfersTransferStatus = "failed"
+)
+
+func (e GetCombinedTransfersTransferStatus) ToPointer() *GetCombinedTransfersTransferStatus {
+	return &e
+}
+func (e *GetCombinedTransfersTransferStatus) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "canceled":
+		fallthrough
+	case "queued":
+		fallthrough
+	case "pending":
+		fallthrough
+	case "settled":
+		fallthrough
+	case "failed":
+		*e = GetCombinedTransfersTransferStatus(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersTransferStatus: %v", v)
+	}
+}
+
+// GetCombinedTransfersInitiatorType - The initiator_type declares the originator for the Transfer. If set to Customer, origination information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination information is required, provided in the transmitter object (see below). Defaults to Customer. Providing Transmitter information is the Client's responsibility, please review more details in our [Transfers guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+type GetCombinedTransfersInitiatorType string
+
+const (
+	GetCombinedTransfersInitiatorTypeCustomer    GetCombinedTransfersInitiatorType = "customer"
+	GetCombinedTransfersInitiatorTypeTransmitter GetCombinedTransfersInitiatorType = "transmitter"
+)
+
+func (e GetCombinedTransfersInitiatorType) ToPointer() *GetCombinedTransfersInitiatorType {
+	return &e
+}
+func (e *GetCombinedTransfersInitiatorType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "customer":
+		fallthrough
+	case "transmitter":
+		*e = GetCombinedTransfersInitiatorType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersInitiatorType: %v", v)
+	}
+}
+
+// GetCombinedTransfersSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+type GetCombinedTransfersSecCode string
+
+const (
+	GetCombinedTransfersSecCodeCcd GetCombinedTransfersSecCode = "CCD"
+	GetCombinedTransfersSecCodeCie GetCombinedTransfersSecCode = "CIE"
+	GetCombinedTransfersSecCodePpd GetCombinedTransfersSecCode = "PPD"
+	GetCombinedTransfersSecCodeTel GetCombinedTransfersSecCode = "TEL"
+	GetCombinedTransfersSecCodeWeb GetCombinedTransfersSecCode = "WEB"
+	GetCombinedTransfersSecCodeIat GetCombinedTransfersSecCode = "IAT"
+)
+
+func (e GetCombinedTransfersSecCode) ToPointer() *GetCombinedTransfersSecCode {
+	return &e
+}
+func (e *GetCombinedTransfersSecCode) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "CCD":
+		fallthrough
+	case "CIE":
+		fallthrough
+	case "PPD":
+		fallthrough
+	case "TEL":
+		fallthrough
+	case "WEB":
+		fallthrough
+	case "IAT":
+		*e = GetCombinedTransfersSecCode(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersSecCode: %v", v)
+	}
+}
+
+// GetCombinedTransfersPaymentType - Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.
+type GetCombinedTransfersPaymentType string
+
+const (
+	GetCombinedTransfersPaymentTypeR  GetCombinedTransfersPaymentType = "R"
+	GetCombinedTransfersPaymentTypeS  GetCombinedTransfersPaymentType = "S"
+	GetCombinedTransfersPaymentTypeSt GetCombinedTransfersPaymentType = "ST"
+)
+
+func (e GetCombinedTransfersPaymentType) ToPointer() *GetCombinedTransfersPaymentType {
+	return &e
+}
+func (e *GetCombinedTransfersPaymentType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "R":
+		fallthrough
+	case "S":
+		fallthrough
+	case "ST":
+		*e = GetCombinedTransfersPaymentType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersPaymentType: %v", v)
+	}
+}
+
+// GetCombinedTransfersServiceProcessing - Requested service processing duration for the ACH transfer. Allowable values are: STANDARD or SAMEDAY
+type GetCombinedTransfersServiceProcessing string
+
+const (
+	GetCombinedTransfersServiceProcessingSameday  GetCombinedTransfersServiceProcessing = "SAMEDAY"
+	GetCombinedTransfersServiceProcessingStandard GetCombinedTransfersServiceProcessing = "STANDARD"
+)
+
+func (e GetCombinedTransfersServiceProcessing) ToPointer() *GetCombinedTransfersServiceProcessing {
+	return &e
+}
+func (e *GetCombinedTransfersServiceProcessing) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "SAMEDAY":
+		fallthrough
+	case "STANDARD":
+		*e = GetCombinedTransfersServiceProcessing(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersServiceProcessing: %v", v)
+	}
+}
+
+// GetCombinedTransfersTransferAch - ACH information. Only present if the Transfer is an ACH.
+type GetCombinedTransfersTransferAch struct {
+	// Individual or business originating the ACH transfer. 1 to 16 characters; letters, numbers, apostrophe, comma, period, dash allowed.
+	//
+	OriginatorName *string `json:"originator_name,omitempty"`
+	// ACH Company ID. 1 to 10 characters. Letters, numbers, apostrophe, comma, period, dash allowed. Optional for the majority of cases. Required if the general liability account is configured with multiple IDs. Whether optional or required, it will be validated if supplied.
+	//
+	CompanyID *string `json:"company_id,omitempty"`
+	// An optional field to add customized information such as a customer code or internal reference number. 1 to 10 characters. Alphanumeric. Also allows '.', ',', or '-'.
+	//
+	CompanyDiscretionaryData *string `json:"company_discretionary_data,omitempty"`
+	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
+	//
+	Prenote *bool `json:"prenote,omitempty"`
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	//
+	SecCode *GetCombinedTransfersSecCode `json:"sec_code,omitempty"`
+	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.
+	//
+	PaymentType *GetCombinedTransfersPaymentType `json:"payment_type,omitempty"`
+	// Description value that will appear in the bank statement.
+	//
+	EntryDescription *string `json:"entry_description,omitempty"`
+	// Requested service processing duration for the ACH transfer. Allowable values are: STANDARD or SAMEDAY
+	//
+	ServiceProcessing *GetCombinedTransfersServiceProcessing `json:"service_processing,omitempty"`
+	// The effective date when the transaction is scheduled to be processed. Date values provided cannot be in the past or provided in the future beyond 30 days. For received returns, if the date provided by the originating financial institution does not match the Newline format, then the raw value will be returned. The Newline date format is YYYY-MM-DD
+	//
+	EffectiveEntryDate *string `json:"effective_entry_date,omitempty"`
+	// Unique identifier supplied by the originator of a transaction (e.g. invoice number). 1 to 22 characters depending on SEC code, alphanumeric. If the SEC value is anything other than CIE, then this is an optional field and can be up to 15 characters. If SEC value CIE is provided, then the ID number is mandatory, and the character length can be up to 22 characters.
+	//
+	IDNumber *string `json:"id_number,omitempty"`
+	// Optional additional payment-related information, such as invoice numbers, originator/receiver information, payment instructions, etc. Up to 80 characters. Optional for all newline supported SEC codes other than TEL. Newline will reject the Transfer if an Addenda value is provided with SEC code TEL.
+	//
+	Addenda *string `json:"addenda,omitempty"`
+}
+
+func (o *GetCombinedTransfersTransferAch) GetOriginatorName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OriginatorName
+}
+
+func (o *GetCombinedTransfersTransferAch) GetCompanyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CompanyID
+}
+
+func (o *GetCombinedTransfersTransferAch) GetCompanyDiscretionaryData() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CompanyDiscretionaryData
+}
+
+func (o *GetCombinedTransfersTransferAch) GetPrenote() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Prenote
+}
+
+func (o *GetCombinedTransfersTransferAch) GetSecCode() *GetCombinedTransfersSecCode {
+	if o == nil {
+		return nil
+	}
+	return o.SecCode
+}
+
+func (o *GetCombinedTransfersTransferAch) GetPaymentType() *GetCombinedTransfersPaymentType {
+	if o == nil {
+		return nil
+	}
+	return o.PaymentType
+}
+
+func (o *GetCombinedTransfersTransferAch) GetEntryDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EntryDescription
+}
+
+func (o *GetCombinedTransfersTransferAch) GetServiceProcessing() *GetCombinedTransfersServiceProcessing {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceProcessing
+}
+
+func (o *GetCombinedTransfersTransferAch) GetEffectiveEntryDate() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EffectiveEntryDate
+}
+
+func (o *GetCombinedTransfersTransferAch) GetIDNumber() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDNumber
+}
+
+func (o *GetCombinedTransfersTransferAch) GetAddenda() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Addenda
+}
+
+// GetCombinedTransfersInstantPaymentTransmitter - Address of the Transmitter. Must be provided if the `initiator_type` is `transmitter`.
+type GetCombinedTransfersInstantPaymentTransmitter struct {
+	// Name of the Transmitter.
+	//
+	Name string `json:"name"`
+	// Up to 24 characters, and supplied by Transmitter. Alphanumeric only.
+	TransmitterIdentifier string `json:"transmitter_identifier"`
+	// Building number for Transmitter address. Alphanumeric only.
+	StreetNumber *string `json:"street_number"`
+	// Street name for Transmitter address
+	Street1 *string `json:"street1"`
+	// Maximum 35 characters
+	City *string `json:"city"`
+	// 2 characters. Must be a valid US state abbreviation.
+	State *string `json:"state"`
+	// 5-digit string. ZIP+4 is allowed.
+	PostalCode *string `json:"postal_code"`
+	Country    *string `json:"country"`
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetTransmitterIdentifier() string {
+	if o == nil {
+		return ""
+	}
+	return o.TransmitterIdentifier
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetStreetNumber() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreetNumber
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetStreet1() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Street1
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetCity() *string {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetState() *string {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetPostalCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetCombinedTransfersInstantPaymentTransmitter) GetCountry() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+// GetCombinedTransfersTransferInstantPayment - Instant payment information. Only present if the Transfer is an instant payment.
+type GetCombinedTransfersTransferInstantPayment struct {
+	InstantPaymentTransmitter *GetCombinedTransfersInstantPaymentTransmitter `json:"instant_payment_transmitter,omitempty"`
+}
+
+func (o *GetCombinedTransfersTransferInstantPayment) GetInstantPaymentTransmitter() *GetCombinedTransfersInstantPaymentTransmitter {
+	if o == nil {
+		return nil
+	}
+	return o.InstantPaymentTransmitter
+}
+
+// GetCombinedTransfersTransferUnstructuredAddress - Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+type GetCombinedTransfersTransferUnstructuredAddress struct {
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3   optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	Country optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+}
+
+func (o *GetCombinedTransfersTransferUnstructuredAddress) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *GetCombinedTransfersTransferUnstructuredAddress) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *GetCombinedTransfersTransferUnstructuredAddress) GetLine3() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line3
+}
+
+func (o *GetCombinedTransfersTransferUnstructuredAddress) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+// GetCombinedTransfersWireTransmitter - Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
+type GetCombinedTransfersWireTransmitter struct {
+	// Name of the Transmitter.
+	//
+	Name string `json:"name"`
+	// Up to 24 digits, supplied by Transmitter. Numeric only.
+	TransmitterIdentifier string `json:"transmitter_identifier"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line1 optionalnullable.OptionalNullable[string] `json:"line1,omitempty"`
+	// Optional 35 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line2 optionalnullable.OptionalNullable[string] `json:"line2,omitempty"`
+	// Optional 32 characters. Note that this length is shorter than the other lines. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	//
+	Line3 optionalnullable.OptionalNullable[string] `json:"line3,omitempty"`
+	// Parsed building or house number. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	BuildingNumber optionalnullable.OptionalNullable[string] `json:"building_number,omitempty"`
+	// Parsed street name. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	StreetName optionalnullable.OptionalNullable[string] `json:"street_name,omitempty"`
+	// City. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	City optionalnullable.OptionalNullable[string] `json:"city,omitempty"`
+	// State or province. Optional 33 characters. Cannot contain \# @ $ ! " % & * ; < > { } [ ] _ ^ \ ~
+	State optionalnullable.OptionalNullable[string] `json:"state,omitempty"`
+	// US ZIP code (5-digit) or ZIP+4.
+	PostalCode optionalnullable.OptionalNullable[string] `json:"postal_code,omitempty"`
+	Country    optionalnullable.OptionalNullable[string] `json:"country,omitempty"`
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetTransmitterIdentifier() string {
+	if o == nil {
+		return ""
+	}
+	return o.TransmitterIdentifier
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetLine1() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line1
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetLine2() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line2
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetLine3() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Line3
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetBuildingNumber() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.BuildingNumber
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetStreetName() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.StreetName
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetCity() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.City
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetState() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.State
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetPostalCode() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PostalCode
+}
+
+func (o *GetCombinedTransfersWireTransmitter) GetCountry() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Country
+}
+
+type GetCombinedTransfersTransferWire struct {
+	// Address of the intermediary bank. To be populated if an intermediary bank is required to execute the wire transfer.
+	//
+	IntermediaryBankAddress *GetCombinedTransfersTransferUnstructuredAddress `json:"intermediary_bank_address,omitempty"`
+	// Name of the intermediary bank, when applicable. For wires only. Maximum 35 characters.
+	//
+	IntermediaryBankName *string `json:"intermediary_bank_name,omitempty"`
+	// The ABA routing number associated with the intermediary bank involved in the wire transfer
+	//
+	IntermediaryBankRoutingNumber *string `json:"intermediary_bank_routing_number,omitempty"`
+	// Information about the Transmitter. Must be provided if the `initiator_type` is `transmitter`. Includes the transmitter's name, identifier, and address. The address format on requests depends on your program's wire address configuration. Responses always return all address fields; fields not applicable to the stored format are `null`.
+	//
+	WireTransmitter *GetCombinedTransfersWireTransmitter `json:"wire_transmitter,omitempty"`
+}
+
+func (o *GetCombinedTransfersTransferWire) GetIntermediaryBankAddress() *GetCombinedTransfersTransferUnstructuredAddress {
+	if o == nil {
+		return nil
+	}
+	return o.IntermediaryBankAddress
+}
+
+func (o *GetCombinedTransfersTransferWire) GetIntermediaryBankName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IntermediaryBankName
+}
+
+func (o *GetCombinedTransfersTransferWire) GetIntermediaryBankRoutingNumber() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IntermediaryBankRoutingNumber
+}
+
+func (o *GetCombinedTransfersTransferWire) GetWireTransmitter() *GetCombinedTransfersWireTransmitter {
+	if o == nil {
+		return nil
+	}
+	return o.WireTransmitter
+}
+
+type GetCombinedTransfersCurrentCancellationStatus string
+
+const (
+	GetCombinedTransfersCurrentCancellationStatusPendingCancellation    GetCombinedTransfersCurrentCancellationStatus = "pending_cancellation"
+	GetCombinedTransfersCurrentCancellationStatusSuccessfulCancellation GetCombinedTransfersCurrentCancellationStatus = "successful_cancellation"
+	GetCombinedTransfersCurrentCancellationStatusFailedCancellation     GetCombinedTransfersCurrentCancellationStatus = "failed_cancellation"
+)
+
+func (e GetCombinedTransfersCurrentCancellationStatus) ToPointer() *GetCombinedTransfersCurrentCancellationStatus {
+	return &e
+}
+func (e *GetCombinedTransfersCurrentCancellationStatus) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "pending_cancellation":
+		fallthrough
+	case "successful_cancellation":
+		fallthrough
+	case "failed_cancellation":
+		*e = GetCombinedTransfersCurrentCancellationStatus(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetCombinedTransfersCurrentCancellationStatus: %v", v)
+	}
+}
+
+// GetCombinedTransfersCancellation - Cancellation information. Only present if there has been an attempt at canceling the transfer.
+type GetCombinedTransfersCancellation struct {
+	// Name of the authorized representative who wanted to cancel the transfer.
+	AuthorizedRepresentativeName *string `json:"authorized_representative_name,omitempty"`
+	// Reason for cancellation.
+	CancellationReason        *string                                        `json:"cancellation_reason,omitempty"`
+	CurrentCancellationStatus *GetCombinedTransfersCurrentCancellationStatus `json:"current_cancellation_status,omitempty"`
+	// The DateTime at which a cancellation request was most recently received.
+	CancellationRequestedAt *time.Time `json:"cancellation_requested_at,omitempty"`
+	// The DateTime at which a cancellation request succeeded. Only present if `current_cancellation_status` is `successful_cancellation`.
+	//
+	CancellationSucceededAt *time.Time `json:"cancellation_succeeded_at,omitempty"`
+	// The DateTime at which a cancellation request last failed. Only present if `current_cancellation_status` is `failed_cancellation`.
+	//
+	CancellationFailedAt *time.Time `json:"cancellation_failed_at,omitempty"`
+}
+
+func (g GetCombinedTransfersCancellation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetCombinedTransfersCancellation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *GetCombinedTransfersCancellation) GetAuthorizedRepresentativeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthorizedRepresentativeName
+}
+
+func (o *GetCombinedTransfersCancellation) GetCancellationReason() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CancellationReason
+}
+
+func (o *GetCombinedTransfersCancellation) GetCurrentCancellationStatus() *GetCombinedTransfersCurrentCancellationStatus {
+	if o == nil {
+		return nil
+	}
+	return o.CurrentCancellationStatus
+}
+
+func (o *GetCombinedTransfersCancellation) GetCancellationRequestedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CancellationRequestedAt
+}
+
+func (o *GetCombinedTransfersCancellation) GetCancellationSucceededAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CancellationSucceededAt
+}
+
+func (o *GetCombinedTransfersCancellation) GetCancellationFailedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CancellationFailedAt
 }
 
 // GetCombinedTransfersTransfer - Parameters provided at time of creation. UID field will get populated once transfer has been successfully initiated.
 type GetCombinedTransfersTransfer struct {
+	// Synthetic Account where the assets should be debited. Must be an active liability or external-type account. Cannot be equal to `destination_synthetic_account_uid`.
+	SourceSyntheticAccountUID *string `json:"source_synthetic_account_uid,omitempty"`
+	// Synthetic Account where the assets should be credited. Must be an active liability or external-type account. Cannot be equal to `source_synthetic_account_uid`.
+	DestinationSyntheticAccountUID *string `json:"destination_synthetic_account_uid,omitempty"`
+	// Customer that initiated the Transfer, when `initiator_type` is `customer`. The Customer and Synthetic Accounts supplied in the Transfer request must relate to the same Pool for the Transfer to be accepted.
+	InitiatingCustomerUID *string `json:"initiating_customer_uid,omitempty"`
+	// Customer who is on the receiving end of the Transfer. The destination Customer must be provided for peer to peer Transfers and can be optional for all other Transfers. If not provided, the destination Customer will be the same as the initiating Customer by default.
+	DestinationCustomerUID *string `json:"destination_customer_uid,omitempty"`
+	// A value indicating the overall status of the Transfer.
+	//
+	Status *GetCombinedTransfersTransferStatus `json:"status,omitempty"`
+	// The initiator_type declares the originator for the Transfer. If set to Customer, origination information is pulled from the supplied initiating_customer_uid. If set to Transmitter, origination information is required, provided in the transmitter object (see below). Defaults to Customer. Providing Transmitter information is the Client's responsibility, please review more details in our [Transfers guide](https://developers.newline53.com/docs/transfer#introduction-what-is-a-transfer).
+	//
+	InitiatorType *GetCombinedTransfersInitiatorType `json:"initiator_type,omitempty"`
+	// Timestamp of when the transfer request was received
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Timestamp indicating when the transfer is scheduled to be processed. Only applicable when the program is configured to queue on the relevant payment rail. When queuing is configured, the value is equal to the configured queuing minutes added to the transfer creation time.
+	//
+	QueuedUntil *time.Time `json:"queued_until,omitempty"`
+	// Newline-generated unique id resource specific to the current endpoint
+	UID *string `json:"uid,omitempty"`
+	// A unique identifier, optionally supplied by the Client when the Transfer was requested
+	//
+	ExternalUID *string `json:"external_uid,omitempty"`
+	// An array of Transaction UIDs that are associated with this Transfer.
+	//
+	TransactionUids []string `json:"transaction_uids,omitempty"`
+	// The USD amount to transfer
+	//
+	UsdTransferAmount *string `json:"usd_transfer_amount,omitempty"`
+	// ACH information. Only present if the Transfer is an ACH.
+	//
+	Ach *GetCombinedTransfersTransferAch `json:"ach,omitempty"`
+	// Instant payment information. Only present if the Transfer is an instant payment.
+	//
+	InstantPayment *GetCombinedTransfersTransferInstantPayment `json:"instant_payment,omitempty"`
+	// Wire-specific information. Only present if the Transfer is a wire.
+	//
+	Wire *GetCombinedTransfersTransferWire `json:"wire,omitempty"`
+	// Cancellation information. Only present if there has been an attempt at canceling the transfer.
+	//
+	Cancellation *GetCombinedTransfersCancellation `json:"cancellation,omitempty"`
+}
+
+func (g GetCombinedTransfersTransfer) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetCombinedTransfersTransfer) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *GetCombinedTransfersTransfer) GetSourceSyntheticAccountUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceSyntheticAccountUID
+}
+
+func (o *GetCombinedTransfersTransfer) GetDestinationSyntheticAccountUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestinationSyntheticAccountUID
+}
+
+func (o *GetCombinedTransfersTransfer) GetInitiatingCustomerUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InitiatingCustomerUID
+}
+
+func (o *GetCombinedTransfersTransfer) GetDestinationCustomerUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestinationCustomerUID
+}
+
+func (o *GetCombinedTransfersTransfer) GetStatus() *GetCombinedTransfersTransferStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
+func (o *GetCombinedTransfersTransfer) GetInitiatorType() *GetCombinedTransfersInitiatorType {
+	if o == nil {
+		return nil
+	}
+	return o.InitiatorType
+}
+
+func (o *GetCombinedTransfersTransfer) GetCreatedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedAt
+}
+
+func (o *GetCombinedTransfersTransfer) GetQueuedUntil() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.QueuedUntil
+}
+
+func (o *GetCombinedTransfersTransfer) GetUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UID
+}
+
+func (o *GetCombinedTransfersTransfer) GetExternalUID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ExternalUID
+}
+
+func (o *GetCombinedTransfersTransfer) GetTransactionUids() []string {
+	if o == nil {
+		return nil
+	}
+	return o.TransactionUids
+}
+
+func (o *GetCombinedTransfersTransfer) GetUsdTransferAmount() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UsdTransferAmount
+}
+
+func (o *GetCombinedTransfersTransfer) GetAch() *GetCombinedTransfersTransferAch {
+	if o == nil {
+		return nil
+	}
+	return o.Ach
+}
+
+func (o *GetCombinedTransfersTransfer) GetInstantPayment() *GetCombinedTransfersTransferInstantPayment {
+	if o == nil {
+		return nil
+	}
+	return o.InstantPayment
+}
+
+func (o *GetCombinedTransfersTransfer) GetWire() *GetCombinedTransfersTransferWire {
+	if o == nil {
+		return nil
+	}
+	return o.Wire
+}
+
+func (o *GetCombinedTransfersTransfer) GetCancellation() *GetCombinedTransfersCancellation {
+	if o == nil {
+		return nil
+	}
+	return o.Cancellation
 }
 
 type GetCombinedTransfersData struct {
@@ -369,13 +1868,9 @@ type GetCombinedTransfersData struct {
 	// Optional client-supplied uid
 	ExternalUID *string `json:"external_uid,omitempty"`
 	// The combined transfer's status
-	Status *GetCombinedTransfersDataStatus `json:"status,omitempty"`
-	// Parameters provided at time of creation. UID field will get populated once synthetic account has been successfully created, unless uid value was supplied at creation time.
-	//
+	Status           *GetCombinedTransfersDataStatus       `json:"status,omitempty"`
 	SyntheticAccount *GetCombinedTransfersSyntheticAccount `json:"synthetic_account,omitempty"`
-	// Parameters provided at time of creation. UID field will get populated once transfer has been successfully initiated.
-	//
-	Transfer *GetCombinedTransfersTransfer `json:"transfer,omitempty"`
+	Transfer         *GetCombinedTransfersTransfer         `json:"transfer,omitempty"`
 	// Unique identifier for the Combined Transfer
 	UID *string `json:"uid,omitempty"`
 }

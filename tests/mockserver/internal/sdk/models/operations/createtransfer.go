@@ -39,7 +39,7 @@ func (e *CreateTransferInitiatorTypeRequest) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CreateTransferSecCodeRequest - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// CreateTransferSecCodeRequest - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type CreateTransferSecCodeRequest string
 
 const (
@@ -48,6 +48,7 @@ const (
 	CreateTransferSecCodeRequestPpd CreateTransferSecCodeRequest = "PPD"
 	CreateTransferSecCodeRequestTel CreateTransferSecCodeRequest = "TEL"
 	CreateTransferSecCodeRequestWeb CreateTransferSecCodeRequest = "WEB"
+	CreateTransferSecCodeRequestIat CreateTransferSecCodeRequest = "IAT"
 )
 
 func (e CreateTransferSecCodeRequest) ToPointer() *CreateTransferSecCodeRequest {
@@ -68,6 +69,8 @@ func (e *CreateTransferSecCodeRequest) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = CreateTransferSecCodeRequest(v)
 		return nil
 	default:
@@ -146,7 +149,7 @@ type CreateTransferAchRequest struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode CreateTransferSecCodeRequest `json:"sec_code"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.
@@ -907,7 +910,7 @@ func (e *CreateTransferInitiatorTypeResponse) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CreateTransferSecCodeResponse - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// CreateTransferSecCodeResponse - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type CreateTransferSecCodeResponse string
 
 const (
@@ -916,6 +919,7 @@ const (
 	CreateTransferSecCodeResponsePpd CreateTransferSecCodeResponse = "PPD"
 	CreateTransferSecCodeResponseTel CreateTransferSecCodeResponse = "TEL"
 	CreateTransferSecCodeResponseWeb CreateTransferSecCodeResponse = "WEB"
+	CreateTransferSecCodeResponseIat CreateTransferSecCodeResponse = "IAT"
 )
 
 func (e CreateTransferSecCodeResponse) ToPointer() *CreateTransferSecCodeResponse {
@@ -936,6 +940,8 @@ func (e *CreateTransferSecCodeResponse) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = CreateTransferSecCodeResponse(v)
 		return nil
 	default:
@@ -1014,7 +1020,7 @@ type CreateTransferAchResponse struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode *CreateTransferSecCodeResponse `json:"sec_code,omitempty"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.

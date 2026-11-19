@@ -1,0 +1,11 @@
+# GetCombinedTransfersTransferInstantPayment
+
+Instant payment information. Only present if the Transfer is an instant payment.
+
+
+
+## Fields
+
+| Field                                                                                                                                | Setter Type                                                                                                                          | Getter Type                                                                                                                          | Required                                                                                                                             | Description                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `instantPaymentTransmitter`                                                                                                          | @Nullable [GetCombinedTransfersInstantPaymentTransmitter](../../models/operations/GetCombinedTransfersInstantPaymentTransmitter.md)  | Optional\<[GetCombinedTransfersInstantPaymentTransmitter](../../models/operations/GetCombinedTransfersInstantPaymentTransmitter.md)> | :heavy_minus_sign:                                                                                                                   | N/A                                                                                                                                  |

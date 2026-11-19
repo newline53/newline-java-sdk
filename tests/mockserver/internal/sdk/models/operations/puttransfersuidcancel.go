@@ -213,7 +213,7 @@ func (e *PutTransfersUIDCancelInitiatorType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PutTransfersUIDCancelSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+// PutTransfersUIDCancelSecCode - Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 type PutTransfersUIDCancelSecCode string
 
 const (
@@ -222,6 +222,7 @@ const (
 	PutTransfersUIDCancelSecCodePpd PutTransfersUIDCancelSecCode = "PPD"
 	PutTransfersUIDCancelSecCodeTel PutTransfersUIDCancelSecCode = "TEL"
 	PutTransfersUIDCancelSecCodeWeb PutTransfersUIDCancelSecCode = "WEB"
+	PutTransfersUIDCancelSecCodeIat PutTransfersUIDCancelSecCode = "IAT"
 )
 
 func (e PutTransfersUIDCancelSecCode) ToPointer() *PutTransfersUIDCancelSecCode {
@@ -242,6 +243,8 @@ func (e *PutTransfersUIDCancelSecCode) UnmarshalJSON(data []byte) error {
 	case "TEL":
 		fallthrough
 	case "WEB":
+		fallthrough
+	case "IAT":
 		*e = PutTransfersUIDCancelSecCode(v)
 		return nil
 	default:
@@ -320,7 +323,7 @@ type PutTransfersUIDCancelAch struct {
 	// If prenote is 'true', the amount of the transfer must be $0.00. Newline will infer credit_prenote or debit_prenote based on the source and destination accounts. If prenote is 'true', then the resulting Transaction Type of the resulting transaction record is of type: 'ach'. If no value is provided, the default value will be 'false'.
 	//
 	Prenote *bool `json:"prenote,omitempty"`
-	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
+	// Standard Entry Class (SEC) code. Newline supports the following SEC codes: CCD, CIE, PPD, TEL, WEB, IAT. For more details, refer to our ACH guide's [section](https://developers.newline53.com/docs/ach#standard-entry-class-sec-codes) on SEC code use.
 	//
 	SecCode *PutTransfersUIDCancelSecCode `json:"sec_code,omitempty"`
 	// Recurring (R), single entry (S), or standing authorization entry (ST). If no value is provided, the default value populated in the NACHA file is for a single entry.

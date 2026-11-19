@@ -97,13 +97,13 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.TransferAch;
+import com.newline53.sdk.models.operations.TransferAchRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import java.lang.Exception;
 
@@ -130,12 +130,12 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .build())
                     .build())
@@ -161,15 +161,15 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersAccountType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersAccountTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
-import com.newline53.sdk.models.operations.SyntheticAccountAch;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountAchRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.TransferAch;
+import com.newline53.sdk.models.operations.TransferAchRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import java.lang.Exception;
 
@@ -192,8 +192,8 @@ public class Application {
                     .syntheticAccountTypeUid("UyjH72G9KAhmbpNS")
                     .routingNumber("04200031")
                     .accountNumber("1234567890")
-                    .ach(SyntheticAccountAch.builder()
-                        .accountType(PostCombinedTransfersAccountType.CHECKING)
+                    .ach(SyntheticAccountAchRequest.builder()
+                        .accountType(PostCombinedTransfersAccountTypeRequest.CHECKING)
                         .counterpartyName("awesome counterparty")
                         .build())
                     .build())
@@ -202,12 +202,12 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .build())
                     .build())
@@ -233,30 +233,30 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersAccountType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersAccountTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddress;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddressRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersPurposeOfPayment;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
-import com.newline53.sdk.models.operations.SyntheticAccountAch;
-import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountAchRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountStructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountWire;
-import com.newline53.sdk.models.operations.TransferAch;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.SyntheticAccountWireRequest;
+import com.newline53.sdk.models.operations.TransferAchRequest;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -279,13 +279,13 @@ public class Application {
                     .routingNumber("123456789")
                     .accountNumber("123456789012")
                     .externalProcessorToken("processor-sandbox-96d86f35-ef58-4e4a-826f-4870b5d677f2")
-                    .ach(SyntheticAccountAch.builder()
-                        .accountType(PostCombinedTransfersAccountType.CHECKING)
+                    .ach(SyntheticAccountAchRequest.builder()
+                        .accountType(PostCombinedTransfersAccountTypeRequest.CHECKING)
                         .counterpartyName("Thelma's Flooring LLC")
                         .build())
-                    .instantPayment(SyntheticAccountInstantPayment.builder()
+                    .instantPayment(SyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
-                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
+                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddressRequest.builder()
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
@@ -297,7 +297,7 @@ public class Application {
                         .email("payments@veryexcellentbusiness.com")
                         .phone("5555551212")
                         .build())
-                    .wire(SyntheticAccountWire.builder()
+                    .wire(SyntheticAccountWireRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(SyntheticAccountStructuredAddress.builder()
                             .city("Cincinnati")
@@ -309,7 +309,7 @@ public class Application {
                             .state("OH")
                             .postalCode("45202")
                             .build()))
-                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddress.builder()
+                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Abc St.")
                             .line2("Boring, Oregon 97009")
                             .line3(null)
@@ -325,21 +325,21 @@ public class Application {
                     .usdTransferAmount("12.34")
                     .externalUid("partner-generated-id")
                     .destinationCustomerUid("iDtmSA52zRhgN4iy")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .companyId("ABC-123456")
                         .companyDiscretionaryData("ABC.123")
                         .prenote(false)
-                        .paymentType(PostCombinedTransfersPaymentType.ST)
+                        .paymentType(PostCombinedTransfersPaymentTypeRequest.ST)
                         .idNumber("4270465600")
                         .build())
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Marge's Roofing Inc")
                             .transmitterIdentifier("123456789012ABC")
                             .streetNumber("123abc")
@@ -352,8 +352,8 @@ public class Application {
                         .memo("Payment for invoice #123 @client")
                         .purposeOfPayment(PostCombinedTransfersPurposeOfPayment.PAYR)
                         .build())
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("345 Def Ave")
                             .line2("San Francisco")
                             .line3("CA 94016")
@@ -362,7 +362,7 @@ public class Application {
                         .intermediaryBankName("Fidelity Fiduciary Bank")
                         .intermediaryBankRoutingNumber("923456789")
                         .wireInstructions("Send ASAP")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Cincinnati")
                             .country("US")
                             .name("Marge's Roofing Inc")
@@ -399,30 +399,30 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersAccountType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersAccountTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddress;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddressRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersPurposeOfPayment;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
-import com.newline53.sdk.models.operations.SyntheticAccountAch;
-import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountAchRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountStructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountWire;
-import com.newline53.sdk.models.operations.TransferAch;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.SyntheticAccountWireRequest;
+import com.newline53.sdk.models.operations.TransferAchRequest;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -445,13 +445,13 @@ public class Application {
                     .routingNumber("123456789")
                     .accountNumber("123456789012")
                     .externalProcessorToken("processor-sandbox-96d86f35-ef58-4e4a-826f-4870b5d677f2")
-                    .ach(SyntheticAccountAch.builder()
-                        .accountType(PostCombinedTransfersAccountType.CHECKING)
+                    .ach(SyntheticAccountAchRequest.builder()
+                        .accountType(PostCombinedTransfersAccountTypeRequest.CHECKING)
                         .counterpartyName("Thelma's Flooring LLC")
                         .build())
-                    .instantPayment(SyntheticAccountInstantPayment.builder()
+                    .instantPayment(SyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
-                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
+                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddressRequest.builder()
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
@@ -463,7 +463,7 @@ public class Application {
                         .email("payments@veryexcellentbusiness.com")
                         .phone("5555551212")
                         .build())
-                    .wire(SyntheticAccountWire.builder()
+                    .wire(SyntheticAccountWireRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(SyntheticAccountStructuredAddress.builder()
                             .city("Cincinnati")
@@ -475,7 +475,7 @@ public class Application {
                             .state("OH")
                             .postalCode("45202")
                             .build()))
-                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddress.builder()
+                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Abc St.")
                             .line2("Boring, Oregon 97009")
                             .line3(null)
@@ -491,21 +491,21 @@ public class Application {
                     .usdTransferAmount("12.34")
                     .externalUid("partner-generated-id")
                     .destinationCustomerUid("iDtmSA52zRhgN4iy")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .companyId("ABC-123456")
                         .companyDiscretionaryData("ABC.123")
                         .prenote(false)
-                        .paymentType(PostCombinedTransfersPaymentType.ST)
+                        .paymentType(PostCombinedTransfersPaymentTypeRequest.ST)
                         .idNumber("4270465600")
                         .build())
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Marge's Roofing Inc")
                             .transmitterIdentifier("123456789012ABC")
                             .streetNumber("123abc")
@@ -518,8 +518,8 @@ public class Application {
                         .memo("Payment for invoice #123 @client")
                         .purposeOfPayment(PostCombinedTransfersPurposeOfPayment.PAYR)
                         .build())
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("345 Def Ave")
                             .line2("San Francisco")
                             .line3("CA 94016")
@@ -528,7 +528,7 @@ public class Application {
                         .intermediaryBankName("Fidelity Fiduciary Bank")
                         .intermediaryBankRoutingNumber("923456789")
                         .wireInstructions("Send ASAP")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Cincinnati")
                             .country("US")
                             .name("Marge's Roofing Inc")
@@ -565,30 +565,30 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersAccountType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersAccountTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddress;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddressRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersPurposeOfPayment;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
-import com.newline53.sdk.models.operations.SyntheticAccountAch;
-import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountAchRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountStructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountWire;
-import com.newline53.sdk.models.operations.TransferAch;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.SyntheticAccountWireRequest;
+import com.newline53.sdk.models.operations.TransferAchRequest;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -611,13 +611,13 @@ public class Application {
                     .routingNumber("123456789")
                     .accountNumber("123456789012")
                     .externalProcessorToken("processor-sandbox-96d86f35-ef58-4e4a-826f-4870b5d677f2")
-                    .ach(SyntheticAccountAch.builder()
-                        .accountType(PostCombinedTransfersAccountType.CHECKING)
+                    .ach(SyntheticAccountAchRequest.builder()
+                        .accountType(PostCombinedTransfersAccountTypeRequest.CHECKING)
                         .counterpartyName("Thelma's Flooring LLC")
                         .build())
-                    .instantPayment(SyntheticAccountInstantPayment.builder()
+                    .instantPayment(SyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
-                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
+                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddressRequest.builder()
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
@@ -629,7 +629,7 @@ public class Application {
                         .email("payments@veryexcellentbusiness.com")
                         .phone("5555551212")
                         .build())
-                    .wire(SyntheticAccountWire.builder()
+                    .wire(SyntheticAccountWireRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(SyntheticAccountStructuredAddress.builder()
                             .city("Cincinnati")
@@ -641,7 +641,7 @@ public class Application {
                             .state("OH")
                             .postalCode("45202")
                             .build()))
-                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddress.builder()
+                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Abc St.")
                             .line2("Boring, Oregon 97009")
                             .line3(null)
@@ -657,21 +657,21 @@ public class Application {
                     .usdTransferAmount("12.34")
                     .externalUid("partner-generated-id")
                     .destinationCustomerUid("iDtmSA52zRhgN4iy")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .companyId("ABC-123456")
                         .companyDiscretionaryData("ABC.123")
                         .prenote(false)
-                        .paymentType(PostCombinedTransfersPaymentType.ST)
+                        .paymentType(PostCombinedTransfersPaymentTypeRequest.ST)
                         .idNumber("4270465600")
                         .build())
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Marge's Roofing Inc")
                             .transmitterIdentifier("123456789012ABC")
                             .streetNumber("123abc")
@@ -684,8 +684,8 @@ public class Application {
                         .memo("Payment for invoice #123 @client")
                         .purposeOfPayment(PostCombinedTransfersPurposeOfPayment.PAYR)
                         .build())
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("345 Def Ave")
                             .line2("San Francisco")
                             .line3("CA 94016")
@@ -694,7 +694,7 @@ public class Application {
                         .intermediaryBankName("Fidelity Fiduciary Bank")
                         .intermediaryBankRoutingNumber("923456789")
                         .wireInstructions("Send ASAP")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Cincinnati")
                             .country("US")
                             .name("Marge's Roofing Inc")
@@ -731,12 +731,12 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import java.lang.Exception;
 
@@ -763,9 +763,9 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Royalty Asset Management")
                             .transmitterIdentifier("123456789")
                             .streetNumber("123")
@@ -800,14 +800,14 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddress;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddressRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
+import com.newline53.sdk.models.operations.SyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import java.lang.Exception;
 
@@ -830,9 +830,9 @@ public class Application {
                     .syntheticAccountTypeUid("UyjH72G9KAhmbpNS")
                     .routingNumber("04200031")
                     .accountNumber("1234567890")
-                    .instantPayment(SyntheticAccountInstantPayment.builder()
+                    .instantPayment(SyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyName("awesome counterparty")
-                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
+                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddressRequest.builder()
                             .street1("Main street")
                             .city("Brooklyn")
                             .state("IA")
@@ -849,9 +849,9 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Royalty Asset Management")
                             .transmitterIdentifier("123456789")
                             .streetNumber("123")
@@ -886,30 +886,30 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersAccountType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersAccountTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersCounterpartyAddressUnion;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddress;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitter;
-import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentCounterpartyAddressRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInstantPaymentTransmitterRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersPaymentTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersPurposeOfPayment;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersSecCode;
-import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessing;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
-import com.newline53.sdk.models.operations.SyntheticAccountAch;
-import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountInstantPayment;
+import com.newline53.sdk.models.operations.PostCombinedTransfersSecCodeRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersServiceProcessingRequest;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountAchRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest;
+import com.newline53.sdk.models.operations.SyntheticAccountInstantPaymentRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountStructuredAddress;
-import com.newline53.sdk.models.operations.SyntheticAccountWire;
-import com.newline53.sdk.models.operations.TransferAch;
-import com.newline53.sdk.models.operations.TransferInstantPayment;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.SyntheticAccountWireRequest;
+import com.newline53.sdk.models.operations.TransferAchRequest;
+import com.newline53.sdk.models.operations.TransferInstantPaymentRequest;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -932,13 +932,13 @@ public class Application {
                     .routingNumber("123456789")
                     .accountNumber("123456789012")
                     .externalProcessorToken("processor-sandbox-96d86f35-ef58-4e4a-826f-4870b5d677f2")
-                    .ach(SyntheticAccountAch.builder()
-                        .accountType(PostCombinedTransfersAccountType.CHECKING)
+                    .ach(SyntheticAccountAchRequest.builder()
+                        .accountType(PostCombinedTransfersAccountTypeRequest.CHECKING)
                         .counterpartyName("Thelma's Flooring LLC")
                         .build())
-                    .instantPayment(SyntheticAccountInstantPayment.builder()
+                    .instantPayment(SyntheticAccountInstantPaymentRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
-                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddress.builder()
+                        .counterpartyAddress(PostCombinedTransfersInstantPaymentCounterpartyAddressRequest.builder()
                             .street1("Abc St.")
                             .city("Chicago")
                             .state("IL")
@@ -950,7 +950,7 @@ public class Application {
                         .email("payments@veryexcellentbusiness.com")
                         .phone("5555551212")
                         .build())
-                    .wire(SyntheticAccountWire.builder()
+                    .wire(SyntheticAccountWireRequest.builder()
                         .counterpartyName("Marge's Roofing Inc")
                         .counterpartyAddress(PostCombinedTransfersCounterpartyAddressUnion.of(SyntheticAccountStructuredAddress.builder()
                             .city("Cincinnati")
@@ -962,7 +962,7 @@ public class Application {
                             .state("OH")
                             .postalCode("45202")
                             .build()))
-                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddress.builder()
+                        .counterpartyBankAddress(SyntheticAccountCounterpartyBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Abc St.")
                             .line2("Boring, Oregon 97009")
                             .line3(null)
@@ -978,21 +978,21 @@ public class Application {
                     .usdTransferAmount("12.34")
                     .externalUid("partner-generated-id")
                     .destinationCustomerUid("iDtmSA52zRhgN4iy")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .ach(TransferAch.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .ach(TransferAchRequest.builder()
                         .originatorName("J. Fred Muggs")
-                        .secCode(PostCombinedTransfersSecCode.CIE)
+                        .secCode(PostCombinedTransfersSecCodeRequest.CIE)
                         .entryDescription("ACH Entry")
-                        .serviceProcessing(PostCombinedTransfersServiceProcessing.SAMEDAY)
+                        .serviceProcessing(PostCombinedTransfersServiceProcessingRequest.SAMEDAY)
                         .effectiveEntryDate("2023-12-01")
                         .companyId("ABC-123456")
                         .companyDiscretionaryData("ABC.123")
                         .prenote(false)
-                        .paymentType(PostCombinedTransfersPaymentType.ST)
+                        .paymentType(PostCombinedTransfersPaymentTypeRequest.ST)
                         .idNumber("4270465600")
                         .build())
-                    .instantPayment(TransferInstantPayment.builder()
-                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitter.builder()
+                    .instantPayment(TransferInstantPaymentRequest.builder()
+                        .instantPaymentTransmitter(PostCombinedTransfersInstantPaymentTransmitterRequest.builder()
                             .name("Marge's Roofing Inc")
                             .transmitterIdentifier("123456789012ABC")
                             .streetNumber("123abc")
@@ -1005,8 +1005,8 @@ public class Application {
                         .memo("Payment for invoice #123 @client")
                         .purposeOfPayment(PostCombinedTransfersPurposeOfPayment.PAYR)
                         .build())
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("345 Def Ave")
                             .line2("San Francisco")
                             .line3("CA 94016")
@@ -1015,7 +1015,7 @@ public class Application {
                         .intermediaryBankName("Fidelity Fiduciary Bank")
                         .intermediaryBankRoutingNumber("923456789")
                         .wireInstructions("Send ASAP")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Cincinnati")
                             .country("US")
                             .name("Marge's Roofing Inc")
@@ -1052,15 +1052,15 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -1086,16 +1086,16 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Main St")
                             .line2("Brooklyn NY")
                             .country("US")
                             .build())
                         .intermediaryBankName("Big Bank Inc")
                         .intermediaryBankRoutingNumber("123456789")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Queens")
                             .country("US")
                             .name("Bunker LLC")
@@ -1128,16 +1128,16 @@ import com.newline53.sdk.NewlineSDK;
 import com.newline53.sdk.models.components.Security;
 import com.newline53.sdk.models.errors.PostCombinedTransfersForbiddenException;
 import com.newline53.sdk.models.errors.PostCombinedTransfersUnprocessableEntityException;
-import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorType;
+import com.newline53.sdk.models.operations.PostCombinedTransfersInitiatorTypeRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersRequest;
 import com.newline53.sdk.models.operations.PostCombinedTransfersResponse;
-import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitter;
+import com.newline53.sdk.models.operations.PostCombinedTransfersWireTransmitterRequest;
 import com.newline53.sdk.models.operations.SyntheticAccountRequest;
-import com.newline53.sdk.models.operations.SyntheticAccountWire;
-import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddress;
+import com.newline53.sdk.models.operations.SyntheticAccountWireRequest;
+import com.newline53.sdk.models.operations.TransferIntermediaryBankAddressUnstructuredAddressRequest;
 import com.newline53.sdk.models.operations.TransferRequest;
 import com.newline53.sdk.models.operations.TransferStructuredAddress;
-import com.newline53.sdk.models.operations.TransferWire;
+import com.newline53.sdk.models.operations.TransferWireRequest;
 import java.lang.Exception;
 
 public class Application {
@@ -1159,7 +1159,7 @@ public class Application {
                     .syntheticAccountTypeUid("UyjH72G9KAhmbpNS")
                     .routingNumber("04200031")
                     .accountNumber("1234567890")
-                    .wire(SyntheticAccountWire.builder()
+                    .wire(SyntheticAccountWireRequest.builder()
                         .counterpartyName("Awesome Counterparty")
                         .counterpartyBankName("Biggest Bank Inc")
                         .build())
@@ -1169,16 +1169,16 @@ public class Application {
                     .destinationSyntheticAccountUid("beHyJNeBU65Xv8LK")
                     .initiatingCustomerUid("axz9sbUgRVu5wqbw")
                     .usdTransferAmount("12.34")
-                    .initiatorType(PostCombinedTransfersInitiatorType.CUSTOMER)
-                    .wire(TransferWire.builder()
-                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddress.builder()
+                    .initiatorType(PostCombinedTransfersInitiatorTypeRequest.CUSTOMER)
+                    .wire(TransferWireRequest.builder()
+                        .intermediaryBankAddress(TransferIntermediaryBankAddressUnstructuredAddressRequest.builder()
                             .line1("123 Main St")
                             .line2("Brooklyn NY")
                             .country("US")
                             .build())
                         .intermediaryBankName("Big Bank Inc")
                         .intermediaryBankRoutingNumber("123456789")
-                        .wireTransmitter(PostCombinedTransfersWireTransmitter.of(TransferStructuredAddress.builder()
+                        .wireTransmitter(PostCombinedTransfersWireTransmitterRequest.of(TransferStructuredAddress.builder()
                             .city("Queens")
                             .country("US")
                             .name("Bunker LLC")
